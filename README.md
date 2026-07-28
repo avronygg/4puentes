@@ -1,61 +1,67 @@
 # 4 Puentes — Web
 
-Landing de captación de **Cuatro Puentes** (Valdivia): importación integral desde
-China y Medio Oriente, con bodegaje y seguro de carga.
+Landing de captación de **Cuatro Puentes** (Valdivia): importación integral
+desde China y Medio Oriente, con bodegaje y seguro de carga.
 
-Stack estándar Main Brain: **Next.js (App Router) + TypeScript + Tailwind v4**,
-desplegado en **Vercel**.
+Next.js 16 (App Router) + TypeScript + Tailwind v4, desplegado en Vercel.
+Estándar Main Brain.
 
-## Correr en local
+## Instalación
 
 ```bash
+cd web
 npm install
 npm run dev      # http://localhost:3000
 npm run build    # build de producción
-npm run lint
 ```
+
+Requiere Node 20 o superior. No hace falta configurar nada para levantarlo en
+local: el sitio funciona sin variables de entorno (los leads todavía no se
+guardan, ver PENDIENTES.md).
+
+Copia `.env.example` a `.env.local` cuando conectes Supabase.
+
+## Documentación
+
+| Archivo | Para qué |
+|---|---|
+| **[GUIA-EDICION.md](./GUIA-EDICION.md)** | Cambiar textos, contactos e imágenes sin romper nada. **Empieza acá si no vas a programar.** |
+| **[PENDIENTES.md](./PENDIENTES.md)** | Lo que falta antes de publicar: Supabase, datos reales, GitHub. |
+| **[ARQUITECTURA.md](./ARQUITECTURA.md)** | Cómo está armado por dentro y por qué. Para quien vaya a tocar código. |
 
 ## Estructura
 
 ```
 app/
-  page.tsx                 la landing completa
-  layout.tsx               metadatos + Poppins auto-hospedada
-  globals.css              sistema de diseño (tokens, hero, bloques de color)
-  health/route.ts          GET  /health          sonda de vida
-  meta/route.ts            GET  /meta            identidad del módulo
-  api/v1/leads/route.ts    POST /api/v1/leads    recepción de cotizaciones
-components/                una por sección + Icons
+  page.tsx                 la landing: ordena las secciones
+  layout.tsx               metadatos, fuente y robots
+  globals.css              sistema de diseño completo
+  fonts/                   Poppins auto-hospedada
+  health/route.ts          GET  /health
+  meta/route.ts            GET  /meta
+  api/v1/leads/route.ts    POST /api/v1/leads
+  robots.ts                cierra el sitio a buscadores mientras haya placeholders
+components/                una por sección, más Icons
 lib/
-  site.ts                  datos de contacto y navegación   <- editar acá
-  contenido.ts             todos los textos                 <- editar acá
-  leads.ts                 contrato y validación del lead (cliente + servidor)
+  site.ts                  contactos y navegación      <- editable
+  contenido.ts             textos de las secciones     <- editable
+  leads.ts                 validación del formulario
+  mapa-datos.ts            generado, no editar
+scripts/mapa/              generador del mapa (Python)
 ```
-
-Para cambiar textos o datos de contacto **no hace falta tocar componentes**:
-todo vive en `lib/site.ts` y `lib/contenido.ts`.
 
 ## Contrato de módulo
 
-| Ruta | Qué hace |
+| Ruta | Respuesta |
 |---|---|
-| `GET /health` | `{ status: "ok", uptime }` |
+| `GET /health` | `{ status, uptime }` |
 | `GET /meta` | módulo, versión, entorno, commit y estado de persistencia |
-| `POST /api/v1/leads` | valida el lead; `202` si es válido, `422` con errores por campo si no |
+| `POST /api/v1/leads` | `202` si valida, `422` con errores por campo si no |
 
 La API va versionada desde el día uno: nunca rutas sin `/v1`.
 
 ## Estado
 
-**Prototipo funcional, no publicable todavía.** Los datos de contacto son
-placeholders y los leads no se guardan en base de datos.
-Lee **[PENDIENTES.md](./PENDIENTES.md)** antes de tocar nada.
-
-## Notas de diseño
-
-- El hero son **tres capas independientes**: cielo (parallax), texto y container
-  (entrada + balanceo colgando de la grúa). El container pivota en `50% 0%`,
-  justo donde las eslingas salen de cuadro.
-- **Fondos blancos.** Los únicos dos bloques de color son "Cómo funciona"
-  (terracota) y el footer. El terracota es acento, no relleno.
-- El sitio está **fijado en modo claro** a propósito (ver PENDIENTES.md §6).
+**No publicable todavía.** Los datos de contacto son placeholders, los leads
+no se guardan en base de datos y el sitio está cerrado a buscadores a
+propósito. Lee [PENDIENTES.md](./PENDIENTES.md).

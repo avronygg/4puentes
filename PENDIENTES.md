@@ -119,25 +119,45 @@ volumen): no correspondía inventarlas.
 - **Container en mayor resolución.** El PNG del cliente es 766×907 y en el hero
   se muestra a ~660 CSS px: en pantallas retina se ve blando. Pedir un export
   al doble.
-- **Océano.** El de la sección de cotización es generado por código
-  (`oceano.py` en el scratchpad), derivado del propio cielo. Se ve bien, pero si
-  el cliente consigue una foto real de mar abierto que combine, mejor. Ojo con la
-  licencia: descartamos varias de Wikimedia porque CC BY-SA obliga a atribución
-  visible y a licenciar igual el sitio.
+- **Avión.** Falta el PNG recortado para la banda de cierre
+  (`public/avion.webp`, con fondo transparente). La capa ya está montada en
+  `components/Avion.tsx`, solo hay que dejar el archivo y descomentar el bloque.
+  Mientras tanto la banda funciona con el cielo y el texto.
+- **Océano.** Se generó un mar por código derivado del cielo, pero quedó fuera
+  de la página: la banda del avión ocupa ese lugar. El archivo sigue en
+  `public/oceano.webp` por si se quiere recuperar.
 - **Favicon y og:image.** No existen todavía.
 
 ## 5. Infraestructura
 
-- **GitHub.** El repo está solo en local. `gh` no está instalado en la máquina de
-  desarrollo, así que el deploy va directo por CLI de Vercel. El contrato Main
-  Brain pide repo propio por módulo: crearlo y conectar Vercel ↔ GitHub para
-  tener previews automáticos por PR y CI.
+- **GitHub.** `gh` ya está instalado (2.96.0, en `~/.local/bin/gh`) pero **falta
+  autenticar**, que requiere las credenciales del dueño de la cuenta:
+
+  ```bash
+  export PATH="$HOME/.local/bin:$PATH"
+  gh auth login                    # elegir GitHub.com > HTTPS > browser
+  cd web
+  gh repo create 4puentes-web --private --source=. --remote=origin --push
+  ```
+
+  Después, en el panel de Vercel: Settings → Git → conectar el repo, para tener
+  previews automáticos por PR.
 - **Dominio.** Apuntar `4puentes.cl` (o el que sea) al proyecto de Vercel.
 - **Analítica.** No hay nada instalado. Decidir entre Vercel Analytics
   (una línea, sin cookies) o GA4.
-- **`npm audit`** reporta 12 vulnerabilidades altas, todas en la cadena de ESLint
-  (`minimatch` / `brace-expansion`). Son dependencias de desarrollo: **no viajan
-  al bundle de producción.** Se resuelven cuando `eslint-config-next` actualice.
+- **`npm audit`** reporta 12 vulnerabilidades altas, **todas de desarrollo y
+  ninguna en el sitio publicado.** Vienen de `brace-expansion` / `minimatch`,
+  que entran por la cadena de ESLint:
+
+  ```
+  eslint-config-next -> eslint-plugin-import -> minimatch -> brace-expansion
+  ```
+
+  ESLint solo corre en el equipo de quien programa; no forma parte del bundle
+  que Vercel sirve. `npm audit fix --force` bajaría `eslint-config-next` a una
+  versión incompatible con Next 16: **no hacerlo.** Se resuelven solas cuando
+  Next publique una versión de `eslint-config-next` con las dependencias al día.
+  Revisar con `npm audit --omit=dev`, que es lo que efectivamente se despliega.
 
 ## 6. Decisiones tomadas que conviene recordar
 
