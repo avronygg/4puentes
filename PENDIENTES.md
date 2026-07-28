@@ -164,9 +164,25 @@ volumen): no correspondía inventarlas.
 - **El sitio está fijado en modo claro** (`color-scheme: light`). Se construyó
   sobre una foto de cielo brillante y el titular en azul marino no sobrevive a un
   fondo oscurecido. Reactivar el modo oscuro implica rediseñar el hero.
-- **El rojo del container se desaturó** de 94% a 66% para alinearlo con la paleta
-  de marca, que está toda a 62%. El PNG original era un rojo de semáforo que
-  no correspondía a la identidad.
-- **El relleno de los botones es `#B8443D`, no el coral `#F2645C`.** El coral con
-  texto blanco da 3.11:1 y no cumple el mínimo AA de 4.5:1. El coral sigue usándose
-  en iconos y detalles, donde no lleva texto encima.
+- **El container va a su saturación original.** Se probó bajarlo a la saturación
+  de la paleta (66%) y el cliente lo vio apagado respecto de su foto.
+- **El rojo de marca es `#FA382B`**, definido por el cliente. Con texto blanco da
+  3.71:1: cumple el mínimo AA **solo para texto grande**, por eso las etiquetas de
+  los botones van a 19px en negrita y no al tamaño de cuerpo. Si alguien las achica,
+  el botón deja de cumplir.
+
+### Riesgo aceptado: el titular "SIN LÍMITES"
+
+`#FA382B` sobre el cielo del hero mide **1.06:1**. El mínimo para texto grande es
+3.0. El rojo y el azul del cielo tienen casi la misma luminancia (0.233 contra
+0.251), así que el ojo casi no los separa.
+
+**El cliente lo decidió con el dato a la vista** y prefirió mantener el rojo. Para
+suavizarlo, el velo del titular pasó de aclarar a **oscurecer** la columna de
+texto: con este rojo, oscurecer el fondo es lo único que suma contraste; aclararlo
+lo empeora.
+
+Si en algún momento se quiere que cumpla, hay dos caminos y ninguno es un ajuste
+menor: poner el titular sobre una placa clara (como la primera referencia que
+envió el cliente, con la línea en rojo sobre fondo claro), o volver la segunda
+línea al azul marino, que medía 4.82:1.
