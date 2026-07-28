@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
-import { site } from "@/lib/site";
+import { contacto, site } from "@/lib/site";
 import "./globals.css";
 
 // next/font descarga y auto-hospeda la fuente en build: sin peticiones a CDNs
@@ -32,7 +32,12 @@ export const metadata: Metadata = {
     title: site.titulo,
     description: site.descripcion,
   },
-  robots: { index: true, follow: true },
+  // Mientras los datos de contacto sean placeholders, el sitio NO debe
+  // indexarse: un buscador guardaría "+56 9 XXXX XXXX" como el teléfono de la
+  // empresa. Se abre solo cuando `contacto.porConfirmar` pase a false.
+  robots: contacto.porConfirmar
+    ? { index: false, follow: false, nocache: true }
+    : { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
