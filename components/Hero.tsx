@@ -85,7 +85,7 @@ export default function Hero() {
 
           <h1 className="order-1">
             <span className="block text-white">Importación</span>
-            <span className="block text-[#052039]">sin límites</span>
+            <span className="block text-[#FA382B]">sin límites</span>
           </h1>
 
           {/* Empuja el copy bajo el container en vertical. */}
@@ -99,7 +99,7 @@ export default function Hero() {
           <div className="order-4 mt-s7 flex flex-wrap items-center gap-s5 gap-x-s6">
             <a
               href="#cotizar"
-              className="inline-flex shrink-0 items-center justify-center gap-s3 rounded-[10px] bg-accent-btn px-7 py-[15px] text-[0.97rem] font-semibold text-white no-underline shadow-[0_6px_16px_-8px_rgba(156,64,59,.55)] transition-[background,transform] hover:-translate-y-px hover:bg-accent-btn-hover"
+              className="inline-flex shrink-0 items-center justify-center gap-s3 rounded-[10px] bg-accent-btn px-7 py-[15px] text-[1.12rem] font-bold text-white no-underline transition-[background,transform] hover:-translate-y-px hover:bg-accent-btn-hover"
             >
               Cotizar mi importación
               <Flecha />

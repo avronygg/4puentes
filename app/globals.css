@@ -16,10 +16,11 @@
   --color-terra-700: #78312e;
   --color-terra-900: #4f201e;
 
-  /* El coral de marca no llega a 4.5:1 con texto blanco: los rellenos con
-     texto encima usan esta variante oscurecida (5.34:1). */
-  --color-accent-btn: #b8443d;
-  --color-accent-btn-hover: #a23a34;
+  /* Rojo de marca definido por el cliente. Con texto blanco da 3.71:1, que
+     cumple el mínimo AA solo para texto grande: por eso las etiquetas de los
+     botones van a 19px en negrita, no al tamaño de cuerpo. */
+  --color-accent-btn: #fa382b;
+  --color-accent-btn-hover: #e02a1e;
 
   /* superficies — se redefinen por tema más abajo */
   --color-bg: var(--bg);
@@ -245,9 +246,9 @@ h3 {
   flex: none;
   border-radius: 999px;
   background: var(--color-accent-btn);
-  padding: 11px 20px;
-  font-size: 0.83rem;
-  font-weight: 600;
+  padding: 11px 22px;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: #fff;
   text-decoration: none;
   white-space: nowrap;
@@ -401,7 +402,6 @@ h3 {
   height: 100%;
   width: auto;
   margin-inline: auto;
-  filter: drop-shadow(0 30px 40px rgba(6, 36, 66, 0.26));
   animation: drop 1.7s cubic-bezier(0.22, 0.86, 0.3, 1) both;
 }
 @keyframes drop {
@@ -442,24 +442,17 @@ h3 {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    /* banda clara justo detrás de la segunda línea */
-    linear-gradient(
-      to bottom,
-      rgba(228, 242, 255, 0) 36%,
-      rgba(228, 242, 255, 0.34) 43.5%,
-      rgba(228, 242, 255, 0.38) 49%,
-      rgba(228, 242, 255, 0) 57%
-    ),
-    /* oscurece el resto de la columna: titular blanco, párrafo y CTA */
-    linear-gradient(
-      to bottom,
-      rgba(4, 26, 52, 0.7) 0%,
-      rgba(4, 26, 52, 0.66) 33%,
-      rgba(4, 26, 52, 0.08) 46%,
-      rgba(4, 26, 52, 0.5) 60%,
-      rgba(4, 26, 52, 0.44) 100%
-    );
+  /* El rojo del titular es de luminancia media: sobre el cielo se pierde, y
+     ACLARAR el fondo lo empeora. Contrasta al oscurecer, así que la columna de
+     texto va con un velo oscuro parejo en vez de la banda clara anterior. */
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 18, 38, 0.74) 0%,
+    rgba(3, 18, 38, 0.82) 34%,
+    rgba(3, 18, 38, 0.84) 50%,
+    rgba(3, 18, 38, 0.7) 64%,
+    rgba(3, 18, 38, 0.5) 100%
+  );
   /* Solo sobre la columna de texto; hacia la derecha se disuelve. */
   -webkit-mask-image: linear-gradient(
     to right,
@@ -478,22 +471,14 @@ h3 {
 }
 @media (max-width: 900px) {
   .hero__scrim {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(228, 242, 255, 0) 14%,
-        rgba(228, 242, 255, 0.36) 19%,
-        rgba(228, 242, 255, 0.4) 24%,
-        rgba(228, 242, 255, 0) 30%
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(4, 26, 52, 0.66) 0%,
-        rgba(4, 26, 52, 0.6) 11%,
-        rgba(4, 26, 52, 0.06) 21%,
-        rgba(4, 26, 52, 0.34) 34%,
-        rgba(4, 26, 52, 0.5) 100%
-      );
+    background: linear-gradient(
+      to bottom,
+      rgba(3, 18, 38, 0.72) 0%,
+      rgba(3, 18, 38, 0.84) 18%,
+      rgba(3, 18, 38, 0.8) 30%,
+      rgba(3, 18, 38, 0.5) 46%,
+      rgba(3, 18, 38, 0.62) 100%
+    );
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -612,10 +597,18 @@ h3 {
 .mapa__ruta {
   fill: none;
   stroke: var(--color-terra-400);
-  stroke-width: 2.4;
+  stroke-width: 1.7;
   stroke-linecap: round;
-  stroke-dasharray: 10 1400;
-  animation: recorrer 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  opacity: 0.45;
+}
+/* Tramo que recorre por encima de la línea fija: la ruta nunca desaparece. */
+.mapa__flujo {
+  fill: none;
+  stroke: var(--color-accent-btn);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 30 1600;
+  animation: fluir 11s linear infinite;
 }
 .mapa__origen {
   fill: var(--color-terra-400);
@@ -629,18 +622,12 @@ h3 {
   transform-box: fill-box;
   animation: pulso 3.2s ease-out infinite;
 }
-@keyframes recorrer {
-  0% {
-    stroke-dashoffset: 1410;
-    opacity: 0;
+@keyframes fluir {
+  from {
+    stroke-dashoffset: 1630;
   }
-  8% {
-    opacity: 1;
-  }
-  70%,
-  100% {
+  to {
     stroke-dashoffset: 0;
-    opacity: 0;
   }
 }
 @keyframes pulso {
@@ -656,9 +643,11 @@ h3 {
 }
 /* Sin animación, la ruta completa se dibuja fija. */
 @media (prefers-reduced-motion: reduce) {
+  .mapa__flujo {
+    display: none;
+  }
   .mapa__ruta {
-    stroke-dasharray: none;
-    opacity: 0.55;
+    opacity: 0.6;
   }
   .mapa__pulso {
     opacity: 0.18;
@@ -750,8 +739,8 @@ h3 {
   border-radius: 10px;
   background: var(--color-accent-btn);
   padding: 15px 28px;
-  font-size: 0.97rem;
-  font-weight: 600;
+  font-size: 1.12rem;
+  font-weight: 700;
   color: #fff;
   text-decoration: none;
   transition: background 0.18s ease, transform 0.18s ease;
