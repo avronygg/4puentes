@@ -1,13 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import { contacto, site } from "@/lib/site";
 import "./globals.css";
 
-// next/font descarga y auto-hospeda la fuente en build: sin peticiones a CDNs
-// en tiempo de ejecución y sin salto de layout.
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+// Poppins vive en el repo (app/fonts) en vez de descargarse de Google en cada
+// build: el build queda determinista y sin depender de la red. Subset latino.
+const poppins = localFont({
+  src: [
+    { path: "./fonts/poppins-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/poppins-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/poppins-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/poppins-700.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/poppins-800.woff2", weight: "800", style: "normal" },
+  ],
   variable: "--font-poppins",
   display: "swap",
 });

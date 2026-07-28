@@ -57,6 +57,8 @@ export default function Hero() {
     <section className="hero" id="inicio" ref={hero}>
       {/* capa 1 — cielo */}
       <div className="hero__sky" ref={sky} aria-hidden />
+      {/* velo que separa cada línea del titular de su fondo */}
+      <div className="hero__scrim" aria-hidden />
 
       {/* capa 3 — container, delante del texto */}
       <div className="hero__ship" ref={ship} aria-hidden>

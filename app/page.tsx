@@ -1,3 +1,4 @@
+import Avion from "@/components/Avion";
 import Cobertura from "@/components/Cobertura";
 import Cotizar from "@/components/Cotizar";
 import Footer from "@/components/Footer";
@@ -5,6 +6,7 @@ import Hero from "@/components/Hero";
 import Mercados from "@/components/Mercados";
 import Nav from "@/components/Nav";
 import Proceso from "@/components/Proceso";
+import Rutas from "@/components/Rutas";
 import Servicios from "@/components/Servicios";
 import WhatsAppFab from "@/components/WhatsAppFab";
 
@@ -23,7 +25,9 @@ export default function Home() {
         <Servicios />
         <Proceso />
         <Mercados />
+        <Rutas />
         <Cobertura />
+        <Avion />
         <Cotizar />
       </main>
       <Footer />

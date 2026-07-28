@@ -53,8 +53,7 @@ export default function Cotizar() {
   }
 
   return (
-    <section className="section section--sea" id="cotizar">
-      <div className="sea-bg" aria-hidden />
+    <section className="section" id="cotizar">
       <div className="wrap grid grid-cols-2 items-center gap-s9 max-[960px]:grid-cols-1 max-[960px]:gap-s7">
         <div>
           <h2>Cuéntanos qué necesitas traer</h2>
@@ -62,9 +61,9 @@ export default function Cotizar() {
             Te respondemos con un costo total puesto en tu bodega. Si prefieres
             hablarlo directamente, escríbenos por WhatsApp.
           </p>
-          <ul className="mt-s7 grid list-none gap-s4 p-0 text-white">
+          <ul className="mt-s7 grid list-none gap-s4 p-0">
             <li className="flex items-center gap-s4 text-[0.98rem] font-medium">
-              <Telefono className="shrink-0 text-terra-300" />
+              <Telefono className="shrink-0 text-terra-500" />
               <a
                 href={contacto.telefonoHref}
                 className="tbd no-underline"
@@ -74,7 +73,7 @@ export default function Cotizar() {
               </a>
             </li>
             <li className="flex items-center gap-s4 text-[0.98rem] font-medium">
-              <Sobre className="shrink-0 text-terra-300" />
+              <Sobre className="shrink-0 text-terra-500" />
               <a
                 href={`mailto:${contacto.email}`}
                 className="tbd no-underline"
@@ -84,7 +83,7 @@ export default function Cotizar() {
               </a>
             </li>
             <li className="flex items-center gap-s4 text-[0.98rem] font-medium">
-              <Pin className="shrink-0 text-terra-300" />
+              <Pin className="shrink-0 text-terra-500" />
               <span className="tbd" title="Dirección por confirmar con el cliente">
                 {contacto.direccion}
               </span>
@@ -95,7 +94,7 @@ export default function Cotizar() {
         <form
           onSubmit={onSubmit}
           noValidate
-          className="rounded-card border border-line bg-surface px-s6 py-s7 shadow-[0_30px_70px_-30px_rgba(4,24,48,.75)]"
+          className="rounded-card border border-line bg-surface px-s6 py-s7 shadow-[0_2px_4px_rgba(26,22,21,.04),0_18px_44px_-24px_rgba(26,22,21,.22)]"
         >
           <div className="grid grid-cols-2 gap-s5 max-[560px]:grid-cols-1">
             <Campo id="nombre" label="Nombre" placeholder="Tu nombre" error={errores.nombre} required />

@@ -144,6 +144,184 @@ h3 {
   line-height: 1.68;
 }
 
+/* ── NAV ─────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+}
+.nav__in {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s6);
+  width: min(100% - 44px, var(--wrap));
+  margin-inline: auto;
+  padding: var(--spacing-s5) 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition:
+    width 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    margin 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+/* Al bajar: píldora blanca esmerilada, más angosta y despegada del borde. */
+.nav.is-stuck .nav__in {
+  width: min(100% - 32px, 940px);
+  margin-top: var(--spacing-s3);
+  padding: 7px 7px 7px var(--spacing-s5);
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 1px 1px rgba(12, 34, 62, 0.04),
+    0 10px 34px -12px rgba(12, 34, 62, 0.3);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .nav.is-stuck .nav__in {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+  }
+}
+
+.nav__logo {
+  flex: none;
+  display: block;
+}
+.nav__logo img {
+  width: 72px;
+  transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1), filter 0.35s ease;
+}
+.nav.is-stuck .nav__logo img {
+  width: 50px;
+  /* tiñe el logo blanco al color del texto sobre la píldora clara */
+  filter: brightness(0) saturate(100%) invert(8%) sepia(9%) saturate(760%)
+    hue-rotate(320deg) brightness(97%);
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--spacing-s7);
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.nav.is-stuck .nav__links {
+  gap: var(--spacing-s6);
+}
+.nav__links a {
+  position: relative;
+  display: block;
+  padding: var(--spacing-s2) 0;
+  font-size: 0.83rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.35s ease;
+}
+.nav.is-stuck .nav__links a {
+  color: var(--fg);
+  letter-spacing: 0.06em;
+}
+.nav__sub {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--color-terra-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+.nav__links a:hover .nav__sub {
+  transform: scaleX(1);
+}
+
+.nav__cta {
+  flex: none;
+  border-radius: 999px;
+  background: var(--color-accent-btn);
+  padding: 11px 20px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.18s ease;
+}
+.nav__cta:hover {
+  background: var(--color-accent-btn-hover);
+}
+.nav__toggle {
+  display: none;
+  margin-left: auto;
+  border: 0;
+  background: none;
+  padding: var(--spacing-s2);
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.35s ease;
+}
+.nav.is-stuck .nav__toggle {
+  color: var(--fg);
+}
+@media (max-width: 1000px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+  .nav__toggle {
+    display: block;
+  }
+  .nav.is-stuck .nav__in {
+    width: min(100% - 28px, 560px);
+    padding: 6px 6px 6px var(--spacing-s4);
+  }
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: grid;
+  align-content: center;
+  padding: 0 var(--spacing-s6);
+  background: var(--foot-bg);
+  transform: translateY(-100%);
+  transition: transform 0.42s cubic-bezier(0.6, 0.05, 0.2, 1);
+}
+.menu.is-open {
+  transform: none;
+}
+.menu a {
+  border-bottom: 1px solid rgba(247, 144, 137, 0.2);
+  padding: var(--spacing-s5) 0;
+  font-size: clamp(1.45rem, 6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--color-foot-fg);
+  text-decoration: none;
+}
+.menu__cta {
+  justify-self: start;
+  margin-top: var(--spacing-s7);
+  border-bottom: 0 !important;
+  border-radius: 999px;
+  background: var(--color-accent-btn);
+  padding: 15px 28px !important;
+  font-size: 1rem !important;
+  color: #fff;
+}
+@media (min-width: 1001px) {
+  .menu {
+    display: none;
+  }
+}
+
 /* ── HERO: tres capas ────────────────────────────────────────────────── */
 .hero {
   position: relative;
@@ -255,6 +433,46 @@ h3 {
   }
 }
 
+/* Velo del titular. Las dos líneas piden fondos opuestos: la blanca necesita
+   fondo oscuro y la azul marino necesita fondo claro — no se puede con un solo
+   tono. Este velo oscurece arriba (línea blanca) y aclara la banda de abajo
+   (línea marino), y así las dos superan 4.5:1 sin cambiar el diseño. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      82% 46% at 24% 30%,
+      rgba(4, 26, 52, 0.74) 0%,
+      rgba(4, 26, 52, 0.42) 52%,
+      rgba(4, 26, 52, 0) 78%
+    ),
+    radial-gradient(
+      64% 26% at 22% 51%,
+      rgba(228, 242, 255, 0.5) 0%,
+      rgba(228, 242, 255, 0.22) 50%,
+      rgba(228, 242, 255, 0) 76%
+    );
+}
+@media (max-width: 900px) {
+  .hero__scrim {
+    background:
+      radial-gradient(
+        120% 26% at 50% 12%,
+        rgba(4, 26, 52, 0.74) 0%,
+        rgba(4, 26, 52, 0.3) 60%,
+        rgba(4, 26, 52, 0) 88%
+      ),
+      radial-gradient(
+        96% 14% at 46% 24%,
+        rgba(228, 242, 255, 0.52) 0%,
+        rgba(228, 242, 255, 0) 78%
+      );
+  }
+}
+
 /* Ojo: no declarar width acá — pisaría el ancho de .wrap y el hero perdería
    los márgenes laterales (misma especificidad, gana el que va después). */
 .hero__body {
@@ -362,6 +580,174 @@ h3 {
 }
 .section--sea .lede {
   color: #dceaf6;
+}
+
+/* ── MAPA DE RUTAS ───────────────────────────────────────────────────── */
+.mapa__ruta {
+  fill: none;
+  stroke: var(--color-terra-400);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 10 1400;
+  animation: recorrer 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+.mapa__origen {
+  fill: var(--color-terra-400);
+}
+.mapa__destino {
+  fill: var(--color-accent-btn);
+}
+.mapa__pulso {
+  fill: var(--color-terra-400);
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: pulso 3.2s ease-out infinite;
+}
+@keyframes recorrer {
+  0% {
+    stroke-dashoffset: 1410;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes pulso {
+  0% {
+    opacity: 0.32;
+    scale: 0.3;
+  }
+  70%,
+  100% {
+    opacity: 0;
+    scale: 1.15;
+  }
+}
+/* Sin animación, la ruta completa se dibuja fija. */
+@media (prefers-reduced-motion: reduce) {
+  .mapa__ruta {
+    stroke-dasharray: none;
+    opacity: 0.55;
+  }
+  .mapa__pulso {
+    opacity: 0.18;
+  }
+}
+
+/* ── BANDA DEL AVIÓN ─────────────────────────────────────────────────── */
+.avion {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: clamp(420px, 46vw, 560px);
+  display: flex;
+  align-items: center;
+  background: #3c93d8;
+}
+.avion__cielo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/cielo.webp");
+  background-size: cover;
+  background-position: center 62%;
+}
+.avion__cielo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    82deg,
+    rgba(5, 30, 58, 0.06) 0%,
+    rgba(5, 30, 58, 0.12) 34%,
+    rgba(5, 30, 58, 0.62) 66%,
+    rgba(5, 30, 58, 0.76) 100%
+  );
+}
+@media (max-width: 900px) {
+  .avion__cielo::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 30, 58, 0.1) 0%,
+      rgba(5, 30, 58, 0.55) 46%,
+      rgba(5, 30, 58, 0.8) 100%
+    );
+  }
+}
+/* La nave va delante del texto, igual que el container en el hero. */
+.avion__nave {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  left: -4%;
+  top: 50%;
+  width: min(58vw, 780px);
+  translate: 0 -50%;
+  animation: planear 9s ease-in-out infinite;
+}
+@keyframes planear {
+  0%,
+  100% {
+    transform: translate(0, 6px);
+  }
+  50% {
+    transform: translate(1.5%, -6px);
+  }
+}
+.avion__cuerpo {
+  position: relative;
+  z-index: 1;
+  padding-block: var(--gap-head);
+}
+.avion__texto {
+  margin-left: auto;
+  max-width: 46ch;
+  text-align: right;
+}
+.avion__texto h2 {
+  color: #fff;
+}
+.avion__texto .lede {
+  margin-left: auto;
+  color: #dceaf6;
+}
+.avion__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s7);
+  border-radius: 10px;
+  background: var(--color-accent-btn);
+  padding: 15px 28px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.avion__cta:hover {
+  background: var(--color-accent-btn-hover);
+  transform: translateY(-1px);
+}
+@media (max-width: 900px) {
+  .avion__texto {
+    margin-left: 0;
+    text-align: left;
+  }
+  .avion__texto .lede {
+    margin-left: 0;
+  }
+  .avion__nave {
+    left: 50%;
+    top: 22%;
+    width: min(96vw, 520px);
+    translate: -50% 0;
+  }
 }
 
 /* dato pendiente de confirmar con el cliente */
