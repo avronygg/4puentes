@@ -659,7 +659,7 @@ h3 {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  min-height: clamp(420px, 46vw, 560px);
+  min-height: clamp(460px, 46vw, 580px);
   display: flex;
   align-items: center;
   background: #3c93d8;
@@ -699,19 +699,23 @@ h3 {
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  left: -4%;
-  top: 50%;
-  width: min(58vw, 780px);
+  left: -6%;
+  top: 46%;
+  width: min(62vw, 860px);
   translate: 0 -50%;
-  animation: planear 9s ease-in-out infinite;
+  animation: planear 11s ease-in-out infinite;
+}
+.avion__nave img {
+  width: 100%;
+  height: auto;
 }
 @keyframes planear {
   0%,
   100% {
-    transform: translate(0, 6px);
+    transform: translate(0, 7px) rotate(-0.4deg);
   }
   50% {
-    transform: translate(1.5%, -6px);
+    transform: translate(1.8%, -7px) rotate(0.4deg);
   }
 }
 .avion__cuerpo {
@@ -752,6 +756,7 @@ h3 {
 @media (max-width: 900px) {
   .avion__texto {
     margin-left: 0;
+    margin-top: min(46vw, 260px);
     text-align: left;
   }
   .avion__texto .lede {
@@ -759,8 +764,8 @@ h3 {
   }
   .avion__nave {
     left: 50%;
-    top: 22%;
-    width: min(96vw, 520px);
+    top: 16%;
+    width: min(104vw, 560px);
     translate: -50% 0;
   }
 }

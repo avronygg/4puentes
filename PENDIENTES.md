@@ -119,10 +119,12 @@ volumen): no correspondía inventarlas.
 - **Container en mayor resolución.** El PNG del cliente es 766×907 y en el hero
   se muestra a ~660 CSS px: en pantallas retina se ve blando. Pedir un export
   al doble.
-- **Avión.** Falta el PNG recortado para la banda de cierre
-  (`public/avion.webp`, con fondo transparente). La capa ya está montada en
-  `components/Avion.tsx`, solo hay que dejar el archivo y descomentar el bloque.
-  Mientras tanto la banda funciona con el cielo y el texto.
+- **Avión.** Listo. El PNG que entregó el cliente traía el damero de
+  transparencia *pintado* en la imagen (0% de píxeles realmente transparentes),
+  así que se recortó por código: relleno desde el borde sobre los grises neutros
+  del patrón, y luego se conserva solo la región conectada más grande para
+  eliminar el moteado que dejan los artefactos de compresión. El script está en
+  `scripts/avion.py`.
 - **Océano.** Se generó un mar por código derivado del cielo, pero quedó fuera
   de la página: la banda del avión ocupa ese lugar. El archivo sigue en
   `public/oceano.webp` por si se quiere recuperar.
