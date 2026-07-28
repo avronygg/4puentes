@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 4 Puentes — Web
 
-## Getting Started
+Landing de captación de **Cuatro Puentes** (Valdivia): importación integral desde
+China y Medio Oriente, con bodegaje y seguro de carga.
 
-First, run the development server:
+Stack estándar Main Brain: **Next.js (App Router) + TypeScript + Tailwind v4**,
+desplegado en **Vercel**.
+
+## Correr en local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de producción
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+  page.tsx                 la landing completa
+  layout.tsx               metadatos + Poppins auto-hospedada
+  globals.css              sistema de diseño (tokens, hero, bloques de color)
+  health/route.ts          GET  /health          sonda de vida
+  meta/route.ts            GET  /meta            identidad del módulo
+  api/v1/leads/route.ts    POST /api/v1/leads    recepción de cotizaciones
+components/                una por sección + Icons
+lib/
+  site.ts                  datos de contacto y navegación   <- editar acá
+  contenido.ts             todos los textos                 <- editar acá
+  leads.ts                 contrato y validación del lead (cliente + servidor)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para cambiar textos o datos de contacto **no hace falta tocar componentes**:
+todo vive en `lib/site.ts` y `lib/contenido.ts`.
 
-## Learn More
+## Contrato de módulo
 
-To learn more about Next.js, take a look at the following resources:
+| Ruta | Qué hace |
+|---|---|
+| `GET /health` | `{ status: "ok", uptime }` |
+| `GET /meta` | módulo, versión, entorno, commit y estado de persistencia |
+| `POST /api/v1/leads` | valida el lead; `202` si es válido, `422` con errores por campo si no |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+La API va versionada desde el día uno: nunca rutas sin `/v1`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estado
 
-## Deploy on Vercel
+**Prototipo funcional, no publicable todavía.** Los datos de contacto son
+placeholders y los leads no se guardan en base de datos.
+Lee **[PENDIENTES.md](./PENDIENTES.md)** antes de tocar nada.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notas de diseño
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- El hero son **tres capas independientes**: cielo (parallax), texto y container
+  (entrada + balanceo colgando de la grúa). El container pivota en `50% 0%`,
+  justo donde las eslingas salen de cuadro.
+- **Fondos blancos.** Los únicos dos bloques de color son "Cómo funciona"
+  (terracota) y el footer. El terracota es acento, no relleno.
+- El sitio está **fijado en modo claro** a propósito (ver PENDIENTES.md §6).

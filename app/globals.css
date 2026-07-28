@@ -1,26 +1,388 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════════
+   4 PUENTES — sistema de diseño
+   · El color vive en el hero (cielo), el bloque de proceso y el footer.
+   · Todo lo demás va blanco. El terracota es acento, no relleno.
+   · Todo espaciado sale de la escala; sin números sueltos.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* terracota — la paleta de marca (todos a 62% de saturación) */
+  --color-terra-300: #f79089;
+  --color-terra-400: #f2645c;
+  --color-terra-500: #c9534d;
+  --color-terra-600: #9c403b;
+  --color-terra-700: #78312e;
+  --color-terra-900: #4f201e;
+
+  /* El coral de marca no llega a 4.5:1 con texto blanco: los rellenos con
+     texto encima usan esta variante oscurecida (5.34:1). */
+  --color-accent-btn: #b8443d;
+  --color-accent-btn-hover: #a23a34;
+
+  /* superficies — se redefinen por tema más abajo */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent-wash: var(--accent-wash);
+  --color-foot-bg: var(--foot-bg);
+  --color-foot-fg: #f7eae7;
+  --color-foot-fg-muted: #c9a9a3;
+
+  /* escala de espaciado */
+  --spacing-s1: 4px;
+  --spacing-s2: 8px;
+  --spacing-s3: 12px;
+  --spacing-s4: 16px;
+  --spacing-s5: 24px;
+  --spacing-s6: 32px;
+  --spacing-s7: 48px;
+  --spacing-s8: 64px;
+  --spacing-s9: 88px;
+  --spacing-s10: 120px;
+
+  --radius-card: 18px;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* La landing se fija en claro: está construida sobre una foto de cielo
+   brillante y el titular en azul marino no sobrevive a un fondo oscurecido.
+   color-scheme evita además que el navegador invierta controles nativos. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --fg: #1a1a1b;
+  --fg-muted: #63615f;
+  --line: #e7e5e4;
+  --line-soft: #f2f1f0;
+  --accent-wash: #fdf3f2;
+  --foot-bg: #3a1917;
+  --sky-filter: none;
+
+  --wrap: 1140px;
+  --gap-section: clamp(80px, 9vw, 136px);
+  --gap-head: clamp(40px, 4.4vw, 64px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2.5px solid var(--color-terra-400);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── primitivas de layout ────────────────────────────────────────────── */
+.wrap {
+  width: min(100% - 44px, var(--wrap));
+  margin-inline: auto;
+}
+@media (max-width: 640px) {
+  .wrap {
+    width: min(100% - 36px, var(--wrap));
+  }
+}
+.section {
+  padding: var(--gap-section) 0;
+}
+.section-head {
+  max-width: 60ch;
+  margin-bottom: var(--gap-head);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  margin: 0;
+}
+h2 {
+  font-size: clamp(1.85rem, 1.1rem + 2.7vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+}
+h3 {
+  font-size: 1.19rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.35;
+}
+.lede {
+  font-size: clamp(1rem, 0.96rem + 0.3vw, 1.11rem);
+  color: var(--fg-muted);
+  max-width: 56ch;
+  margin: var(--spacing-s5) 0 0;
+  line-height: 1.68;
+}
+
+/* ── HERO: tres capas ────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #3c93d8;
+}
+.hero__sky {
+  position: absolute;
+  inset: -18% 0;
+  z-index: 0;
+  background-image: url("/cielo.webp");
+  background-size: cover;
+  background-position: center 40%;
+  filter: var(--sky-filter);
+  will-change: transform;
+}
+.hero__sky::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(6, 40, 74, 0.58) 0%,
+      rgba(6, 40, 74, 0.3) 40%,
+      rgba(6, 40, 74, 0) 68%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(6, 40, 74, 0.5) 0%,
+      rgba(6, 40, 74, 0.12) 18%,
+      rgba(6, 40, 74, 0) 58%,
+      rgba(6, 40, 74, 0.42) 100%
+    );
+}
+@media (max-width: 900px) {
+  .hero__sky::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(6, 40, 74, 0.5) 0%,
+      rgba(6, 40, 74, 0.14) 26%,
+      rgba(6, 40, 74, 0.24) 58%,
+      rgba(6, 40, 74, 0.76) 100%
+    );
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* El PNG trae las eslingas hasta el borde superior, así que sangra fuera del
+   viewport: la grúa queda sobre la pantalla. El giro pivota en 50% 0%, justo
+   donde los cables salen de cuadro. */
+.hero__ship {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  right: 2%;
+  top: -4%;
+  height: 86%;
+  aspect-ratio: 766 / 907;
+  will-change: transform, opacity;
+}
+.hero__hang,
+.hero__bob {
+  height: 100%;
+}
+.hero__hang {
+  transform-origin: 50% 0%;
+  animation: sway 9s ease-in-out infinite;
+}
+.hero__bob {
+  animation: bob 5.4s ease-in-out infinite;
+}
+.hero__ship img {
+  height: 100%;
+  width: auto;
+  margin-inline: auto;
+  filter: drop-shadow(0 30px 40px rgba(6, 36, 66, 0.26));
+  animation: drop 1.7s cubic-bezier(0.22, 0.86, 0.3, 1) both;
+}
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-30%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Ojo: no declarar width acá — pisaría el ancho de .wrap y el hero perdería
+   los márgenes laterales (misma especificidad, gana el que va después). */
+.hero__body {
+  position: relative;
+  z-index: 1;
+  padding-block: calc(var(--spacing-s10) + var(--spacing-s6)) var(--spacing-s10);
+}
+.hero__content {
+  max-width: 560px;
+  will-change: transform, opacity;
+}
+.hero h1 {
+  font-size: clamp(2.7rem, 1rem + 7.4vw, 5.6rem);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.038em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Hero móvil: título arriba, container al medio, copy y CTA abajo. */
+@media (max-width: 900px) {
+  .hero {
+    align-items: stretch;
+  }
+  .hero__body {
+    display: flex;
+    flex-direction: column;
+    padding-block: 116px var(--spacing-s6);
+    min-height: 100svh;
+  }
+  .hero__content {
+    max-width: none;
+    display: contents;
+  }
+  .hero h1 {
+    font-size: clamp(2.05rem, 9.4vw, 3.2rem);
+  }
+  .hero__ship {
+    right: auto;
+    left: 50%;
+    top: 27%;
+    bottom: auto;
+    height: auto;
+    width: min(66vw, 270px);
+    translate: -50% 0;
+  }
+}
+/* Pantallas bajas (360x740 y similares): el eje que manda es el alto. */
+@media (max-width: 900px) and (max-height: 800px) {
+  .hero__body {
+    padding-block: 104px var(--spacing-s5);
+  }
+  .hero__ship {
+    top: 26%;
+    width: min(56vw, 225px);
+  }
+}
+/* Tablet: mismo montaje vertical, container más grande. */
+@media (min-width: 641px) and (max-width: 900px) {
+  .hero__ship {
+    top: 15%;
+    width: min(52vw, 400px);
+  }
+}
+
+/* ── bloques de color: los dos únicos de la página ───────────────────── */
+.section--terra {
+  background: var(--color-terra-900);
+  color: #f8eae6;
+}
+.section--terra h2 {
+  color: #fff;
+}
+.section--terra .lede {
+  color: #d6ada6;
+}
+
+.section--sea {
+  position: relative;
+  overflow: hidden;
+  background: #0a2440;
+  color: #fff;
+}
+.section--sea > .wrap {
+  position: relative;
+  z-index: 1;
+}
+.sea-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/oceano.webp");
+  background-size: cover;
+  background-position: center bottom;
+  filter: var(--sky-filter);
+}
+.sea-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 28, 54, 0.5);
+}
+.section--sea h2 {
+  color: #fff;
+}
+.section--sea .lede {
+  color: #dceaf6;
+}
+
+/* dato pendiente de confirmar con el cliente */
+.tbd {
+  border-bottom: 1.5px dashed
+    color-mix(in srgb, var(--color-terra-400) 60%, transparent);
+  cursor: help;
+}
+.section--sea .tbd {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
