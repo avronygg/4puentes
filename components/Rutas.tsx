@@ -1,3 +1,4 @@
+import { rutasExtra } from "@/lib/contenido";
 import { MAPA } from "@/lib/mapa-datos";
 
 const ESTADO: Record<string, string> = {
@@ -7,10 +8,15 @@ const ESTADO: Record<string, string> = {
   India: "Abriendo ruta",
   "Emiratos Árabes": "Abriendo ruta",
   Europa: "A pedido",
+  "Estados Unidos": "A pedido",
+  México: "A pedido",
 };
 
 export default function Rutas() {
-  const { ancho, alto, destino, puntos, rutas } = MAPA;
+  const { ancho, alto, destino, puntos } = MAPA;
+  // Los orígenes americanos viven en contenido.ts porque mapa-datos.ts lo
+  // escribe el generador de Python y no debe editarse a mano.
+  const rutas = [...MAPA.rutas, ...rutasExtra];
 
   const porRegion = rutas.reduce<Record<string, string[]>>((acc, r) => {
     (acc[r.region] ??= []).push(r.nombre);

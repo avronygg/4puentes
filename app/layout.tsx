@@ -56,6 +56,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={poppins.variable}>
+      <head>
+        {/* Las apariciones por scroll parten ocultas en CSS. Sin JavaScript no
+            hay quien las muestre, así que se anula el estado inicial. */}
+        <noscript>
+          <style>{`[data-revelar]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+      </head>
       <body>{children}</body>
     </html>
   );

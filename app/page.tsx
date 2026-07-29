@@ -1,9 +1,8 @@
-import Avion from "@/components/Avion";
 import Cobertura from "@/components/Cobertura";
 import Cotizar from "@/components/Cotizar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Mercados from "@/components/Mercados";
+import Modalidades from "@/components/Modalidades";
 import Nav from "@/components/Nav";
 import Proceso from "@/components/Proceso";
 import Rutas from "@/components/Rutas";
@@ -24,10 +23,9 @@ export default function Home() {
         <Hero />
         <Servicios />
         <Proceso />
-        <Mercados />
+        <Modalidades />
         <Rutas />
         <Cobertura />
-        <Avion />
         <Cotizar />
       </main>
       <Footer />

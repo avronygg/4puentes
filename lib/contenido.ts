@@ -77,26 +77,22 @@ export const pasos = [
   },
 ] as const;
 
-export const mercados = [
-  {
-    destacado: true,
-    etiqueta: "Mercado consolidado",
-    titulo: "China",
-    texto:
-      "Es donde tenemos más camino recorrido. Conocemos a los proveedores, los " +
-      "tiempos reales de producción y cómo se mueve la carga en los principales " +
-      "puertos del país.",
-    puertos: ["Shenzhen", "Ningbo", "Shanghái", "Qingdao", "Guangzhou"],
-  },
-  {
-    destacado: false,
-    etiqueta: "En expansión",
-    titulo: "Emiratos Árabes y Medio Oriente",
-    texto:
-      "Nuestra línea nueva. Estamos abriendo rutas desde Emiratos Árabes Unidos " +
-      "y mercados vecinos para que no dependas de un solo origen.",
-    puertos: ["Jebel Ali · Dubái", "Abu Dabi", "Sharjah"],
-  },
+/**
+ * Orígenes que no vienen del generador del mapa. Se suman a MAPA.rutas en
+ * Rutas.tsx en vez de tocar lib/mapa-datos.ts, que está marcado como generado.
+ *
+ * Coordenadas en el sistema del mapa (1600x680, Robinson recentrada en el
+ * meridiano 168°, con Asia a la izquierda y América a la derecha):
+ *   x = 800 + Δλ · 4,44 · X(φ)      y = 381,75 − 405,9 · Y(φ)
+ * donde Δλ es la longitud relativa a 168° y X/Y son las tablas de Robinson.
+ *
+ * PENDIENTE: el cliente debe confirmar que estas rutas se ofrecen de verdad
+ * antes de publicar. Ver PENDIENTES.md.
+ */
+export const rutasExtra = [
+  { nombre: "Los Ángeles", region: "Estados Unidos", ox: 1110, oy: 212, cx: 1318, cy: 336 },
+  { nombre: "Houston", region: "Estados Unidos", ox: 1212, oy: 232, cx: 1392, cy: 384 },
+  { nombre: "Manzanillo", region: "México", ox: 1183, oy: 286, cx: 1350, cy: 428 },
 ] as const;
 
 export const regiones = [

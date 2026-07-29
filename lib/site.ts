@@ -32,7 +32,7 @@ export function whatsappUrl(texto: string): string {
 export const navLinks = [
   { href: "#servicios", label: "Servicios" },
   { href: "#proceso", label: "Cómo funciona" },
-  { href: "#mercados", label: "Mercados" },
+  { href: "#rutas", label: "Rutas" },
   { href: "#cobertura", label: "Cobertura" },
   { href: "#cotizar", label: "Contacto" },
 ] as const;

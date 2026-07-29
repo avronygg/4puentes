@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { contacto } from "@/lib/site";
+import { contacto, navLinks } from "@/lib/site";
+import { Flecha, Pin, Sobre, Telefono, WhatsApp } from "./Icons";
+import { whatsappUrl } from "@/lib/site";
 
 const servicios = [
   { href: "#servicios", label: "Importación integral" },
@@ -10,34 +12,58 @@ const servicios = [
 
 export default function Footer() {
   return (
-    <footer className="bg-foot-bg py-s9 text-foot-fg">
+    <footer className="pie">
+      {/* Remate de conversión antes de los datos: el pie es el último lugar donde
+          alguien que bajó todo puede dar el paso. */}
       <div className="wrap">
-        <div className="grid grid-cols-[1.6fr_1fr_1fr] items-start gap-s8 max-[820px]:grid-cols-2 max-[820px]:gap-s7 max-[520px]:grid-cols-1">
+        <div className="pie__remate">
+          <div>
+            <h2 className="text-[clamp(1.6rem,1.1rem+1.7vw,2.3rem)] text-white">
+              ¿Traemos tu próxima carga?
+            </h2>
+            <p className="mt-s4 mb-0 max-w-[46ch] text-[1rem] leading-[1.6] text-foot-fg-muted">
+              Cuéntanos qué necesitas y te devolvemos un costo total puesto en tu
+              bodega.
+            </p>
+          </div>
+          <div className="pie__acciones">
+            <a href="#cotizar" className="pie__cta">
+              Cotizar mi importación
+              <Flecha />
+            </a>
+            <a
+              href={whatsappUrl("Hola 4 Puentes, quiero cotizar una importación.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pie__whatsapp"
+            >
+              <WhatsApp size={19} />
+              WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div className="pie__rejilla">
           <div>
             <Image
               src="/logo.webp"
               alt="Cuatro Puentes"
               width={88}
               height={86}
-              className="mb-s5 w-[88px]"
+              className="mb-s5 h-auto w-[88px]"
             />
-            <p className="m-0 max-w-[36ch] text-[0.93rem] leading-[1.65] text-foot-fg-muted">
+            <p className="m-0 max-w-[34ch] text-[0.93rem] leading-[1.65] text-foot-fg-muted">
               Importación integral, bodegaje y seguros para empresas del sur de
               Chile. Desde Valdivia al mundo.
             </p>
           </div>
 
           <div>
-            <h4 className="mb-s5 text-[0.82rem] font-semibold text-foot-fg">
-              Servicios
-            </h4>
-            <ul className="m-0 grid list-none gap-s3 p-0">
+            <h3 className="pie__titulo">Servicios</h3>
+            <ul className="m-0 grid list-none gap-s2 p-0">
               {servicios.map((s) => (
                 <li key={s.label}>
-                  <a
-                    href={s.href}
-                    className="text-[0.93rem] text-foot-fg-muted no-underline hover:text-white"
-                  >
+                  <a href={s.href} className="pie__enlace">
                     {s.label}
                   </a>
                 </li>
@@ -46,29 +72,43 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-s5 text-[0.82rem] font-semibold text-foot-fg">
-              Contacto
-            </h4>
-            <ul className="m-0 grid list-none gap-s3 p-0 text-[0.93rem] text-foot-fg-muted">
+            <h3 className="pie__titulo">Navegación</h3>
+            <ul className="m-0 grid list-none gap-s2 p-0">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="pie__enlace">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="pie__titulo">Contacto</h3>
+            <ul className="m-0 grid list-none gap-s2 p-0">
               <li>
                 <a
                   href={contacto.telefonoHref}
-                  className="tbd text-foot-fg-muted no-underline hover:text-white"
+                  className="tbd pie__enlace pie__enlace--icono"
                   title="Por confirmar"
                 >
+                  <Telefono size={16} className="shrink-0 text-terra-400" />
                   {contacto.telefono}
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${contacto.email}`}
-                  className="tbd text-foot-fg-muted no-underline hover:text-white"
+                  className="tbd pie__enlace pie__enlace--icono"
                   title="Por confirmar"
                 >
+                  <Sobre size={16} className="shrink-0 text-terra-400" />
                   {contacto.email}
                 </a>
               </li>
-              <li>
+              <li className="pie__enlace pie__enlace--icono pie__enlace--plano">
+                <Pin size={16} className="shrink-0 text-terra-400" />
                 <span className="tbd" title="Por confirmar">
                   {contacto.direccion}
                 </span>
@@ -77,12 +117,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-s8 flex flex-wrap justify-between gap-s4 border-t border-terra-300/20 pt-s5 text-[0.81rem] text-foot-fg-muted">
+        <div className="pie__legal">
           <span>
             © {new Date().getFullYear()} Cuatro Puentes · Todos los derechos
             reservados
           </span>
-          <span>Main Brain</span>
+          <span className="pie__firma">Main Brain</span>
         </div>
       </div>
     </footer>

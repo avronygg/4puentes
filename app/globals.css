@@ -8,21 +8,24 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  /* terracota — la paleta de marca (todos a 62% de saturación) */
-  --color-terra-300: #f79089;
-  --color-terra-400: #f2645c;
-  --color-terra-500: #c9534d;
-  --color-terra-600: #9c403b;
-  --color-terra-700: #78312e;
-  --color-terra-900: #4f201e;
+  /* rojo de marca — la escala sale toda de #FD190F (hsl 3, 98%, 53%):
+     el 300 es la mezcla con blanco, del 500 para abajo se oscurece el mismo
+     tono. El 400 es el color de marca tal cual. */
+  --color-terra-300: #fe817b;
+  --color-terra-400: #fd190f;
+  --color-terra-500: #d5150d;
+  --color-terra-600: #ac110a;
+  --color-terra-700: #7f0d08;
+  --color-terra-900: #490704;
 
-  /* Cobrizo de la paleta. Con texto blanco da 6.54:1 y cumple AA de sobra,
-     así que las etiquetas vuelven al tamaño de cuerpo. */
-  --color-accent-btn: #9c403b;
-  --color-accent-btn-hover: #833430;
-  /* Vidrio del nav: el mismo cobrizo translúcido. A 0.85 el texto blanco
-     mantiene 4.79:1 incluso cuando la barra flota sobre una sección clara. */
-  --nav-glass: rgba(156, 64, 59, 0.85);
+  /* Rojo de marca en botones y nav. Ojo: con texto blanco da 3.95:1, bajo el
+     4.5:1 que pide AA para texto normal (sí cumple el 3:1 de texto grande y de
+     componentes de interfaz). El hover, más oscuro, sube a 5.38:1. */
+  --color-accent-btn: #fd190f;
+  --color-accent-btn-hover: #d5150d;
+  /* Vidrio del nav: el mismo rojo translúcido. A 0.85 sobre fondo claro el
+     texto blanco queda en 3.58:1. */
+  --nav-glass: rgba(253, 25, 15, 0.85);
 
   /* superficies — se redefinen por tema más abajo */
   --color-bg: var(--bg);
@@ -33,8 +36,8 @@
   --color-line-soft: var(--line-soft);
   --color-accent-wash: var(--accent-wash);
   --color-foot-bg: var(--foot-bg);
-  --color-foot-fg: #f7eae7;
-  --color-foot-fg-muted: #c9a9a3;
+  --color-foot-fg: #ffece9;
+  --color-foot-fg-muted: #d3a9a4;
 
   /* escala de espaciado */
   --spacing-s1: 4px;
@@ -67,9 +70,12 @@
   --fg-muted: #63615f;
   --line: #e7e5e4;
   --line-soft: #f2f1f0;
-  --accent-wash: #fdf3f2;
-  --foot-bg: #3a1917;
+  --accent-wash: #fff4f3;
+  --foot-bg: #3a100d;
   --sky-filter: none;
+
+  /* Cuánto tarda la grúa en bajar el container. El vaivén espera esto. */
+  --drop-dur: 2.1s;
 
   --wrap: 1140px;
   /* -20% respecto del original clamp(80px, 9vw, 136px) */
@@ -82,6 +88,12 @@
 }
 html {
   scroll-behavior: smooth;
+  /* `clip` en vez de `hidden`: con `hidden` en el body, el recorte se propaga al
+     viewport y Chrome pasa a medir los elementos `position: fixed` contra el
+     ancho con scroll, no contra el visible. El nav y el menú terminaban 14px más
+     anchos que la pantalla y eso abría un scroll horizontal en móvil. `clip` no
+     crea contenedor de scroll, así que el problema no existe. */
+  overflow-x: clip;
 }
 body {
   margin: 0;
@@ -91,7 +103,7 @@ body {
   font-size: 17px;
   line-height: 1.68;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img {
   max-width: 100%;
@@ -154,8 +166,13 @@ h3 {
   inset: 0 0 auto;
   z-index: 100;
 }
+/* Rejilla de tres columnas en vez de flex: así los enlaces quedan centrados en
+   la barra de verdad, sin que los corran el ancho del logo o el del botón.
+   En móvil las columnas 2 y 3 se vacían (enlaces y CTA ocultos) y quedan el
+   logo a la izquierda y la hamburguesa a la derecha. */
 .nav__in {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: var(--spacing-s6);
   width: min(100% - 44px, var(--wrap));
@@ -179,8 +196,8 @@ h3 {
   background: var(--nav-glass);
   border-color: rgba(255, 255, 255, 0.22);
   box-shadow:
-    0 1px 1px rgba(60, 20, 18, 0.1),
-    0 12px 36px -12px rgba(60, 20, 18, 0.45);
+    0 1px 1px rgba(70, 12, 8, 0.1),
+    0 12px 36px -12px rgba(70, 12, 8, 0.45);
 }
 @supports (backdrop-filter: blur(1px)) {
   .nav.is-stuck .nav__in {
@@ -190,11 +207,15 @@ h3 {
 }
 
 .nav__logo {
-  flex: none;
+  grid-column: 1;
+  justify-self: start;
   display: block;
 }
 .nav__logo img {
   width: 72px;
+  /* El alto lo fija el CSS al cambiar el ancho; sin esto Next avisa de que se
+     rompe la proporción y el logo puede provocar salto de layout. */
+  height: auto;
   transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1), filter 0.35s ease;
 }
 .nav.is-stuck .nav__logo img {
@@ -203,9 +224,11 @@ h3 {
 }
 
 .nav__links {
+  grid-column: 2;
+  justify-self: center;
   display: flex;
   gap: var(--spacing-s7);
-  margin: 0 0 0 auto;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -243,7 +266,8 @@ h3 {
 }
 
 .nav__cta {
-  flex: none;
+  grid-column: 3;
+  justify-self: end;
   border-radius: 999px;
   background: var(--color-accent-btn);
   padding: 11px 22px;
@@ -262,14 +286,18 @@ h3 {
   color: var(--color-accent-btn);
 }
 .nav.is-stuck .nav__cta:hover {
-  background: #f6ebea;
+  background: #fdeceb;
 }
 .nav__toggle {
   display: none;
-  margin-left: auto;
+  grid-column: 3;
+  justify-self: end;
+  /* 48x48 de área táctil: con el padding de 8px quedaba en 42x42, bajo el
+     mínimo de 44x44. El margen negativo mantiene la alineación óptica. */
+  margin-right: -4px;
   border: 0;
   background: none;
-  padding: var(--spacing-s2);
+  padding: var(--spacing-s3);
   color: #fff;
   cursor: pointer;
   transition: color 0.35s ease;
@@ -306,7 +334,7 @@ h3 {
   transform: none;
 }
 .menu a {
-  border-bottom: 1px solid rgba(247, 144, 137, 0.2);
+  border-bottom: 1px solid rgba(254, 129, 123, 0.2);
   padding: var(--spacing-s5) 0;
   font-size: clamp(1.45rem, 6vw, 2rem);
   font-weight: 600;
@@ -369,6 +397,14 @@ h3 {
       rgba(6, 40, 74, 0.42) 100%
     );
 }
+/* En vertical el `cover` sólo deja ver una franja del 23% del ancho de la foto,
+   y centrada cae en la única zona sin nubes. Se corre el encuadre a la izquierda,
+   donde está el cúmulo grande. Arreglo de encuadre, no de color. */
+@media (max-width: 900px) {
+  .hero__sky {
+    background-position: 12% 42%;
+  }
+}
 @media (max-width: 900px) {
   .hero__sky::after {
     background: linear-gradient(
@@ -388,7 +424,7 @@ h3 {
   position: absolute;
   z-index: 2;
   pointer-events: none;
-  right: 2%;
+  right: 8%;
   top: -4%;
   height: 86%;
   aspect-ratio: 766 / 907;
@@ -398,112 +434,67 @@ h3 {
 .hero__bob {
   height: 100%;
 }
+/* El vaivén arranca recién cuando el container aterriza: primero baja la grúa,
+   después tambalea. Por eso el retardo iguala la duración de `drop`. */
 .hero__hang {
   transform-origin: 50% 0%;
-  animation: sway 9s ease-in-out infinite;
+  animation: sway 8s ease-in-out var(--drop-dur) infinite;
 }
 .hero__bob {
-  animation: bob 5.4s ease-in-out infinite;
+  animation: bob 5s ease-in-out var(--drop-dur) infinite;
 }
+/* Sin fundido de entrada: el container baja desde fuera de cuadro, como si la
+   grúa lo estuviera soltando. El único fade es el de salida, y lo aplica el
+   parallax de Hero.tsx sobre .hero__ship al hacer scroll. */
 .hero__ship img {
   height: 100%;
   width: auto;
   margin-inline: auto;
-  animation: drop 1.7s cubic-bezier(0.22, 0.86, 0.3, 1) both;
+  animation: drop var(--drop-dur) cubic-bezier(0.33, 0.7, 0.28, 1) both;
 }
 @keyframes drop {
   from {
-    opacity: 0;
-    transform: translateY(-30%) scale(0.95);
+    transform: translateY(-105%);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
+/* sway y bob parten y terminan en reposo, así el retardo no produce un salto
+   cuando toman el relevo de `drop`. */
 @keyframes sway {
   0%,
   100% {
-    transform: rotate(-1deg);
+    transform: rotate(0deg);
   }
-  50% {
-    transform: rotate(1deg);
+  25% {
+    transform: rotate(-2.4deg);
+  }
+  75% {
+    transform: rotate(2.4deg);
   }
 }
 @keyframes bob {
   0%,
   100% {
-    transform: translateY(-8px);
+    transform: translateY(0);
   }
-  50% {
-    transform: translateY(8px);
+  25% {
+    transform: translateY(-12px);
+  }
+  75% {
+    transform: translateY(12px);
   }
 }
-
-/* Velo del titular. Las dos líneas piden fondos opuestos: la blanca necesita
-   fondo oscuro y la azul marino necesita fondo claro — no se puede con un solo
-   tono. Este velo oscurece arriba (línea blanca) y aclara la banda de abajo
-   (línea marino), y así las dos superan 4.5:1 sin cambiar el diseño. */
-.hero__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* El cobrizo del titular es OSCURO (luminancia 0.111): necesita fondo claro,
-     al revés que el rojo brillante anterior. La línea blanca de arriba necesita
-     lo contrario, así que el velo oscurece su franja y aclara la de abajo. */
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(236, 246, 255, 0) 33%,
-      rgba(236, 246, 255, 0.74) 40%,
-      rgba(236, 246, 255, 0.78) 50%,
-      rgba(236, 246, 255, 0) 59%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(3, 18, 38, 0.72) 0%,
-      rgba(3, 18, 38, 0.7) 31%,
-      rgba(3, 18, 38, 0.05) 44%,
-      rgba(3, 18, 38, 0.52) 61%,
-      rgba(3, 18, 38, 0.44) 100%
-    );
-  /* Solo sobre la columna de texto; hacia la derecha se disuelve. */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    #000 30%,
-    rgba(0, 0, 0, 0.4) 54%,
-    transparent 72%
-  );
-  mask-image: linear-gradient(
-    to right,
-    #000 0%,
-    #000 30%,
-    rgba(0, 0, 0, 0.4) 54%,
-    transparent 72%
-  );
-}
-@media (max-width: 900px) {
-  .hero__scrim {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(236, 246, 255, 0) 12%,
-        rgba(236, 246, 255, 0.76) 17%,
-        rgba(236, 246, 255, 0.8) 24%,
-        rgba(236, 246, 255, 0) 31%
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(3, 18, 38, 0.7) 0%,
-        rgba(3, 18, 38, 0.66) 10%,
-        rgba(3, 18, 38, 0.04) 20%,
-        rgba(3, 18, 38, 0.36) 34%,
-        rgba(3, 18, 38, 0.55) 100%
-      );
-    -webkit-mask-image: none;
-    mask-image: none;
+/* La bajada recorre más de una pantalla: para quien pidió menos movimiento el
+   container ya aparece puesto, solo con el vaivén. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__ship img {
+    animation: none;
+  }
+  .hero__hang,
+  .hero__bob {
+    animation-delay: 0s;
   }
 }
 
@@ -535,7 +526,9 @@ h3 {
   .hero__body {
     display: flex;
     flex-direction: column;
-    padding-block: 116px var(--spacing-s6);
+    align-items: center;
+    text-align: center;
+    padding-block: 116px var(--spacing-s5);
     min-height: 100svh;
   }
   .hero__content {
@@ -543,46 +536,992 @@ h3 {
     display: contents;
   }
   .hero h1 {
-    font-size: clamp(2.05rem, 9.4vw, 3.2rem);
+    font-size: clamp(2.4rem, 12.4vw, 4.2rem);
   }
   .hero__ship {
-    right: auto;
-    left: 50%;
-    top: 27%;
+    /* En vertical manda otro render, con los cables largos: la pieza arranca en
+       el borde de arriba para que la cuerda llegue al techo de la pantalla.
+       El asset va recortado, así que el borde de abajo del elemento es el borde
+       de abajo del container: posicionarlo es directo.
+       El tope en svh es el que manda en la práctica y deja el container siempre
+       al ~68% del alto, libre del párrafo; el 82vw sólo evita que en pantallas
+       muy altas se vaya de ancho. */
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    top: 0;
     bottom: auto;
+    aspect-ratio: 680 / 1390;
     height: auto;
-    width: min(66vw, 270px);
-    translate: -50% 0;
+    width: min(82vw, 36svh);
+    translate: none;
   }
 }
-/* Pantallas bajas (360x740 y similares): el eje que manda es el alto. */
+/* Pantallas bajas (360x740 y similares): el eje que manda es el alto. El
+   tamaño del container ya lo resuelve el tope en svh, no hace falta pisarlo. */
 @media (max-width: 900px) and (max-height: 800px) {
   .hero__body {
     padding-block: 104px var(--spacing-s5);
   }
-  .hero__ship {
-    top: 26%;
-    width: min(56vw, 225px);
+}
+
+/* ── APARICIÓN POR SCROLL ────────────────────────────────────────────── */
+/* El estado oculto vive acá y no en el componente para que no haya destello
+   entre el HTML del servidor y la hidratación. Ver el <noscript> del layout. */
+[data-revelar] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 0.7, 0.3, 1),
+    transform 0.75s cubic-bezier(0.22, 0.7, 0.3, 1);
+}
+[data-revelar].es-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-revelar] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
-/* Tablet: mismo montaje vertical, container más grande. */
-@media (min-width: 641px) and (max-width: 900px) {
-  .hero__ship {
-    top: 15%;
-    width: min(52vw, 400px);
+
+/* ── TARJETAS DE VIDRIO ──────────────────────────────────────────────── */
+/* El vidrio necesita algo que refractar: sobre blanco puro no se lee. Estas
+   manchas de color muy diluidas viven detrás de la rejilla y le dan al blur
+   algo con qué trabajar. */
+.vidrio-ambiente {
+  position: relative;
+  isolation: isolate;
+}
+.vidrio-ambiente::before,
+.vidrio-ambiente::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+/* Diluidas a propósito: con más carga la primera tarjeta salía rosada y la
+   última azulada, y las tres tienen que leerse como el mismo material. */
+.vidrio-ambiente::before {
+  width: 52%;
+  aspect-ratio: 1;
+  top: -18%;
+  left: -10%;
+  background: color-mix(in srgb, var(--color-terra-400) 9%, transparent);
+}
+.vidrio-ambiente::after {
+  width: 46%;
+  aspect-ratio: 1;
+  right: -8%;
+  bottom: -18%;
+  background: color-mix(in srgb, #3c93d8 10%, transparent);
+}
+
+.tarjeta-vidrio {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.62) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 1px 2px rgba(26, 22, 21, 0.04),
+    0 18px 40px -26px rgba(26, 22, 21, 0.3);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 0.7, 0.3, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+@supports (backdrop-filter: blur(1px)) {
+  .tarjeta-vidrio {
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+  }
+}
+/* Filo superior: la línea de luz que hace que se lea como vidrio y no como
+   una caja translúcida cualquiera. */
+.tarjeta-vidrio::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.95) 22%,
+    rgba(255, 255, 255, 0.95) 78%,
+    transparent
+  );
+}
+/* Brillo que barre la tarjeta al pasar el puntero. */
+.tarjeta-vidrio::after {
+  content: "";
+  position: absolute;
+  inset: -60% -10%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-terra-400) 16%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transform: translate3d(0, 22%, 0);
+  transition: opacity 0.5s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+.tarjeta-vidrio:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--color-terra-400) 34%, rgba(255, 255, 255, 0.75));
+  box-shadow:
+    0 1px 2px rgba(26, 22, 21, 0.04),
+    0 30px 60px -30px color-mix(in srgb, var(--color-terra-600) 42%, transparent);
+}
+.tarjeta-vidrio:hover::after {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-vidrio,
+  .tarjeta-vidrio::after {
+    transition: none;
+  }
+  .tarjeta-vidrio:hover {
+    transform: none;
+  }
+}
+
+/* Icono de la tarjeta: pastilla de vidrio con el acento de marca. */
+.tarjeta-vidrio__icono {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  color: var(--color-terra-600);
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-terra-400) 16%, white),
+    color-mix(in srgb, var(--color-terra-400) 6%, white)
+  );
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 22%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.3, 1);
+}
+.tarjeta-vidrio:hover .tarjeta-vidrio__icono {
+  transform: scale(1.06) rotate(-3deg);
+}
+
+/* ── MAPA DE PROCESOS ────────────────────────────────────────────────── */
+.proceso {
+  position: relative;
+  max-width: 900px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.proceso__paso {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 0 var(--spacing-s6);
+  padding-bottom: var(--spacing-s8);
+}
+.proceso__paso:last-child {
+  padding-bottom: 0;
+}
+/* El riel que une un nodo con el siguiente. Se dibuja de arriba a abajo cuando
+   el paso aparece, así la línea "avanza" con la lectura. */
+.proceso__paso::before {
+  content: "";
+  position: absolute;
+  left: 29px;
+  top: 60px;
+  bottom: 8px;
+  width: 2.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-terra-400),
+    color-mix(in srgb, var(--color-terra-300) 45%, transparent)
+  );
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.3, 0.7, 0.3, 1) 0.15s;
+}
+.proceso__paso:last-child::before {
+  display: none;
+}
+.proceso__paso.es-visible::before {
+  transform: scaleY(1);
+}
+
+.proceso__nodo {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--color-terra-400) 90%, white),
+    var(--color-terra-600)
+  );
+  border: 1px solid color-mix(in srgb, var(--color-terra-300) 45%, transparent);
+  box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--color-terra-400) 80%, transparent);
+}
+/* Halo que late una vez cuando el paso entra en pantalla. */
+.proceso__paso.es-visible .proceso__nodo::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--color-terra-300) 70%, transparent);
+  animation: nodo-halo 1.6s ease-out 0.25s 1 both;
+}
+@keyframes nodo-halo {
+  from {
+    opacity: 0.85;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+.proceso__numero {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-terra-900);
+  border: 1px solid color-mix(in srgb, var(--color-terra-300) 40%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-terra-300);
+}
+.proceso__cuerpo {
+  padding-top: var(--spacing-s2);
+}
+@media (max-width: 640px) {
+  .proceso__paso {
+    grid-template-columns: 48px 1fr;
+    gap: 0 var(--spacing-s5);
+    padding-bottom: var(--spacing-s7);
+  }
+  .proceso__paso::before {
+    left: 23px;
+    top: 52px;
+  }
+  .proceso__nodo {
+    width: 48px;
+    height: 48px;
+  }
+  .proceso__cuerpo {
+    padding-top: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proceso__paso::before {
+    transform: scaleY(1);
+    transition: none;
+  }
+  .proceso__paso.es-visible .proceso__nodo::after {
+    animation: none;
+  }
+}
+
+/* ── TARJETAS DE MERCADO ─────────────────────────────────────────────── */
+.mercado {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: var(--spacing-s7) var(--spacing-s6) var(--spacing-s6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.3, 1), box-shadow 0.4s ease;
+}
+.mercado:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 54px -30px rgba(26, 22, 21, 0.34);
+}
+/* Arco decorativo: repite el gesto de las rutas del mapa. */
+.mercado__arco {
+  position: absolute;
+  top: -30%;
+  right: -18%;
+  width: 62%;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.mercado--destacado {
+  border-color: color-mix(in srgb, var(--color-terra-400) 32%, transparent);
+  background:
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in srgb, var(--color-terra-400) 11%, transparent),
+      transparent 62%
+    ),
+    var(--surface);
+}
+.mercado__puerto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  letter-spacing: 0.03em;
+  color: var(--fg-muted);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.mercado:hover .mercado__puerto {
+  border-color: color-mix(in srgb, var(--color-terra-400) 30%, transparent);
+  color: var(--color-terra-700);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mercado {
+    transition: none;
+  }
+  .mercado:hover {
+    transform: none;
+  }
+}
+
+/* ── COTIZADOR PASO A PASO ───────────────────────────────────────────── */
+/* 20% de acompañamiento y 80% de formulario. Debajo de 900px el panel pasa
+   arriba en horizontal: a ese ancho el formulario necesita todo el espacio. */
+.cotizador-doble {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  align-items: start;
+  gap: var(--spacing-s7);
+}
+@media (max-width: 900px) {
+  .cotizador-doble {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s5);
+  }
+}
+.cotizador-panel {
+  position: sticky;
+  top: 108px;
+  min-width: 0;
+}
+/* En vertical el panel se reduce a lo mínimo útil: el formulario ya trae su
+   propia barra de avance, así que acá sobra la ilustración y la línea de apoyo.
+   Quedan el rótulo del paso y una fila de números. */
+@media (max-width: 900px) {
+  .cotizador-panel {
+    position: static;
+  }
+  .cotizador-panel > div {
+    gap: var(--spacing-s3);
+  }
+  .escena__dibujo {
+    display: none;
+  }
+  .escena__texto p + p {
+    display: none;
+  }
+  .escena__texto p:first-child {
+    font-size: 0.92rem;
+  }
+  .escena__pasos {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-s2);
+    border-top: 0;
+    padding-top: 0;
+  }
+  .escena__pasos li {
+    gap: 0;
+  }
+  .escena__pasos li > span + span {
+    display: none;
+  }
+}
+
+.cotizador {
+  min-width: 0;
+  padding: var(--spacing-s7) var(--spacing-s6) var(--spacing-s6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow:
+    0 2px 4px rgba(26, 22, 21, 0.04),
+    0 18px 44px -24px rgba(26, 22, 21, 0.22);
+}
+.cotizador__barra {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+.cotizador__barra span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-accent-btn);
+  transition: width 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.cotizador__contador {
+  margin: var(--spacing-s3) 0 var(--spacing-s5);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.cotizador__titulo {
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.55rem);
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+}
+.cotizador__bajada {
+  margin: var(--spacing-s3) 0 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+.cotizador__etiqueta {
+  display: block;
+  margin-bottom: var(--spacing-s2);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.cotizador__opcional {
+  margin-left: var(--spacing-s2);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.cotizador__ayuda {
+  margin: 0 0 var(--spacing-s3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.cotizador__campo {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  padding: 13px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--fg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.cotizador__campo:focus {
+  outline: none;
+  border-color: var(--color-terra-400);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--color-terra-400) 15%, transparent);
+}
+.cotizador__campo.tiene-error {
+  border-color: var(--color-terra-600);
+}
+
+/* Rejilla de tarjetas: con seis rangos, una lista vertical obligaba a
+   scrollear el paso completo. Las tarjetas se acomodan solas y nunca bajan de
+   240px, que es donde el título de dos líneas deja de leerse bien. */
+.cotizador__opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s4);
+}
+/* Campo que se despliega al elegir «Otro». */
+.cotizador__otro {
+  margin-top: var(--spacing-s4);
+  padding: var(--spacing-s4);
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 26%, transparent);
+  border-radius: 12px;
+  background: var(--accent-wash);
+}
+
+/* Tarjeta seleccionable al estilo de una lista de ajustes de iOS: pastilla de
+   ícono a la izquierda, texto al centro y palomita a la derecha. El radio
+   nativo se mantiene en el DOM (teclado y lectores de pantalla lo necesitan)
+   pero se dibuja todo a mano. */
+.cotizador__opcion {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.16s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.cotizador__opcion:hover {
+  border-color: color-mix(in srgb, var(--color-terra-400) 45%, var(--line));
+}
+/* El hundido al tocar es lo que da la sensación física de iOS. */
+.cotizador__opcion:active {
+  transform: scale(0.982);
+}
+.cotizador__opcion input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Pastilla del ícono. El radio de 11px sobre 44px reproduce la proporción del
+   "squircle" de los iconos de app. */
+.cotizador__pastilla {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  color: var(--color-terra-600);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--color-terra-400) 17%, white),
+    color-mix(in srgb, var(--color-terra-400) 7%, white)
+  );
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 20%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.cotizador__opcion-titulo {
+  display: block;
+  font-size: 0.97rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.3;
+}
+.cotizador__opcion-detalle {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  color: var(--fg-muted);
+}
+
+.cotizador__marca {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  color: transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.cotizador__opcion.esta-elegida {
+  border-color: var(--color-accent-btn);
+  background: var(--accent-wash);
+}
+.cotizador__opcion.esta-elegida .cotizador__pastilla {
+  color: #fff;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--color-terra-400) 92%, white),
+    var(--color-terra-600)
+  );
+  border-color: transparent;
+  transform: scale(1.04);
+}
+.cotizador__opcion.esta-elegida .cotizador__marca {
+  background: var(--color-accent-btn);
+  border-color: var(--color-accent-btn);
+  color: #fff;
+  transform: scale(1.06);
+}
+/* El foco tiene que verse en la tarjeta, no en el input escondido. */
+.cotizador__opcion:has(input:focus-visible) {
+  outline: 2.5px solid var(--color-terra-400);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cotizador__opcion,
+  .cotizador__pastilla,
+  .cotizador__marca {
+    transition: none;
+  }
+  .cotizador__opcion:active {
+    transform: none;
+  }
+}
+
+.cotizador__resumen {
+  margin-top: var(--spacing-s6);
+  padding: var(--spacing-s5);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: var(--line-soft);
+}
+.cotizador__error {
+  margin: var(--spacing-s2) 0 0;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-terra-700);
+}
+
+.cotizador__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s4);
+  margin-top: var(--spacing-s7);
+  padding-top: var(--spacing-s5);
+  border-top: 1px solid var(--line-soft);
+}
+.cotizador__atras {
+  border: 0;
+  background: none;
+  padding: 12px 4px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+.cotizador__atras:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+.cotizador__seguir {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-accent-btn);
+  padding: 14px 26px;
+  font: inherit;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.cotizador__seguir:hover:not(:disabled) {
+  background: var(--color-accent-btn-hover);
+  transform: translateY(-1px);
+}
+.cotizador__seguir:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+@media (max-width: 560px) {
+  .cotizador {
+    padding: var(--spacing-s6) var(--spacing-s5) var(--spacing-s5);
+  }
+  .cotizador__seguir {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ── MODALIDADES: marítimo y aéreo ───────────────────────────────────── */
+.modalidad {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.3, 1), box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+.modalidad:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--color-terra-400) 30%, transparent);
+  box-shadow: 0 30px 60px -34px rgba(26, 22, 21, 0.4);
+}
+/* Las dos fotos vienen en 3:2 exacto y traen su titular incrustado. Fijando esa
+   misma proporción, `cover` no recorta nada y las dos tarjetas quedan
+   alineadas al píxel. Si alguna se reemplaza por otra relación, hay que
+   revisar acá o el texto de la foto se corta. */
+.modalidad__foto {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: #0a2440;
+}
+.modalidad__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Entrada en cortina: la foto se descubre de arriba hacia abajo cuando la
+   tarjeta aparece. Va sobre la ventana y no sobre la imagen para no pelearse
+   con la deriva continua de abajo. */
+.modalidad[data-revelar] .modalidad__foto {
+  clip-path: inset(0 0 100% 0);
+}
+.modalidad.es-visible .modalidad__foto {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.95s cubic-bezier(0.22, 0.7, 0.3, 1) 0.1s;
+}
+/* Deriva lenta: sin esto la sección queda muerta en móvil, donde no hay hover. */
+.modalidad.es-visible .modalidad__foto img {
+  animation: deriva 22s ease-in-out infinite alternate;
+}
+@keyframes deriva {
+  from {
+    transform: scale(1.02) translate3d(-0.6%, 0, 0);
+  }
+  to {
+    transform: scale(1.07) translate3d(0.6%, -1%, 0);
+  }
+}
+.modalidad__cuerpo {
+  flex: 1;
+  padding: var(--spacing-s6);
+}
+.modalidad__icono {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  color: var(--color-terra-600);
+  background: var(--accent-wash);
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 20%, transparent);
+}
+.modalidad__punto {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--fg-muted);
+}
+.modalidad__enlace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s3);
+  margin: 0 var(--spacing-s6) var(--spacing-s6);
+  padding: 13px 18px;
+  border-radius: 10px;
+  background: var(--accent-wash);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-terra-700);
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.modalidad__enlace:hover {
+  background: var(--color-accent-btn);
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .modalidad {
+    transition: none;
+  }
+  .modalidad:hover {
+    transform: none;
+  }
+  .modalidad[data-revelar] .modalidad__foto,
+  .modalidad.es-visible .modalidad__foto {
+    clip-path: none;
+    transition: none;
+  }
+  .modalidad.es-visible .modalidad__foto img {
+    animation: none;
+  }
+}
+
+/* ── PIE ─────────────────────────────────────────────────────────────── */
+.pie {
+  position: relative;
+  overflow: hidden;
+  padding: var(--spacing-s9) 0 var(--spacing-s6);
+  color: var(--color-foot-fg);
+  /* El resplandor rojo arriba a la izquierda ata el pie con el resto de la
+     página en vez de dejarlo como un bloque marrón suelto. */
+  background:
+    radial-gradient(
+      90% 120% at 8% 0%,
+      color-mix(in srgb, var(--color-terra-600) 42%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(to bottom, var(--color-terra-900), var(--foot-bg));
+}
+
+.pie__remate {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--spacing-s7);
+  padding: var(--spacing-s7);
+  border: 1px solid color-mix(in srgb, var(--color-terra-300) 22%, transparent);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: var(--spacing-s9);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .pie__remate {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+.pie__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s3);
+}
+.pie__cta,
+.pie__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  border-radius: 10px;
+  padding: 15px 26px;
+  font-size: 0.97rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.pie__cta {
+  background: var(--color-accent-btn);
+  color: #fff;
+}
+.pie__cta:hover {
+  background: var(--color-accent-btn-hover);
+  transform: translateY(-2px);
+}
+.pie__whatsapp {
+  border: 1.5px solid color-mix(in srgb, var(--color-terra-300) 32%, transparent);
+  color: var(--color-foot-fg);
+}
+.pie__whatsapp:hover {
+  border-color: var(--color-terra-300);
+  transform: translateY(-2px);
+}
+@media (max-width: 820px) {
+  .pie__remate {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-s6);
+  }
+  .pie__cta,
+  .pie__whatsapp {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.pie__rejilla {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+  align-items: start;
+  gap: var(--spacing-s8);
+}
+@media (max-width: 900px) {
+  .pie__rejilla {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-s7);
+  }
+}
+@media (max-width: 520px) {
+  .pie__rejilla {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s6);
+  }
+}
+
+.pie__titulo {
+  margin-bottom: var(--spacing-s4);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-terra-300);
+}
+/* py de 8px para que el alto tocable llegue a 40px: eran 21px. */
+.pie__enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  padding: var(--spacing-s2) 0;
+  font-size: 0.93rem;
+  color: var(--color-foot-fg-muted);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.pie__enlace:hover {
+  color: #fff;
+  transform: translateX(3px);
+}
+.pie__enlace--plano {
+  cursor: default;
+}
+.pie__enlace--plano:hover {
+  color: var(--color-foot-fg-muted);
+  transform: none;
+}
+
+.pie__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-s4);
+  margin-top: var(--spacing-s8);
+  padding-top: var(--spacing-s5);
+  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 18%, transparent);
+  font-size: 0.81rem;
+  color: var(--color-foot-fg-muted);
+}
+.pie__firma {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pie__cta:hover,
+  .pie__whatsapp:hover,
+  .pie__enlace:hover {
+    transform: none;
   }
 }
 
 /* ── bloques de color: los dos únicos de la página ───────────────────── */
 .section--terra {
   background: var(--color-terra-900);
-  color: #f8eae6;
+  color: #fbe9e7;
 }
 .section--terra h2 {
   color: #fff;
 }
 .section--terra .lede {
-  color: #d6ada6;
+  color: #d9a9a4;
 }
 
 .section--sea {
@@ -598,16 +1537,24 @@ h3 {
 .sea-bg {
   position: absolute;
   inset: 0;
-  background-image: url("/oceano.webp");
+  background-image: url("/mar-valdivia.webp");
   background-size: cover;
-  background-position: center bottom;
+  background-position: center;
   filter: var(--sky-filter);
 }
+/* La textura del agua es clara y muy movida: sin un velo fuerte el texto blanco
+   se pierde en la espuma. Va más cargado abajo, donde la foto tiene las crestas
+   más brillantes, y con un tinte marino que la baja de saturación. */
 .sea-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(6, 28, 54, 0.5);
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 24, 48, 0.62) 0%,
+    rgba(4, 24, 48, 0.68) 45%,
+    rgba(4, 24, 48, 0.78) 100%
+  );
 }
 .section--sea h2 {
   color: #fff;
@@ -617,20 +1564,26 @@ h3 {
 }
 
 /* ── MAPA DE RUTAS ───────────────────────────────────────────────────── */
+/* La línea fija queda casi insinuada: con las seis rutas a 0.45 el mapa parecía
+   un bombardeo sobre Chile. Ahora sólo guía el ojo y el protagonismo se lo lleva
+   el trazo que viaja. */
 .mapa__ruta {
   fill: none;
   stroke: var(--color-terra-400);
-  stroke-width: 1.7;
+  stroke-width: 1.1;
   stroke-linecap: round;
-  opacity: 0.45;
+  opacity: 0.13;
 }
-/* Tramo que recorre por encima de la línea fija: la ruta nunca desaparece. */
+/* Tramo que recorre por encima de la línea fija: la ruta nunca desaparece.
+   El degradado hace que la cabeza vaya nítida y la cola se disuelva, así se lee
+   como algo que avanza y no como una raya permanente. */
 .mapa__flujo {
   fill: none;
   stroke: var(--color-accent-btn);
-  stroke-width: 2.6;
+  stroke-width: 2.4;
   stroke-linecap: round;
-  stroke-dasharray: 30 1600;
+  stroke-dasharray: 26 1604;
+  opacity: 0.9;
   animation: fluir 11s linear infinite;
 }
 .mapa__origen {
@@ -664,13 +1617,14 @@ h3 {
     scale: 1.15;
   }
 }
-/* Sin animación, la ruta completa se dibuja fija. */
+/* Sin animación no hay trazo viajero, así que la ruta fija tiene que verse. */
 @media (prefers-reduced-motion: reduce) {
   .mapa__flujo {
     display: none;
   }
   .mapa__ruta {
-    opacity: 0.6;
+    opacity: 0.5;
+    stroke-width: 1.7;
   }
   .mapa__pulso {
     opacity: 0.18;
@@ -713,122 +1667,6 @@ h3 {
   .rutas-lista {
     grid-template-columns: 1fr;
     gap: var(--spacing-s4);
-  }
-}
-
-/* ── BANDA DEL AVIÓN ─────────────────────────────────────────────────── */
-.avion {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  min-height: clamp(460px, 46vw, 580px);
-  display: flex;
-  align-items: center;
-  background: #3c93d8;
-}
-.avion__cielo {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url("/cielo.webp");
-  background-size: cover;
-  background-position: center 62%;
-}
-.avion__cielo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    82deg,
-    rgba(5, 30, 58, 0.06) 0%,
-    rgba(5, 30, 58, 0.12) 34%,
-    rgba(5, 30, 58, 0.62) 66%,
-    rgba(5, 30, 58, 0.76) 100%
-  );
-}
-@media (max-width: 900px) {
-  .avion__cielo::after {
-    background: linear-gradient(
-      to bottom,
-      rgba(5, 30, 58, 0.1) 0%,
-      rgba(5, 30, 58, 0.55) 46%,
-      rgba(5, 30, 58, 0.8) 100%
-    );
-  }
-}
-/* La nave va delante del texto, igual que el container en el hero. */
-.avion__nave {
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-  left: -6%;
-  top: 46%;
-  width: min(62vw, 860px);
-  translate: 0 -50%;
-  animation: planear 11s ease-in-out infinite;
-}
-.avion__nave img {
-  width: 100%;
-  height: auto;
-}
-@keyframes planear {
-  0%,
-  100% {
-    transform: translate(0, 7px) rotate(-0.4deg);
-  }
-  50% {
-    transform: translate(1.8%, -7px) rotate(0.4deg);
-  }
-}
-.avion__cuerpo {
-  position: relative;
-  z-index: 1;
-  padding-block: var(--gap-head);
-}
-.avion__texto {
-  margin-left: auto;
-  max-width: 46ch;
-  text-align: right;
-}
-.avion__texto h2 {
-  color: #fff;
-}
-.avion__texto .lede {
-  margin-left: auto;
-  color: #dceaf6;
-}
-.avion__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-s3);
-  margin-top: var(--spacing-s7);
-  border-radius: 10px;
-  background: var(--color-accent-btn);
-  padding: 15px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  transition: background 0.18s ease, transform 0.18s ease;
-}
-.avion__cta:hover {
-  background: var(--color-accent-btn-hover);
-  transform: translateY(-1px);
-}
-@media (max-width: 900px) {
-  .avion__texto {
-    margin-left: 0;
-    margin-top: min(34vw, 210px);
-    text-align: left;
-  }
-  .avion__texto .lede {
-    margin-left: 0;
-  }
-  .avion__nave {
-    left: 50%;
-    top: 14%;
-    width: min(90vw, 500px);
-    translate: -50% 0;
   }
 }
 

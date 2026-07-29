@@ -57,21 +57,25 @@ export default function Hero() {
     <section className="hero" id="inicio" ref={hero}>
       {/* capa 1 — cielo */}
       <div className="hero__sky" ref={sky} aria-hidden />
-      {/* velo que separa cada línea del titular de su fondo */}
-      <div className="hero__scrim" aria-hidden />
 
       {/* capa 3 — container, delante del texto */}
       <div className="hero__ship" ref={ship} aria-hidden>
         <div className="hero__hang">
           <div className="hero__bob">
-            <Image
-              src="/container.webp"
-              alt=""
-              width={766}
-              height={907}
-              priority
-              sizes="(max-width: 900px) 66vw, 45vw"
-            />
+            {/* En vertical va otro render, con los cables largos: entran por el
+                borde de arriba en vez de aparecer cortados a media pantalla. */}
+            <picture>
+              <source media="(max-width: 900px)" srcSet="/container-movil.webp" />
+              <Image
+                src="/container.webp"
+                alt=""
+                width={766}
+                height={907}
+                priority
+                quality={90}
+                sizes="45vw"
+              />
+            </picture>
           </div>
         </div>
       </div>
@@ -84,19 +88,23 @@ export default function Hero() {
           </p>
 
           <h1 className="order-1">
-            <span className="block text-white">Importación</span>
-            <span className="block text-[#9C403B]">sin límites</span>
+            {/* El espacio explícito importa: sin él JSX pega las dos líneas y
+                el titular se anuncia como "Importaciónsin límites". */}
+            <span className="block text-white">Importación</span>{" "}
+            <span className="block text-terra-400">sin límites</span>
           </h1>
 
           {/* Empuja el copy bajo el container en vertical. */}
           <div className="order-2 hidden max-[900px]:block max-[900px]:min-h-[min(40vh,340px)] max-[900px]:flex-auto" />
 
-          <p className="order-3 mt-s6 max-w-[33ch] text-[clamp(1rem,0.95rem+0.38vw,1.14rem)] leading-[1.58] text-[#edf5fc] [text-shadow:0_1px_12px_rgba(4,32,60,.45)] max-[900px]:mt-0 max-[900px]:max-w-[38ch]">
+          <p className="order-3 mt-s6 max-w-[33ch] text-[clamp(1rem,0.95rem+0.38vw,1.14rem)] leading-[1.58] text-[#edf5fc] max-[900px]:mt-0 max-[900px]:max-w-[38ch]">
             Traemos tu carga desde China y Medio Oriente hasta tu bodega.
-            Nosotros hacemos todo el proceso.
+            {/* En vertical el copy se queda en dos líneas: la segunda frase sólo
+                aparece de tablet para arriba. */}
+            <span className="max-[900px]:hidden"> Nosotros hacemos todo el proceso.</span>
           </p>
 
-          <div className="order-4 mt-s7 flex flex-wrap items-center gap-s5 gap-x-s6">
+          <div className="order-4 mt-s7 flex flex-wrap items-center gap-s5 gap-x-s6 max-[900px]:justify-center">
             <a
               href="#cotizar"
               className="inline-flex shrink-0 items-center justify-center gap-s3 rounded-[10px] bg-accent-btn px-7 py-[15px] text-[1rem] font-semibold text-white no-underline transition-[background,transform] hover:-translate-y-px hover:bg-accent-btn-hover"
@@ -104,7 +112,7 @@ export default function Hero() {
               Cotizar mi importación
               <Flecha />
             </a>
-            <p className="m-0 flex items-center gap-s3 text-[0.87rem] leading-[1.35] font-medium text-white [text-shadow:0_1px_10px_rgba(4,32,60,.5)]">
+            <p className="m-0 flex items-center gap-s3 text-[0.87rem] leading-[1.35] font-medium text-white max-[900px]:hidden">
               <GloboFino className="shrink-0 opacity-85" />
               <span className="max-w-[22ch]">Importamos desde todo el mundo</span>
             </p>
@@ -113,13 +121,13 @@ export default function Hero() {
       </div>
 
       {/* franja de confianza */}
-      <div className="absolute inset-x-0 bottom-0 z-3 border-t border-white/20 bg-gradient-to-t from-[rgba(6,40,74,.4)] to-transparent max-[900px]:hidden">
+      <div className="absolute inset-x-0 bottom-0 z-3 border-t border-white/20 max-[900px]:hidden">
         <div className="wrap">
           <ul className="flex list-none justify-between gap-s5 p-0 py-s5">
             {confianza.map(({ Icono, texto }) => (
               <li
                 key={texto}
-                className="flex items-center gap-s3 text-[0.87rem] font-medium text-white [text-shadow:0_1px_10px_rgba(4,32,60,.5)]"
+                className="flex items-center gap-s3 text-[0.87rem] font-medium text-white"
               >
                 <Icono className="shrink-0 opacity-90" />
                 {texto}
