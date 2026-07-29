@@ -131,7 +131,7 @@ export default function Cotizar() {
           <button
             type="submit"
             disabled={enviando}
-            className="mt-s6 inline-flex w-full cursor-pointer items-center justify-center gap-s3 rounded-[10px] border-0 bg-accent-btn px-7 py-[15px] font-sans text-[1.12rem] font-bold text-white transition-[background,transform] hover:-translate-y-px hover:bg-accent-btn-hover disabled:cursor-wait disabled:opacity-70"
+            className="mt-s6 inline-flex w-full cursor-pointer items-center justify-center gap-s3 rounded-[10px] border-0 bg-accent-btn px-7 py-[15px] font-sans text-[1rem] font-semibold text-white transition-[background,transform] hover:-translate-y-px hover:bg-accent-btn-hover disabled:cursor-wait disabled:opacity-70"
           >
             {enviando ? "Enviando…" : "Enviar y continuar por WhatsApp"}
             {!enviando && <Flecha />}

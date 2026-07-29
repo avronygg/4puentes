@@ -16,11 +16,13 @@
   --color-terra-700: #78312e;
   --color-terra-900: #4f201e;
 
-  /* Rojo de marca definido por el cliente. Con texto blanco da 3.71:1, que
-     cumple el mínimo AA solo para texto grande: por eso las etiquetas de los
-     botones van a 19px en negrita, no al tamaño de cuerpo. */
-  --color-accent-btn: #fa382b;
-  --color-accent-btn-hover: #e02a1e;
+  /* Cobrizo de la paleta. Con texto blanco da 6.54:1 y cumple AA de sobra,
+     así que las etiquetas vuelven al tamaño de cuerpo. */
+  --color-accent-btn: #9c403b;
+  --color-accent-btn-hover: #833430;
+  /* Vidrio del nav: el mismo cobrizo translúcido. A 0.85 el texto blanco
+     mantiene 4.79:1 incluso cuando la barra flota sobre una sección clara. */
+  --nav-glass: rgba(156, 64, 59, 0.85);
 
   /* superficies — se redefinen por tema más abajo */
   --color-bg: var(--bg);
@@ -174,17 +176,16 @@ h3 {
   width: min(100% - 32px, 940px);
   margin-top: var(--spacing-s3);
   padding: 7px 7px 7px var(--spacing-s5);
-  background: rgba(255, 255, 255, 0.72);
-  border-color: rgba(255, 255, 255, 0.7);
+  background: var(--nav-glass);
+  border-color: rgba(255, 255, 255, 0.22);
   box-shadow:
-    0 1px 1px rgba(12, 34, 62, 0.04),
-    0 10px 34px -12px rgba(12, 34, 62, 0.3);
+    0 1px 1px rgba(60, 20, 18, 0.1),
+    0 12px 36px -12px rgba(60, 20, 18, 0.45);
 }
 @supports (backdrop-filter: blur(1px)) {
   .nav.is-stuck .nav__in {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
   }
 }
 
@@ -198,9 +199,7 @@ h3 {
 }
 .nav.is-stuck .nav__logo img {
   width: 50px;
-  /* tiñe el logo blanco al color del texto sobre la píldora clara */
-  filter: brightness(0) saturate(100%) invert(8%) sepia(9%) saturate(760%)
-    hue-rotate(320deg) brightness(97%);
+  /* el vidrio es oscuro: el logo blanco se queda blanco */
 }
 
 .nav__links {
@@ -226,7 +225,7 @@ h3 {
   transition: color 0.35s ease;
 }
 .nav.is-stuck .nav__links a {
-  color: var(--fg);
+  color: #fff;
   letter-spacing: 0.06em;
 }
 .nav__sub {
@@ -258,6 +257,13 @@ h3 {
 .nav__cta:hover {
   background: var(--color-accent-btn-hover);
 }
+.nav.is-stuck .nav__cta {
+  background: #fff;
+  color: var(--color-accent-btn);
+}
+.nav.is-stuck .nav__cta:hover {
+  background: #f6ebea;
+}
 .nav__toggle {
   display: none;
   margin-left: auto;
@@ -269,7 +275,7 @@ h3 {
   transition: color 0.35s ease;
 }
 .nav.is-stuck .nav__toggle {
-  color: var(--fg);
+  color: #fff;
 }
 @media (max-width: 1000px) {
   .nav__links,
@@ -443,17 +449,25 @@ h3 {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* El rojo del titular es de luminancia media: sobre el cielo se pierde, y
-     ACLARAR el fondo lo empeora. Contrasta al oscurecer, así que la columna de
-     texto va con un velo oscuro parejo en vez de la banda clara anterior. */
-  background: linear-gradient(
-    to bottom,
-    rgba(3, 18, 38, 0.74) 0%,
-    rgba(3, 18, 38, 0.82) 34%,
-    rgba(3, 18, 38, 0.84) 50%,
-    rgba(3, 18, 38, 0.7) 64%,
-    rgba(3, 18, 38, 0.5) 100%
-  );
+  /* El cobrizo del titular es OSCURO (luminancia 0.111): necesita fondo claro,
+     al revés que el rojo brillante anterior. La línea blanca de arriba necesita
+     lo contrario, así que el velo oscurece su franja y aclara la de abajo. */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(236, 246, 255, 0) 33%,
+      rgba(236, 246, 255, 0.74) 40%,
+      rgba(236, 246, 255, 0.78) 50%,
+      rgba(236, 246, 255, 0) 59%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(3, 18, 38, 0.72) 0%,
+      rgba(3, 18, 38, 0.7) 31%,
+      rgba(3, 18, 38, 0.05) 44%,
+      rgba(3, 18, 38, 0.52) 61%,
+      rgba(3, 18, 38, 0.44) 100%
+    );
   /* Solo sobre la columna de texto; hacia la derecha se disuelve. */
   -webkit-mask-image: linear-gradient(
     to right,
@@ -472,14 +486,22 @@ h3 {
 }
 @media (max-width: 900px) {
   .hero__scrim {
-    background: linear-gradient(
-      to bottom,
-      rgba(3, 18, 38, 0.72) 0%,
-      rgba(3, 18, 38, 0.84) 18%,
-      rgba(3, 18, 38, 0.8) 30%,
-      rgba(3, 18, 38, 0.5) 46%,
-      rgba(3, 18, 38, 0.62) 100%
-    );
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(236, 246, 255, 0) 12%,
+        rgba(236, 246, 255, 0.76) 17%,
+        rgba(236, 246, 255, 0.8) 24%,
+        rgba(236, 246, 255, 0) 31%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(3, 18, 38, 0.7) 0%,
+        rgba(3, 18, 38, 0.66) 10%,
+        rgba(3, 18, 38, 0.04) 20%,
+        rgba(3, 18, 38, 0.36) 34%,
+        rgba(3, 18, 38, 0.55) 100%
+      );
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -655,6 +677,45 @@ h3 {
   }
 }
 
+/* ── LISTA DE RUTAS ──────────────────────────────────────────────────── */
+.rutas-lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-s5) var(--spacing-s6);
+  margin: var(--spacing-s7) 0 0;
+  padding: var(--spacing-s6) 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+.rutas-lista li {
+  display: flex;
+  gap: var(--spacing-s3);
+  align-items: baseline;
+}
+.rutas-lista__punto {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  translate: 0 -2px;
+  border-radius: 50%;
+  background: var(--color-terra-400);
+}
+.rutas-lista__punto.es-destino {
+  background: var(--color-accent-btn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-btn) 22%, transparent);
+}
+@media (max-width: 1000px) {
+  .rutas-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .rutas-lista {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s4);
+  }
+}
+
 /* ── BANDA DEL AVIÓN ─────────────────────────────────────────────────── */
 .avion {
   position: relative;
@@ -744,8 +805,8 @@ h3 {
   border-radius: 10px;
   background: var(--color-accent-btn);
   padding: 15px 28px;
-  font-size: 1.12rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   color: #fff;
   text-decoration: none;
   transition: background 0.18s ease, transform 0.18s ease;
@@ -757,7 +818,7 @@ h3 {
 @media (max-width: 900px) {
   .avion__texto {
     margin-left: 0;
-    margin-top: min(46vw, 260px);
+    margin-top: min(34vw, 210px);
     text-align: left;
   }
   .avion__texto .lede {
@@ -765,8 +826,8 @@ h3 {
   }
   .avion__nave {
     left: 50%;
-    top: 16%;
-    width: min(104vw, 560px);
+    top: 14%;
+    width: min(90vw, 500px);
     translate: -50% 0;
   }
 }

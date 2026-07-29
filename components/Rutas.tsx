@@ -1,7 +1,6 @@
 import { MAPA } from "@/lib/mapa-datos";
 
-/** Se arman desde las rutas del mapa, agrupando por región. */
-const REGIONES: Record<string, string> = {
+const ESTADO: Record<string, string> = {
   China: "En operación",
   "Corea del Sur": "En operación",
   Vietnam: "En operación",
@@ -18,10 +17,22 @@ export default function Rutas() {
     return acc;
   }, {});
 
+  const items = [
+    ...Object.entries(porRegion).map(([region, puertos]) => ({
+      region,
+      puertos: puertos.join(" · "),
+      estado: ESTADO[region] ?? "",
+      destino: false,
+    })),
+    { region: "Chile", puertos: "Valdivia · Todo el sur", estado: "Destino", destino: true },
+  ];
+
   return (
     <section className="section" id="rutas">
       <div className="wrap">
-        <div className="grid grid-cols-[minmax(240px,300px)_1fr] items-center gap-s8 max-[1000px]:grid-cols-1 max-[1000px]:gap-s7">
+        {/* Encabezado y mapa arriba; los orígenes van abajo en una rejilla
+            compacta, para que la sección no crezca con la lista. */}
+        <div className="grid grid-cols-[minmax(240px,320px)_1fr] items-center gap-s8 max-[1000px]:grid-cols-1 max-[1000px]:gap-s6">
           <div>
             <h2>Todas las rutas terminan en tu bodega</h2>
             <p className="lede">
@@ -29,35 +40,6 @@ export default function Rutas() {
               Un solo interlocutor de punta a punta, sea cual sea el puerto de
               salida.
             </p>
-
-            <ul className="mt-s7 grid list-none gap-s4 p-0">
-              {Object.entries(porRegion).map(([region, puertos]) => (
-                <li key={region} className="border-t border-line pt-s3">
-                  <div className="flex items-baseline gap-s3">
-                    <span className="h-2 w-2 shrink-0 translate-y-[-2px] rounded-full bg-terra-400" />
-                    <span className="font-semibold">{region}</span>
-                    <span className="ml-auto font-mono text-[0.66rem] tracking-[0.08em] text-fg-muted uppercase">
-                      {REGIONES[region] ?? ""}
-                    </span>
-                  </div>
-                  <p className="mt-s1 mb-0 pl-[20px] font-mono text-[0.72rem] tracking-[0.03em] text-fg-muted">
-                    {puertos.join(" · ")}
-                  </p>
-                </li>
-              ))}
-              <li className="border-t border-line pt-s3">
-                <div className="flex items-baseline gap-s3">
-                  <span className="h-2 w-2 shrink-0 translate-y-[-2px] rounded-full bg-accent-btn" />
-                  <span className="font-semibold">Chile</span>
-                  <span className="ml-auto font-mono text-[0.66rem] tracking-[0.08em] text-fg-muted uppercase">
-                    Destino
-                  </span>
-                </div>
-                <p className="mt-s1 mb-0 pl-[20px] font-mono text-[0.72rem] tracking-[0.03em] text-fg-muted">
-                  Valdivia · Todo el sur
-                </p>
-              </li>
-            </ul>
           </div>
 
           <div className="min-w-0">
@@ -69,7 +51,6 @@ export default function Rutas() {
                 .map((r) => r.nombre)
                 .join(", ")}.`}
             >
-              {/* Los continentes, como una trama de puntos */}
               <path
                 d={puntos}
                 stroke="var(--color-line)"
@@ -78,7 +59,6 @@ export default function Rutas() {
                 fill="none"
               />
 
-              {/* Cada ruta: una línea fija siempre visible y un tramo que la recorre */}
               {rutas.map((r, i) => {
                 const d = `M${r.ox} ${r.oy} Q${r.cx} ${r.cy} ${destino.x} ${destino.y}`;
                 return (
@@ -102,6 +82,25 @@ export default function Rutas() {
             </svg>
           </div>
         </div>
+
+        <ul className="rutas-lista">
+          {items.map((i) => (
+            <li key={i.region}>
+              <span className={`rutas-lista__punto ${i.destino ? "es-destino" : ""}`} />
+              <div className="min-w-0">
+                <div className="flex items-baseline gap-s2">
+                  <span className="font-semibold">{i.region}</span>
+                  <span className="ml-auto shrink-0 font-mono text-[0.62rem] tracking-[0.08em] text-fg-muted uppercase">
+                    {i.estado}
+                  </span>
+                </div>
+                <p className="mt-[2px] mb-0 font-mono text-[0.7rem] leading-[1.45] tracking-[0.02em] text-fg-muted">
+                  {i.puertos}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
