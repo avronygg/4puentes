@@ -119,12 +119,17 @@ volumen): no correspondía inventarlas.
 - **Container en mayor resolución.** El PNG del cliente es 766×907 y en el hero
   se muestra a ~660 CSS px: en pantallas retina se ve blando. Pedir un export
   al doble.
-- **Avión.** Listo. El PNG que entregó el cliente traía el damero de
-  transparencia *pintado* en la imagen (0% de píxeles realmente transparentes),
-  así que se recortó por código: relleno desde el borde sobre los grises neutros
-  del patrón, y luego se conserva solo la región conectada más grande para
-  eliminar el moteado que dejan los artefactos de compresión. El script está en
-  `scripts/avion.py`.
+- **Avión.** Listo, con el PNG definitivo del cliente
+  (`public/avion.webp`, 1221x358, transparencia real).
+
+  Nota para futuros assets: la **primera** versión que llegó traía el damero de
+  transparencia *pintado dentro de la imagen* — 0% de píxeles realmente
+  transparentes, aunque a la vista pareciera recortada. Si vuelve a pasar, la
+  técnica para recortarlo (relleno desde el borde sobre los grises del patrón +
+  conservar solo la región conectada más grande, porque los artefactos de
+  compresión dejan moteado) está en el historial de git, en `scripts/avion.py`.
+  Siempre conviene verificar el canal alfa antes de dar por buena una imagen
+  "con fondo transparente".
 - **Océano.** Se generó un mar por código derivado del cielo, pero quedó fuera
   de la página: la banda del avión ocupa ese lugar. El archivo sigue en
   `public/oceano.webp` por si se quiere recuperar.
@@ -164,8 +169,12 @@ volumen): no correspondía inventarlas.
 ## 6. Decisiones tomadas que conviene recordar
 
 - **El sitio está fijado en modo claro** (`color-scheme: light`). Se construyó
-  sobre una foto de cielo brillante y el titular en azul marino no sobrevive a un
-  fondo oscurecido. Reactivar el modo oscuro implica rediseñar el hero.
+  sobre una foto de cielo brillante. Reactivar el modo oscuro implica rediseñar
+  el hero.
+- **`npm run build` no está roto.** La primera compilación tras borrar `.next`
+  tarda 4-5 minutos por el chequeo de TypeScript desde cero, y Next no imprime
+  nada hasta terminar. No borres `.next` para "limpiar" y no mates el proceso
+  por impaciencia. Detalle en ARQUITECTURA.md.
 - **El container va a su saturación original.** Se probó bajarlo a la saturación
   de la paleta (66%) y el cliente lo vio apagado respecto de su foto.
 - **El rojo de marca es `#FA382B`**, definido por el cliente. Con texto blanco da

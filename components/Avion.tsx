@@ -14,8 +14,8 @@ export default function Avion() {
         <Image
           src="/avion.webp"
           alt=""
-          width={1224}
-          height={365}
+          width={1221}
+          height={358}
           sizes="(max-width: 900px) 96vw, 58vw"
         />
       </div>

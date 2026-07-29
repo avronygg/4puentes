@@ -70,7 +70,8 @@
   --sky-filter: none;
 
   --wrap: 1140px;
-  --gap-section: clamp(80px, 9vw, 136px);
+  /* -20% respecto del original clamp(80px, 9vw, 136px) */
+  --gap-section: clamp(64px, 7.2vw, 109px);
   --gap-head: clamp(40px, 4.4vw, 64px);
 }
 
