@@ -177,23 +177,21 @@ volumen): no correspondía inventarlas.
   por impaciencia. Detalle en ARQUITECTURA.md.
 - **El container va a su saturación original.** Se probó bajarlo a la saturación
   de la paleta (66%) y el cliente lo vio apagado respecto de su foto.
-- **El rojo de marca es `#FA382B`**, definido por el cliente. Con texto blanco da
-  3.71:1: cumple el mínimo AA **solo para texto grande**, por eso las etiquetas de
-  los botones van a 19px en negrita y no al tamaño de cuerpo. Si alguien las achica,
-  el botón deja de cumplir.
+- **El color de marca es el cobrizo `#9C403B`.** Se probó antes con el rojo
+  brillante `#FA382B`, que solo cumplía contraste para texto grande y obligaba a
+  agrandar las etiquetas de los botones. El cobrizo da 6.46:1 y quita esa
+  restricción.
 
-### Riesgo aceptado: el titular "SIN LÍMITES"
+### Resuelto: el contraste del titular
 
-`#FA382B` sobre el cielo del hero mide **1.06:1**. El mínimo para texto grande es
-3.0. El rojo y el azul del cielo tienen casi la misma luminancia (0.233 contra
-0.251), así que el ojo casi no los separa.
+Hubo una etapa con `#FA382B`, que sobre el cielo medía **1.06:1** — rojo y azul
+tienen casi la misma luminancia y el ojo no los separaba. Se sostuvo un tiempo
+con un velo oscuro que lo llevaba a 4.57.
 
-**El cliente lo decidió con el dato a la vista** y prefirió mantener el rojo. Para
-suavizarlo, el velo del titular pasó de aclarar a **oscurecer** la columna de
-texto: con este rojo, oscurecer el fondo es lo único que suma contraste; aclararlo
-lo empeora.
+**Con el cobrizo `#9C403B` el problema desapareció** y por una vía más natural:
+al ser un color oscuro, contrasta contra fondo claro. El velo volvió a bandas
+—oscura arriba para la línea blanca, clara abajo para la cobriza— y hoy mide
+**4.18:1**, por sobre el mínimo de 3.0 para texto de ese tamaño.
 
-Si en algún momento se quiere que cumpla, hay dos caminos y ninguno es un ajuste
-menor: poner el titular sobre una placa clara (como la primera referencia que
-envió el cliente, con la línea en rojo sobre fondo claro), o volver la segunda
-línea al azul marino, que medía 4.82:1.
+Queda anotado porque es la trampa a la que vuelve cualquiera que cambie ese
+color: **hay que revisar hacia dónde va el velo cada vez.**

@@ -22,13 +22,14 @@ oscuro implica rediseñar el hero.
 
 ### Reglas de color que no se pueden romper
 
-- **El rojo de marca es `#FA382B`** (`--color-accent-btn`), definido por el
-  cliente. Con texto blanco da **3.71:1**: cumple el mínimo AA **solo para texto
-  grande**. Por eso las etiquetas de los botones van a **19px en negrita**
-  (`text-[1.12rem] font-bold`) y no al tamaño de cuerpo. **Si alguien las achica,
-  el botón deja de cumplir.**
+- **El cobrizo `#9C403B`** (`--color-accent-btn`) es el color de los botones,
+  del vidrio del nav y de la segunda línea del titular. Con texto blanco da
+  **6.46:1**, así que las etiquetas van al tamaño de cuerpo sin problema.
 - El coral `#F2645C` (`--color-terra-400`) queda para donde no lleva texto
   encima: iconos, líneas base del mapa, detalles.
+- **El vidrio del nav va al 85%** (`--nav-glass`). No bajarlo: por debajo de eso
+  el texto blanco no llega a 4.5:1 cuando la píldora flota sobre una sección
+  clara. Sobre el vidrio, el CTA se invierte a blanco con texto cobrizo.
 - **Solo dos bloques de color en toda la página**: la sección "Cómo funciona"
   (terracota sólido) y el pie. Todo lo demás va blanco. Agregar un tercero
   rompe el ritmo que el cliente aprobó.
@@ -54,17 +55,23 @@ colgar.
 
 ### El velo del titular
 
-Las dos líneas son blanca y roja `#FA382B`, sobre una foto de cielo. El rojo es
-de **luminancia media**, casi idéntica a la del azul del cielo (0.233 contra
-0.251): sobre el cielo sin tratar mide **1.06:1**, es decir, se pierde.
+Las dos líneas son blanca y cobriza `#9C403B`, sobre una foto de cielo. **Cada
+una necesita lo contrario que la otra**: la blanca, fondo oscuro; la cobriza,
+que es oscura (luminancia 0.111), fondo claro. Con un solo tono de fondo es
+imposible que ambas cumplan.
 
-La clave, y es contraintuitiva: **con este rojo, aclarar el fondo lo empeora y
-oscurecerlo lo salva.** Por eso `.hero__scrim` aplica un velo oscuro parejo
-sobre la columna de texto, y se disuelve hacia la derecha con `mask-image` para
-no ensuciar la foto donde no hay texto. Con el velo, el rojo llega a **4.57:1**.
+Por eso `.hero__scrim` trabaja por bandas horizontales: oscurece la franja de la
+línea blanca, **aclara la de la cobriza**, y se disuelve hacia la derecha con
+`mask-image` para no ensuciar la foto donde no hay texto.
 
-No cambies el velo por uno claro ni lo quites "porque tapa la foto": el titular
-depende de él para leerse.
+Dos advertencias:
+
+- **Si mueves el titular verticalmente, hay que mover las paradas del gradiente.**
+  Los porcentajes están calzados con las posiciones reales del texto.
+- **Si cambias el color de la segunda línea, revisa hacia dónde debe ir el velo.**
+  Un color claro necesita fondo oscuro y uno oscuro necesita fondo claro; el
+  velo actual está afinado para un cobrizo oscuro. Con el rojo brillante que
+  hubo antes, la banda tenía que ir justo al revés.
 
 ### Dos trampas del hero
 
@@ -105,6 +112,9 @@ Cada ruta se dibuja dos veces: una línea fija siempre visible (`.mapa__ruta`) y
 un tramo que la recorre (`.mapa__flujo`). Antes era un solo trazo animado que
 aparecía y desaparecía, y parecía que le disparaban a América.
 
+**La lista de orígenes va debajo del mapa, en rejilla** (`.rutas-lista`), no en
+columna al costado. Con ocho puertos, la columna estiraba la sección entera.
+
 La proyección está verificada contra ciudades conocidas: Valdivia cae a 0.4px
 de la costa en el ráster de 3840px.
 
@@ -140,10 +150,11 @@ no sobre los valores del CSS. Los números que importan:
 
 | Elemento | Contraste | Mínimo |
 |---|---|---|
-| Titular línea 1 (blanca) | 16.92 | 3.0 |
-| Titular línea 2 (`#FA382B`) | 4.57 | 3.0 |
-| Párrafo del hero | 15.09 | 4.5 |
-| Botón CTA (texto blanco) | 3.71 | 3.0 (texto grande) |
+| Titular línea 1 (blanca) | 14.49 | 3.0 |
+| Titular línea 2 (`#9C403B`) | 4.18 | 3.0 |
+| Párrafo del hero | 11.43 | 4.5 |
+| Botón CTA (texto blanco) | 6.46 | 4.5 |
+| Nav de vidrio, texto blanco | 4.79 | 4.5 |
 | Números de paso | 6.19 | 4.5 |
 | Texto del pie | 7.28 | 4.5 |
 
