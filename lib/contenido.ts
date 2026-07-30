@@ -62,6 +62,25 @@ export const servicios = [
   },
 ] as const;
 
+/**
+ * Vitrina de productos. La lista la dio el cliente y la variedad ES el mensaje:
+ * no hay un rubro cerrado. Por eso el orden mezcla a propósito maquinaria,
+ * alimentos y deporte en vez de agruparlos por categoría.
+ *
+ * PENDIENTE: confirmar que son importaciones ya realizadas y no ejemplos.
+ */
+export const productos = [
+  { nombre: "Analizador de composición corporal", rubro: "Equipamiento médico", icono: "monitor" },
+  { nombre: "Cable galvanizado", rubro: "Insumo industrial", icono: "bobina" },
+  { nombre: "Licor de cacao", rubro: "Bebidas", icono: "copa" },
+  { nombre: "Kayaks", rubro: "Deporte y outdoor", icono: "kayak" },
+  { nombre: "Botellas de plástico", rubro: "Envases", icono: "botella" },
+  { nombre: "Exprimidora de jengibre", rubro: "Maquinaria", icono: "exprimidor" },
+  { nombre: "Pasta de dátiles", rubro: "Alimentos", icono: "frasco" },
+  { nombre: "Equipos de ferretería", rubro: "Ferretería", icono: "llave" },
+  { nombre: "Soya proteica", rubro: "Alimentos a granel", icono: "saco" },
+] as const;
+
 export const pasos = [
   {
     n: "01",

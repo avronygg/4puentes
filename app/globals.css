@@ -1316,6 +1316,133 @@ h3 {
   }
 }
 
+/* ── VITRINA DE PRODUCTOS ────────────────────────────────────────────── */
+/* Desfile continuo en dos filas encontradas. La lista va duplicada en el JSX y
+   la animación desplaza exactamente la mitad: al terminar, el segundo juego
+   queda donde estaba el primero y el bucle no tiene costura. */
+.vitrina {
+  margin-top: var(--gap-head);
+  display: grid;
+  gap: var(--spacing-s4);
+  overflow: hidden;
+  /* Se disuelve en los bordes para que no se vea dónde empieza y termina. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 7%,
+    #000 93%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.vitrina__fila {
+  display: flex;
+  width: max-content;
+  gap: var(--spacing-s4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: desfile 46s linear infinite;
+}
+.vitrina__fila--inversa {
+  animation-direction: reverse;
+}
+/* Al pasar el puntero se detiene: si algo llama la atención, se puede leer. */
+.vitrina:hover .vitrina__fila {
+  animation-play-state: paused;
+}
+@keyframes desfile {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.vitrina__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s4);
+  flex: none;
+  padding: 14px 20px 14px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.vitrina__icono {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  color: var(--color-terra-600);
+  background: var(--accent-wash);
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 18%, transparent);
+}
+.vitrina__nombre {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  white-space: nowrap;
+}
+.vitrina__rubro {
+  display: block;
+  margin-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.vitrina__cierre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-s3);
+  margin: var(--gap-head) 0 0;
+  font-size: 1rem;
+  color: var(--fg-muted);
+}
+.vitrina__cierre a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  font-weight: 600;
+  color: var(--color-terra-700);
+  text-decoration: none;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--color-terra-400) 40%, transparent);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.vitrina__cierre a:hover {
+  color: var(--color-accent-btn);
+  border-color: var(--color-accent-btn);
+}
+
+/* Sin movimiento el desfile no tiene sentido: las tarjetas se acomodan en una
+   rejilla normal y se ven todas. */
+@media (prefers-reduced-motion: reduce) {
+  .vitrina {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .vitrina__fila {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .vitrina__fila--inversa {
+    display: none;
+  }
+  /* Duplicadas en el JSX para el bucle: sin animación sobra la segunda mitad. */
+  .vitrina__fila li:nth-child(n + 10) {
+    display: none;
+  }
+}
+
 /* ── MODALIDADES: marítimo y aéreo ───────────────────────────────────── */
 .modalidad {
   display: flex;

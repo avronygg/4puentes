@@ -243,6 +243,83 @@ export const AvionCarga = ({ size = 22, className }: P) => (
   </svg>
 );
 
+/* ── íconos de la vitrina de productos ─────────────────────────────── */
+
+export const Monitor = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="2.8" y="4" width="18.4" height="12.4" rx="2" />
+    <path d="M9 20.4h6M12 16.4v4" />
+    <path d="M6.6 10.4h2.2l1.5-2.8 2 5.2 1.4-2.4h2.7" />
+  </svg>
+);
+
+/* Rollo de cable visto de frente: aros concéntricos y la punta saliendo. Como
+   carrete de perfil parecía una escalera. */
+export const Bobina = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="10.6" cy="12" r="8.2" />
+    <circle cx="10.6" cy="12" r="5.2" opacity={0.7} />
+    <circle cx="10.6" cy="12" r="2.2" />
+    <path d="M18.4 9.6c1.6-.5 2.8.2 3.2 1.6" />
+  </svg>
+);
+
+/* Máquina con tolva y salida, no un exprimidor de cítricos: el dibujo cónico
+   anterior se leía como un cono de tránsito. */
+export const Exprimidor = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M8 3.2h8l-1.5 4.2h-5z" />
+    <rect x="6.2" y="7.4" width="11.6" height="9.2" rx="1.6" />
+    <circle cx="12" cy="12" r="1.9" />
+    <path d="M12 16.6v4M9.2 20.6h5.6" />
+  </svg>
+);
+
+export const Botella = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M10 2.8h4v3.4l2.2 3a4 4 0 01.8 2.4v8.2a1.4 1.4 0 01-1.4 1.4H8.4A1.4 1.4 0 017 19.8v-8.2a4 4 0 01.8-2.4L10 6.2z" />
+    <path d="M7 13.6h10" opacity={0.6} />
+  </svg>
+);
+
+/* Kayak visto desde arriba. De perfil, con el remo cruzando el casco, el
+   conjunto se leía como un ojo tachado. */
+export const Kayak = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2.2c3.1 3.2 4.6 6.4 4.6 9.8s-1.5 6.6-4.6 9.8c-3.1-3.2-4.6-6.4-4.6-9.8S8.9 5.4 12 2.2z" />
+    <ellipse cx="12" cy="12" rx="1.9" ry="2.7" />
+    <path d="M12 5.4v1.8M12 16.8v1.8" opacity={0.6} />
+  </svg>
+);
+
+export const Llave = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15.4 3.2a5.4 5.4 0 00-4.6 8.2L3.4 18.8a1.6 1.6 0 002.2 2.2l7.4-7.4a5.4 5.4 0 006.6-7.8l-2.8 2.8-2.6-.7-.7-2.6z" />
+  </svg>
+);
+
+export const Copa = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M6 3.4h12l-1 6.2a5 5 0 01-10 0z" />
+    <path d="M12 14.6v5.8M8.4 20.6h7.2" />
+  </svg>
+);
+
+export const Frasco = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="7" y="2.8" width="10" height="3" rx="1" />
+    <path d="M7.8 5.8h8.4a1.6 1.6 0 011.6 1.6v12a1.6 1.6 0 01-1.6 1.6H7.8a1.6 1.6 0 01-1.6-1.6v-12a1.6 1.6 0 011.6-1.6z" />
+    <path d="M6.2 11.4h11.6" opacity={0.6} />
+  </svg>
+);
+
+export const Saco = ({ size = 22, className }: P) => (
+  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M8.6 2.8h6.8l-1 2.6c2.6 1.4 4.2 4.2 4.2 7.4v6a2 2 0 01-2 2H7.4a2 2 0 01-2-2v-6c0-3.2 1.6-6 4.2-7.4z" />
+    <path d="M9.6 5.4h4.8" opacity={0.6} />
+  </svg>
+);
+
 export const WhatsApp = ({ size = 28, className }: P) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
     <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.87 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.02a9.8 9.8 0 01-4.99-1.37l-.36-.21-3.71.97.99-3.62-.23-.37a9.77 9.77 0 01-1.5-5.22c0-5.4 4.4-9.79 9.82-9.79a9.75 9.75 0 016.94 2.88 9.71 9.71 0 012.87 6.92c0 5.4-4.4 9.8-9.81 9.8M20.5 3.49A11.66 11.66 0 0012.05 0C5.6 0 .35 5.24.34 11.68c0 2.06.54 4.07 1.56 5.84L.24 24l6.63-1.74a11.7 11.7 0 005.18 1.32h.01c6.44 0 11.69-5.24 11.7-11.68a11.6 11.6 0 00-3.42-8.27" />

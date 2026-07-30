@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Modalidades from "@/components/Modalidades";
 import Nav from "@/components/Nav";
 import Proceso from "@/components/Proceso";
+import Productos from "@/components/Productos";
 import Rutas from "@/components/Rutas";
 import Servicios from "@/components/Servicios";
 import WhatsAppFab from "@/components/WhatsAppFab";
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <Servicios />
         <Proceso />
+        <Productos />
         <Modalidades />
         <Rutas />
         <Cobertura />
