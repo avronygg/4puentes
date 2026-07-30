@@ -322,10 +322,14 @@ export const PASOS: readonly Paso[] = [
         id: "origen",
         etiqueta: "¿Desde dónde?",
         requerido: true,
+        // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
+        // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
         opciones: [
           { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Shanghái…", icono: "barco" },
-          { valor: "emiratos", titulo: "Emiratos Árabes / Medio Oriente", detalle: "Jebel Ali, Abu Dabi…", icono: "pin" },
-          { valor: "otro-asia", titulo: "Otro mercado asiático", icono: "globo" },
+          { valor: "asia", titulo: "Otro país de Asia", detalle: "Corea, Vietnam, India…", icono: "contenedor" },
+          { valor: "medio-oriente", titulo: "Medio Oriente", detalle: "Emiratos Árabes, Jebel Ali…", icono: "pin" },
+          { valor: "america", titulo: "Estados Unidos o México", detalle: "Los Ángeles, Houston, Manzanillo", icono: "avion" },
+          { valor: "europa", titulo: "Europa", detalle: "Rotterdam y otros puertos", icono: "globo" },
           { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos.", icono: "interrogacion" },
         ],
       },

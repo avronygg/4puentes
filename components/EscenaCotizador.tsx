@@ -25,7 +25,7 @@ function escenaDe(paso: string): "perfil" | "detalle" | "logistica" | "contacto"
 const ROTULOS: Record<string, string> = {
   perfil: "Tu caso",
   actual: "Cómo importas",
-  producto: "Tu producto",
+  "compra-local": "Tu compra actual",
   interes: "Tu interés",
   logistica: "Origen y carga",
   contacto: "Contacto",

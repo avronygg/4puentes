@@ -1596,7 +1596,7 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-s3);
-  padding: var(--spacing-s2) 0;
+  padding: 11px 0;
   font-size: 0.93rem;
   color: var(--color-foot-fg-muted);
   text-decoration: none;
