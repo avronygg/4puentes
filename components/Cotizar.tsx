@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  PERFILES,
   idOtro,
   mensajeWhatsApp,
   pasosVisibles,
@@ -69,6 +70,21 @@ export default function Cotizar() {
   const paso = pasos[Math.min(indice, pasos.length - 1)];
   const ultimo = indice >= pasos.length - 1;
   const avance = Math.round(((indice + 1) / pasos.length) * 100);
+
+  // Las tarjetas de la sección Servicios enlazan con ?perfil=… : quien llega
+  // desde ahí ya respondió la primera pregunta al elegir la tarjeta, así que se
+  // marca sola y el paso queda listo para continuar.
+  //
+  // Va en un efecto y no en el estado inicial a propósito: la página se
+  // prerenderiza estática, el servidor no conoce la query y arrancar con el
+  // perfil puesto daría discrepancia de hidratación. Se lee de `window` en vez
+  // de useSearchParams para no tener que envolver la sección en un Suspense.
+  useEffect(() => {
+    const pedido = new URLSearchParams(window.location.search).get("perfil");
+    if (!pedido || !PERFILES.some((p) => p.valor === pedido)) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- la query sólo existe en el navegador; leerla antes daría discrepancia de hidratación
+    setR({ perfil: pedido });
+  }, []);
 
   const set = (id: string, valor: string) => {
     setR((prev) => ({ ...prev, [id]: valor }));

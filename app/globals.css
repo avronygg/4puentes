@@ -798,6 +798,29 @@ h3 {
   }
 }
 
+/* CTA al pie de cada tarjeta de servicio: lleva al cotizador con el perfil ya
+   elegido. Va pegado abajo para que las tres tarjetas rematen a la misma
+   altura aunque el texto mida distinto. */
+.servicio__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s5);
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--accent-wash);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-terra-700);
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.servicio__cta:hover {
+  background: var(--color-accent-btn);
+  color: #fff;
+}
+
 /* Icono de la tarjeta: pastilla de vidrio con el acento de marca. */
 .tarjeta-vidrio__icono {
   display: grid;

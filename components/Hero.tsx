@@ -98,7 +98,7 @@ export default function Hero() {
           <div className="order-2 hidden max-[900px]:block max-[900px]:min-h-[min(40vh,340px)] max-[900px]:flex-auto" />
 
           <p className="order-3 mt-s6 max-w-[33ch] text-[clamp(1rem,0.95rem+0.38vw,1.14rem)] leading-[1.58] text-[#edf5fc] max-[900px]:mt-0 max-[900px]:max-w-[38ch]">
-            Traemos tu carga desde China y Medio Oriente hasta tu bodega.
+            Traemos tu carga desde cualquier parte del mundo hasta tu bodega.
             {/* En vertical el copy se queda en dos líneas: la segunda frase sólo
                 aparece de tablet para arriba. */}
             <span className="max-[900px]:hidden"> Nosotros hacemos todo el proceso.</span>

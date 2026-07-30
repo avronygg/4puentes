@@ -6,34 +6,58 @@
  * listados, "proveedores verificados", plazo de respuesta). Ver PENDIENTES.md.
  */
 
+/**
+ * Los tres servicios están definidos por el tipo de cliente, no por la
+ * capacidad técnica: son las tres situaciones con las que llega la gente. El
+ * `perfil` de cada uno coincide con el del cotizador, así la tarjeta lleva al
+ * formulario con la respuesta ya marcada.
+ *
+ * Bodegaje y seguro no son tarjetas propias porque van incluidos en los tres:
+ * aparecen como viñetas dentro de cada uno.
+ */
 export const servicios = [
   {
-    icono: "caja",
-    titulo: "Importación integral",
+    icono: "tendencia",
+    perfil: "ya-importo",
+    etiqueta: "Ya importas",
+    titulo: "Operador logístico integral",
     texto:
-      "Gestionamos proveedor, compra en origen, flete internacional, " +
-      "agenciamiento de aduana y transporte hasta tu puerta.",
+      "Ya traes carga y no quieres seguir coordinando proveedores, navieras y " +
+      "aduana. Tomamos la cadena completa y respondemos por ella de punta a punta.",
     items: [
-      "Marítimo FCL y LCL",
-      "Aéreo para carga urgente",
-      "Aduana y transporte nacional",
+      "Un solo interlocutor por embarque",
+      "Comparamos contra tu costo actual",
+      "Bodega en Valdivia y seguro incluidos",
     ],
   },
   {
-    icono: "galpon",
-    titulo: "Bodegaje",
+    icono: "etiqueta",
+    perfil: "compro-en-chile",
+    etiqueta: "Compras en Chile",
+    titulo: "Compra directa en origen",
     texto:
-      "Tu carga llega, se almacena y sale cuando la necesitas. Recepción, " +
-      "control de inventario y despachos parciales.",
-    items: ["Almacenaje en destino", "Control de inventario", "Despacho fraccionado"],
+      "Hoy le compras a un intermediario local. Buscamos y verificamos el " +
+      "proveedor en origen para que traigas el mismo insumo sin ese margen " +
+      "encima.",
+    items: [
+      "Búsqueda y verificación de proveedor",
+      "Costo puesto en bodega, comparable",
+      "Bodega en Valdivia y seguro incluidos",
+    ],
   },
   {
-    icono: "escudo",
-    titulo: "Seguros",
+    icono: "brujula",
+    perfil: "sin-experiencia",
+    etiqueta: "Primera importación",
+    titulo: "Importación asesorada",
     texto:
-      "Toda importación viaja cubierta. Contratamos y gestionamos el seguro " +
-      "de tu carga puerta a puerta.",
-    items: ["Cobertura todo riesgo", "Puerta a puerta", "Gestión de siniestros"],
+      "Nunca has importado y no sabes por dónde partir. Te acompañamos desde " +
+      "la idea: qué conviene traer, cuánto cuesta de verdad y qué se necesita.",
+    items: [
+      "Asesoría desde la primera pregunta",
+      "Sin departamento de comercio exterior",
+      "Bodega en Valdivia y seguro incluidos",
+    ],
   },
 ] as const;
 
@@ -50,9 +74,8 @@ export const pasos = [
     n: "02",
     titulo: "Compra y verificación en origen",
     texto:
-      "Contactamos y validamos al proveedor en China o Medio Oriente, " +
-      "negociamos condiciones y coordinamos la compra y la inspección antes " +
-      "de embarcar.",
+      "Contactamos y validamos al proveedor en el país de origen, negociamos " +
+      "condiciones y coordinamos la compra y la inspección antes de embarcar.",
   },
   {
     n: "03",
@@ -72,8 +95,9 @@ export const pasos = [
     n: "05",
     titulo: "Bodegaje y entrega",
     texto:
-      "Almacenamos en destino y despachamos a tu bodega: en una sola entrega " +
-      "o en despachos parciales, según cómo necesites la mercadería.",
+      "Almacenamos en nuestra bodega de Valdivia y despachamos a tu bodega: en " +
+      "una sola entrega o en despachos parciales, según cómo necesites la " +
+      "mercadería.",
   },
 ] as const;
 
@@ -100,5 +124,5 @@ export const regiones = [
   { zona: "Los Ríos", ciudades: "Valdivia · La Unión" },
   { zona: "Los Lagos", ciudades: "Osorno · Puerto Montt · Chiloé" },
   { zona: "Aysén", ciudades: "Coyhaique · Puerto Aysén" },
-  { zona: "Puertos de entrada", ciudades: "San Antonio · Valparaíso · San Vicente" },
+  { zona: "Puertos de entrada", ciudades: "San Antonio · Valparaíso · San Vicente · Lirquén" },
 ] as const;

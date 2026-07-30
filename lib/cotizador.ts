@@ -84,21 +84,21 @@ export type Paso = {
 export const PERFILES = [
   {
     valor: "ya-importo",
-    titulo: "Ya hago importaciones",
-    detalle: "Quiero mejorar mis costos y tiempos.",
+    titulo: "Ya importo y quiero delegarlo",
+    detalle: "Busco un operador que se haga cargo de la cadena completa.",
     icono: "tendencia",
   },
   {
-    valor: "nunca",
-    titulo: "Nunca he importado",
-    detalle: "Me interesa empezar y necesito orientación.",
-    icono: "brujula",
+    valor: "compro-en-chile",
+    titulo: "Compro en Chile y quiero traerlo directo",
+    detalle: "Quiero bajar el costo de mis insumos comprando en origen.",
+    icono: "etiqueta",
   },
   {
-    valor: "producto-definido",
-    titulo: "Tengo un producto definido",
-    detalle: "Sé qué quiero traer y necesito cotizarlo.",
-    icono: "etiqueta",
+    valor: "sin-experiencia",
+    titulo: "Nunca he importado",
+    detalle: "Necesito que me asesoren de principio a fin.",
+    icono: "brujula",
   },
 ] as const satisfies readonly Opcion[];
 
@@ -148,6 +148,14 @@ const OPCIONES_PESO = [
     icono: "interrogacion",
   },
   { valor: "otro", titulo: "Otro", detalle: "Lo describo yo", icono: "etiqueta" },
+] as const satisfies readonly Opcion[];
+
+/** La frecuencia se pregunta en dos ramas: misma escala para poder comparar. */
+const OPCIONES_FRECUENCIA = [
+  { valor: "mensual", titulo: "Todos los meses", icono: "repetir" },
+  { valor: "trimestral", titulo: "Cada 2 o 3 meses", icono: "calendario" },
+  { valor: "semestral", titulo: "Un par de veces al año", icono: "reloj" },
+  { valor: "puntual", titulo: "Es puntual, sin periodicidad", icono: "cajas" },
 ] as const satisfies readonly Opcion[];
 
 const OTRO_PESO = {
@@ -220,41 +228,59 @@ export const PASOS: readonly Paso[] = [
         id: "frecuencia",
         etiqueta: "¿Cada cuánto importas?",
         requerido: true,
-        opciones: [
-          { valor: "mensual", titulo: "Todos los meses", icono: "repetir" },
-          { valor: "trimestral", titulo: "Cada 2 o 3 meses", icono: "calendario" },
-          { valor: "semestral", titulo: "Un par de veces al año", icono: "reloj" },
-          { valor: "puntual", titulo: "Es puntual, sin periodicidad", icono: "cajas" },
-        ],
+        opciones: OPCIONES_FRECUENCIA,
       },
     ],
   },
   {
-    id: "producto",
-    titulo: "¿Qué necesitas traer?",
-    cuando: (r) => r.perfil === "producto-definido",
+    id: "compra-local",
+    titulo: "¿Qué estás comprando hoy en Chile?",
+    bajada:
+      "Con lo que gastas hoy podemos estimar cuánto bajaría el costo trayéndolo directo.",
+    cuando: (r) => r.perfil === "compro-en-chile",
     campos: [
       {
         tipo: "texto",
         id: "producto",
-        etiqueta: "¿Qué producto es?",
+        etiqueta: "¿Qué insumo o producto compras?",
         marcador: "Descríbelo lo más concreto que puedas",
         requerido: true,
       },
       {
+        // En esta rama el gasto se piensa en pesos y por período, no en dólares
+        // por embarque como en la rama de quien ya importa.
         tipo: "opcion",
-        id: "cantidad",
-        etiqueta: "¿Qué cantidad necesitas?",
+        id: "gastoLocal",
+        etiqueta: "¿Cuánto gastas hoy en ese insumo?",
+        ayuda: "Un aproximado mensual basta. Es la cifra contra la que comparamos.",
         requerido: true,
-        opciones: OPCIONES_CANTIDAD,
-        otro: OTRO_CANTIDAD,
+        opciones: [
+          { valor: "menos-2m", titulo: "Menos de $2 millones", detalle: "Al mes", icono: "cajas" },
+          { valor: "2-10m", titulo: "Entre $2 y $10 millones", icono: "contenedor" },
+          { valor: "10-30m", titulo: "Entre $10 y $30 millones", icono: "barco" },
+          { valor: "mas-30m", titulo: "Más de $30 millones", icono: "tendencia" },
+          { valor: "prefiero-no-decir", titulo: "Prefiero no decirlo", icono: "interrogacion" },
+          { valor: "otro", titulo: "Otro", detalle: "Lo indico yo", icono: "etiqueta" },
+        ],
+        otro: {
+          valor: "otro",
+          etiqueta: "¿Cuánto, aproximadamente?",
+          marcador: "Ej: $6 millones al mes",
+        },
+      },
+      {
+        tipo: "opcion",
+        id: "frecuencia",
+        etiqueta: "¿Cada cuánto lo compras?",
+        requerido: true,
+        opciones: OPCIONES_FRECUENCIA,
       },
       {
         tipo: "texto",
         id: "proveedor",
-        etiqueta: "¿Ya tienes proveedor?",
-        marcador: "Nombre o enlace, si lo tienes",
-        ayuda: "Si todavía no lo tienes, lo buscamos y lo verificamos nosotros.",
+        etiqueta: "¿Sabes de dónde podría venir?",
+        marcador: "País, proveedor o enlace, si lo tienes",
+        ayuda: "Si no lo tienes, lo buscamos y lo verificamos nosotros.",
       },
     ],
   },
@@ -262,7 +288,7 @@ export const PASOS: readonly Paso[] = [
     id: "interes",
     titulo: "¿Qué te gustaría importar?",
     bajada: "No necesitas tenerlo definido. Con el rubro nos basta para orientarte.",
-    cuando: (r) => r.perfil === "nunca",
+    cuando: (r) => r.perfil === "sin-experiencia",
     campos: [
       {
         tipo: "texto",

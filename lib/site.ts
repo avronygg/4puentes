@@ -7,10 +7,10 @@
 export const site = {
   nombre: "Cuatro Puentes",
   nombreCorto: "4 Puentes",
-  titulo: "4 Puentes — Importación integral desde Asia al sur de Chile",
+  titulo: "4 Puentes — Importación integral al sur de Chile",
   descripcion:
-    "Importación puerta a puerta desde China y Medio Oriente, con bodegaje y " +
-    "seguro de carga incluidos. Base en Valdivia, cobertura en todo el sur de Chile.",
+    "Importación puerta a puerta desde cualquier parte del mundo, con bodegaje " +
+    "en Valdivia y seguro de carga incluidos. Cobertura en todo el sur de Chile.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://4puentes.cl",
 } as const;
 
