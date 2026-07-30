@@ -1,46 +1,32 @@
+import Image from "next/image";
 import { productos } from "@/lib/contenido";
 import Revelar from "./Revelar";
-import {
-  Bobina,
-  Botella,
-  Copa,
-  Exprimidor,
-  Flecha,
-  Frasco,
-  Kayak,
-  Llave,
-  Monitor,
-  Saco,
-} from "./Icons";
-
-const ICONOS = {
-  monitor: Monitor,
-  bobina: Bobina,
-  exprimidor: Exprimidor,
-  botella: Botella,
-  kayak: Kayak,
-  llave: Llave,
-  copa: Copa,
-  frasco: Frasco,
-  saco: Saco,
-} as const;
+import { Flecha } from "./Icons";
 
 /** Rota la lista para que las dos filas no muestren lo mismo a la misma altura. */
 function rotar<T>(xs: readonly T[], n: number): T[] {
   return [...xs.slice(n), ...xs.slice(0, n)];
 }
 
-function Tarjeta({ p }: { p: (typeof productos)[number] }) {
-  const Icono = ICONOS[p.icono];
+function Tarjeta({ p, duplicada }: { p: (typeof productos)[number]; duplicada: boolean }) {
   return (
     <li className="vitrina__item">
-      <span className="vitrina__icono" aria-hidden>
-        <Icono size={22} />
-      </span>
-      <span className="min-w-0">
+      <div className="vitrina__foto">
+        <Image
+          src={p.foto}
+          // El segundo juego existe sólo para cerrar el bucle: va sin texto
+          // alternativo para no repetirle la lista entera al lector de pantalla.
+          alt={duplicada ? "" : p.alt}
+          width={600}
+          height={600}
+          sizes="240px"
+          loading="lazy"
+        />
+      </div>
+      <div className="vitrina__cuerpo">
         <span className="vitrina__nombre">{p.nombre}</span>
         <span className="vitrina__rubro">{p.rubro}</span>
-      </span>
+      </div>
     </li>
   );
 }
@@ -48,13 +34,12 @@ function Tarjeta({ p }: { p: (typeof productos)[number] }) {
 /** Una fila del desfile. La lista va duplicada para que el bucle no tenga corte. */
 function Fila({ items, inversa }: { items: (typeof productos)[number][]; inversa?: boolean }) {
   return (
-    <ul
-      className={`vitrina__fila ${inversa ? "vitrina__fila--inversa" : ""}`}
-      // El desfile es decorativo: el listado accesible va aparte, más abajo.
-      aria-hidden
-    >
-      {[...items, ...items].map((p, i) => (
-        <Tarjeta key={`${p.nombre}-${i}`} p={p} />
+    <ul className={`vitrina__fila ${inversa ? "vitrina__fila--inversa" : ""}`}>
+      {items.map((p) => (
+        <Tarjeta key={p.nombre} p={p} duplicada={false} />
+      ))}
+      {items.map((p) => (
+        <Tarjeta key={`bis-${p.nombre}`} p={p} duplicada />
       ))}
     </ul>
   );
@@ -80,12 +65,6 @@ export default function Productos() {
         <Fila items={rotar(productos, 0)} />
         <Fila items={rotar(productos, 5)} inversa />
       </div>
-
-      {/* Lo mismo en texto plano para lectores de pantalla y para quien tenga el
-          movimiento desactivado, sin depender de la animación. */}
-      <p className="sr-only">
-        Ejemplos de productos importados: {productos.map((p) => p.nombre).join(", ")}.
-      </p>
 
       <div className="wrap">
         <p className="vitrina__cierre">

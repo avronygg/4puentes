@@ -70,15 +70,60 @@ export const servicios = [
  * PENDIENTE: confirmar que son importaciones ya realizadas y no ejemplos.
  */
 export const productos = [
-  { nombre: "Analizador de composición corporal", rubro: "Equipamiento médico", icono: "monitor" },
-  { nombre: "Cable galvanizado", rubro: "Insumo industrial", icono: "bobina" },
-  { nombre: "Licor de cacao", rubro: "Bebidas", icono: "copa" },
-  { nombre: "Kayaks", rubro: "Deporte y outdoor", icono: "kayak" },
-  { nombre: "Botellas de plástico", rubro: "Envases", icono: "botella" },
-  { nombre: "Exprimidora de jengibre", rubro: "Maquinaria", icono: "exprimidor" },
-  { nombre: "Pasta de dátiles", rubro: "Alimentos", icono: "frasco" },
-  { nombre: "Equipos de ferretería", rubro: "Ferretería", icono: "llave" },
-  { nombre: "Soya proteica", rubro: "Alimentos a granel", icono: "saco" },
+  {
+    nombre: "Analizador de composición corporal",
+    rubro: "Equipamiento médico",
+    foto: "/prod-analizador.webp",
+    alt: "Analizador de composición corporal junto a su caja, en un patio de contenedores",
+  },
+  {
+    nombre: "Cable galvanizado",
+    rubro: "Insumo industrial",
+    foto: "/prod-cable.webp",
+    alt: "Carrete de cable de acero galvanizado en una bodega",
+  },
+  {
+    nombre: "Licor de cacao",
+    rubro: "Bebidas",
+    foto: "/prod-licor-cacao.webp",
+    alt: "Botellas de licor de cacao junto a granos de cacao",
+  },
+  {
+    nombre: "Kayaks",
+    rubro: "Deporte y outdoor",
+    foto: "/prod-kayaks.webp",
+    alt: "Kayaks de colores apilados en un rack, en un patio de contenedores",
+  },
+  {
+    nombre: "Botellas de plástico",
+    rubro: "Envases",
+    foto: "/prod-botellas.webp",
+    alt: "Botellas de plástico transparentes en una línea de producción",
+  },
+  {
+    nombre: "Exprimidora de jengibre",
+    rubro: "Maquinaria",
+    foto: "/prod-exprimidora.webp",
+    alt: "Exprimidora industrial de jengibre en acero inoxidable",
+  },
+  {
+    nombre: "Pasta de dátiles",
+    rubro: "Alimentos",
+    foto: "/prod-datiles.webp",
+    alt: "Frascos de pasta de dátiles junto a dátiles frescos",
+  },
+  {
+    nombre: "Equipos de ferretería",
+    rubro: "Ferretería",
+    foto: "/prod-ferreteria.webp",
+    alt: "Herramientas eléctricas sobre un mesón de taller",
+  },
+  {
+    nombre: "Soya proteica",
+    rubro: "Alimentos a granel",
+    foto: "/prod-soya.webp",
+    alt: "Bolsas de soya proteica texturizada junto a un bol con el producto",
+  },
 ] as const;
 
 export const pasos = [
