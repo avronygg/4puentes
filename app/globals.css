@@ -1473,28 +1473,30 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 0.7, 0.3, 1);
 }
-/* Entrada en cortina: la foto se descubre de arriba hacia abajo cuando la
-   tarjeta aparece. Va sobre la ventana y no sobre la imagen para no pelearse
-   con la deriva continua de abajo. */
-.modalidad[data-revelar] .modalidad__foto {
-  clip-path: inset(0 0 100% 0);
+.modalidad:hover .modalidad__foto img {
+  transform: scale(1.045);
 }
-.modalidad.es-visible .modalidad__foto {
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 0.95s cubic-bezier(0.22, 0.7, 0.3, 1) 0.1s;
+
+/* La entrada va sobre la tarjeta entera, no sobre la foto. Antes la foto se
+   descubría con un clip-path de arriba hacia abajo y eso se leía igual que una
+   imagen cargando a medias.
+   Se usan las propiedades `translate` y `scale` en vez de `transform` a
+   propósito: se aplican antes que `transform`, así el `translateY` del hover
+   convive con la entrada sin pisarla ni pelear por especificidad. */
+.modalidad[data-revelar] {
+  transform: none;
+  translate: 0 34px;
+  scale: 0.965;
 }
-/* Deriva lenta: sin esto la sección queda muerta en móvil, donde no hay hover. */
-.modalidad.es-visible .modalidad__foto img {
-  animation: deriva 22s ease-in-out infinite alternate;
-}
-@keyframes deriva {
-  from {
-    transform: scale(1.02) translate3d(-0.6%, 0, 0);
-  }
-  to {
-    transform: scale(1.07) translate3d(0.6%, -1%, 0);
-  }
+.modalidad[data-revelar].es-visible {
+  translate: none;
+  scale: 1;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.7, 0.3, 1),
+    translate 0.8s cubic-bezier(0.24, 0.9, 0.3, 1),
+    scale 0.8s cubic-bezier(0.24, 0.9, 0.3, 1);
 }
 .modalidad__cuerpo {
   flex: 1;
@@ -1540,19 +1542,19 @@ h3 {
   color: #fff;
 }
 @media (prefers-reduced-motion: reduce) {
-  .modalidad {
+  .modalidad,
+  .modalidad__foto img {
     transition: none;
   }
   .modalidad:hover {
     transform: none;
   }
-  .modalidad[data-revelar] .modalidad__foto,
-  .modalidad.es-visible .modalidad__foto {
-    clip-path: none;
-    transition: none;
+  .modalidad:hover .modalidad__foto img {
+    transform: none;
   }
-  .modalidad.es-visible .modalidad__foto img {
-    animation: none;
+  .modalidad[data-revelar] {
+    translate: none;
+    scale: 1;
   }
 }
 
