@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Image from "next/image";
 import localFont from "next/font/local";
 import { contacto, site } from "@/lib/site";
 import "./globals.css";
@@ -63,7 +64,20 @@ export default function RootLayout({
           <style>{`[data-revelar]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        {/* Cortina de entrada. Va en el HTML del servidor y se retira sola con
+            una animación CSS: sin JavaScript de por medio no hay parpadeo entre
+            el pintado y la hidratación, y si el JS fallara igual desaparece en
+            vez de dejar el sitio tapado. Se levanta mientras el container del
+            hero todavía está bajando, así el primer cuadro ya tiene movimiento. */}
+        <div className="cargador" aria-hidden>
+          <span className="cargador__marca">
+            <Image src="/logo.webp" alt="" width={132} height={129} priority />
+          </span>
+          <span className="cargador__linea" />
+        </div>
+        {children}
+      </body>
     </html>
   );
 }

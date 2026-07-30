@@ -160,6 +160,78 @@ h3 {
   line-height: 1.68;
 }
 
+/* ── CORTINA DE ENTRADA ──────────────────────────────────────────────── */
+/* Todo el ciclo es CSS y termina siempre: a los 1,45 s el elemento queda
+   oculto pase lo que pase. No se cuelga de ningún evento de JavaScript. */
+.cargador {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--spacing-s6);
+  background: radial-gradient(120% 90% at 50% 38%, #12507f 0%, #06284a 68%);
+  animation: cargador-salir 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.85s forwards;
+}
+@keyframes cargador-salir {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.cargador__marca {
+  display: block;
+  animation: cargador-marca 0.8s cubic-bezier(0.22, 0.7, 0.3, 1) both;
+}
+.cargador__marca img {
+  width: clamp(84px, 11vw, 128px);
+  height: auto;
+}
+@keyframes cargador-marca {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cargador__linea {
+  position: relative;
+  overflow: hidden;
+  width: min(168px, 38vw);
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.cargador__linea::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  background: var(--color-terra-400);
+  animation: cargador-linea 0.85s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes cargador-linea {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cargador {
+    animation: cargador-salir 0.25s ease 0.15s forwards;
+  }
+  .cargador__marca,
+  .cargador__linea::after {
+    animation: none;
+  }
+}
+
 /* ── NAV ─────────────────────────────────────────────────────────────── */
 .nav {
   position: fixed;
@@ -203,6 +275,12 @@ h3 {
   .nav.is-stuck .nav__in {
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+  @media (max-width: 1000px) {
+    .nav__in {
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+    }
   }
 }
 
@@ -313,9 +391,26 @@ h3 {
   .nav__toggle {
     display: block;
   }
+  /* En vertical la píldora está desde el primer cuadro, sin esperar al scroll:
+     arriba del hero el nav se apoya sobre la foto del cielo y los enlaces
+     blancos sobre una nube quedaban ilegibles. Lo que hace `is-stuck` acá es
+     sólo encogerla un poco. */
+  .nav__in,
   .nav.is-stuck .nav__in {
     width: min(100% - 28px, 560px);
+    margin-top: var(--spacing-s3);
     padding: 6px 6px 6px var(--spacing-s4);
+    background: var(--nav-glass);
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 1px 1px rgba(70, 12, 8, 0.1),
+      0 12px 36px -12px rgba(70, 12, 8, 0.45);
+  }
+  .nav__logo img {
+    width: 56px;
+  }
+  .nav.is-stuck .nav__logo img {
+    width: 46px;
   }
 }
 
@@ -426,7 +521,14 @@ h3 {
   pointer-events: none;
   right: 8%;
   top: -4%;
-  height: 86%;
+  /* Se dimensiona por el menor de dos presupuestos, no sólo por el alto.
+     El texto tiene ancho fijo y el container crecía con la altura de pantalla:
+     a 1440x950 ya se comía la "N" de IMPORTACIÓN y cortaba la línea del globo.
+     44vw-42px es el hueco que queda a la derecha de la columna de texto; 72svh
+     es el tope por altura. En pantallas anchas manda el alto y conserva el
+     tamaño de siempre. */
+  width: min(44vw - 42px, 72svh);
+  height: auto;
   aspect-ratio: 766 / 907;
   will-change: transform, opacity;
 }
