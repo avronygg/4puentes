@@ -34,19 +34,10 @@ export const navLinks = [
   { href: "#proceso", label: "Cómo funciona" },
   { href: "#rutas", label: "Rutas" },
   { href: "#cobertura", label: "Cobertura" },
-  { href: "#cotizar", label: "Contacto" },
+  { href: "#cotizar", label: "Cotizar" },
 ] as const;
 
-export const origenes = [
-  "China",
-  "Emiratos Árabes Unidos",
-  "Otro mercado asiático",
-  "Todavía no lo defino",
-] as const;
-
-export const tiposCarga = [
-  "Contenedor completo (FCL)",
-  "Carga consolidada (LCL)",
-  "Aéreo",
-  "No estoy seguro",
-] as const;
+/* Acá vivían `origenes` y `tiposCarga`, del formulario de una sola pantalla.
+   Ya no los importa nadie: esas listas ahora son opciones dentro de
+   lib/cotizador.ts. Se eliminaron porque seguían acotadas a Asia y quien las
+   editara creyendo que cambiaba el formulario no habría visto ningún efecto. */

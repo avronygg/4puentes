@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   title: site.titulo,
   description: site.descripcion,
   keywords: [
-    "importación china chile",
-    "importar desde china",
+    "importación integral chile",
+    "importar a chile",
     "agente de aduana valdivia",
     "bodegaje valdivia",
     "seguro de carga importación",

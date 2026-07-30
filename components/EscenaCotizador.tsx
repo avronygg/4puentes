@@ -10,8 +10,9 @@
 type Marca = { id: string; titulo: string };
 
 /** Las cuatro ramas del medio comparten escena: todas preguntan por la carga. */
-function escenaDe(paso: string): "perfil" | "detalle" | "logistica" | "contacto" {
+function escenaDe(paso: string): "perfil" | "detalle" | "compra" | "logistica" | "contacto" {
   if (paso === "perfil") return "perfil";
+  if (paso === "compra-local") return "compra";
   if (paso === "logistica") return "logistica";
   if (paso === "contacto") return "contacto";
   return "detalle";
@@ -34,6 +35,7 @@ const ROTULOS: Record<string, string> = {
 const TEXTOS = {
   perfil: { titulo: "Tu caso", apoyo: "Ajustamos las preguntas a tu situación." },
   detalle: { titulo: "La carga", apoyo: "Qué traes y en qué volumen." },
+  compra: { titulo: "Tu compra", apoyo: "Qué compras hoy y cuánto gastas." },
   logistica: { titulo: "La ruta", apoyo: "Desde dónde sale y cómo viaja." },
   contacto: { titulo: "El contacto", apoyo: "A quién le mandamos la cotización." },
 } as const;

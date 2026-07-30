@@ -12,7 +12,7 @@ export default function Servicios() {
           <h2 data-revelar>Tres formas de trabajar con nosotros</h2>
           <p className="lede" data-revelar>
             No necesitas un departamento de comercio exterior. Elige el caso que
-            se parece al tuyo y te devolvemos un costo total puesto en tu bodega.
+            más se parece al tuyo y te entregamos un costo total puesto en tu bodega.
           </p>
         </Revelar>
 

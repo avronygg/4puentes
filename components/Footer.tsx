@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { contacto, navLinks } from "@/lib/site";
+import { servicios as servicioCards } from "@/lib/contenido";
+import { contacto, navLinks, whatsappUrl } from "@/lib/site";
 import { Flecha, Pin, Sobre, Telefono, WhatsApp } from "./Icons";
-import { whatsappUrl } from "@/lib/site";
 
-const servicios = [
-  { href: "#servicios", label: "Importación integral" },
-  { href: "#servicios", label: "Bodegaje" },
-  { href: "#servicios", label: "Seguros de carga" },
-  { href: "#proceso", label: "Cómo funciona" },
-];
+// Los mismos tres servicios de la sección, no una lista de capacidades: antes
+// el pie ofrecía otros nombres y los tres apuntaban al mismo ancla. Enlazan al
+// cotizador con el perfil marcado, igual que las tarjetas.
+const servicios = servicioCards.map((s) => ({
+  href: `/?perfil=${s.perfil}#cotizar`,
+  label: s.titulo,
+}));
 
 export default function Footer() {
   return (
@@ -22,7 +23,7 @@ export default function Footer() {
               ¿Traemos tu próxima carga?
             </h2>
             <p className="mt-s4 mb-0 max-w-[46ch] text-[1rem] leading-[1.6] text-foot-fg-muted">
-              Cuéntanos qué necesitas y te devolvemos un costo total puesto en tu
+              Cuéntanos qué necesitas y te entregamos un costo total puesto en tu
               bodega.
             </p>
           </div>
@@ -54,7 +55,7 @@ export default function Footer() {
             />
             <p className="m-0 max-w-[34ch] text-[0.93rem] leading-[1.65] text-foot-fg-muted">
               Importación integral, bodegaje y seguros para empresas del sur de
-              Chile. Desde Valdivia al mundo.
+              Chile. Del mundo a tu bodega.
             </p>
           </div>
 

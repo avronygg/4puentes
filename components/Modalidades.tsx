@@ -10,7 +10,8 @@ import { AvionCarga, Barco, Flecha } from "./Icons";
 const modalidades = [
   {
     src: "/modalidad-maritima.webp",
-    alt: "Buque portacontenedores de Cuatro Puentes navegando en alta mar",
+    // El alt describe lo que se ve, sin afirmar que la naviera sea propia.
+    alt: "Buque portacontenedores navegando en alta mar",
     Icono: Barco,
     titulo: "Vía marítima",
     texto:
@@ -20,7 +21,7 @@ const modalidades = [
   },
   {
     src: "/modalidad-aerea.webp",
-    alt: "Avión de carga de Cuatro Puentes sobrevolando las nubes",
+    alt: "Avión de carga sobrevolando las nubes",
     Icono: AvionCarga,
     titulo: "Vía aérea",
     texto:
@@ -37,7 +38,7 @@ export default function Modalidades() {
         <Revelar className="section-head">
           <h2 data-revelar>Marítimo o aéreo, según lo que necesites</h2>
           <p className="lede" data-revelar>
-            Te decimos cuál conviene para tu carga: casi siempre es el costo por
+            Te decimos cuál conviene: casi siempre decide el costo por
             kilo, pero cuando el plazo aprieta la respuesta cambia.
           </p>
         </Revelar>

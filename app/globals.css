@@ -614,7 +614,9 @@ h3 {
 .hero h1 {
   font-size: clamp(2.7rem, 1rem + 7.4vw, 5.6rem);
   font-weight: 800;
-  line-height: 0.96;
+  /* 0.96 apretaba tanto las líneas que la tilde de LÍMITES rozaba la de
+     IMPORTACIÓN. 1.04 las separa sin que el titular pierda fuerza. */
+  line-height: 1.04;
   letter-spacing: -0.038em;
   text-transform: uppercase;
   margin: 0;
@@ -641,6 +643,10 @@ h3 {
     font-size: clamp(2.4rem, 12.4vw, 4.2rem);
   }
   .hero__ship {
+    /* En vertical el container pasa DETRÁS del texto: al ocupar casi todo el
+       ancho, por delante tapaba el titular. En escritorio sigue adelante, donde
+       hay espacio de sobra a la derecha. */
+    z-index: 0;
     /* En vertical manda otro render, con los cables largos: la pieza arranca en
        el borde de arriba para que la cuerda llegue al techo de la pantalla.
        El asset va recortado, así que el borde de abajo del elemento es el borde
@@ -967,66 +973,6 @@ h3 {
   }
   .proceso__paso.es-visible .proceso__nodo::after {
     animation: none;
-  }
-}
-
-/* ── TARJETAS DE MERCADO ─────────────────────────────────────────────── */
-.mercado {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  padding: var(--spacing-s7) var(--spacing-s6) var(--spacing-s6);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  transition: transform 0.4s cubic-bezier(0.22, 0.7, 0.3, 1), box-shadow 0.4s ease;
-}
-.mercado:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 26px 54px -30px rgba(26, 22, 21, 0.34);
-}
-/* Arco decorativo: repite el gesto de las rutas del mapa. */
-.mercado__arco {
-  position: absolute;
-  top: -30%;
-  right: -18%;
-  width: 62%;
-  opacity: 0.5;
-  pointer-events: none;
-}
-.mercado--destacado {
-  border-color: color-mix(in srgb, var(--color-terra-400) 32%, transparent);
-  background:
-    radial-gradient(
-      120% 90% at 100% 0%,
-      color-mix(in srgb, var(--color-terra-400) 11%, transparent),
-      transparent 62%
-    ),
-    var(--surface);
-}
-.mercado__puerto {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  font-family: var(--font-mono);
-  font-size: 0.71rem;
-  letter-spacing: 0.03em;
-  color: var(--fg-muted);
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-.mercado:hover .mercado__puerto {
-  border-color: color-mix(in srgb, var(--color-terra-400) 30%, transparent);
-  color: var(--color-terra-700);
-}
-@media (prefers-reduced-motion: reduce) {
-  .mercado {
-    transition: none;
-  }
-  .mercado:hover {
-    transform: none;
   }
 }
 

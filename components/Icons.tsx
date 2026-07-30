@@ -39,29 +39,6 @@ export const Auricular = ({ size = 18, className }: P) => (
   </svg>
 );
 
-export const Caja = ({ size = 22, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 17V8.6a1 1 0 01.6-.92l7.8-3.5a1.4 1.4 0 011.2 0l7.8 3.5a1 1 0 01.6.92V17" />
-    <path d="M3 17l8.4 3.8a1.4 1.4 0 001.2 0L21 17" />
-    <path d="M12 21V10.8M3.3 8.2L12 12l8.7-3.8" />
-  </svg>
-);
-
-export const Galpon = ({ size = 22, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 10.4L12 4l9 6.4V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" />
-    <rect x="7.5" y="13" width="9" height="8" />
-    <path d="M7.5 17h9" />
-  </svg>
-);
-
-export const EscudoCheck = ({ size = 22, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 3l7.6 3v5.5c0 4.6-3.2 8.4-7.6 9.8-4.4-1.4-7.6-5.2-7.6-9.8V6z" />
-    <path d="M9 12.2l2.2 2.2 4.2-4.4" />
-  </svg>
-);
-
 export const Check = ({ size = 14, className }: P) => (
   <svg {...base(size)} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M4 12.5l5 5L20 6.5" />

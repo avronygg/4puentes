@@ -38,7 +38,7 @@ function cuerpoHtml(datos: Respuestas): string {
     .join("");
 
   return `<div style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;max-width:560px">
-    <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#9c403b">4 Puentes</p>
+    <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d5150d">4 Puentes</p>
     <h1 style="margin:0 0 20px;font-size:20px;color:#1a1a1b">Nueva solicitud de cotización</h1>
     <table style="border-collapse:collapse;width:100%">${filas}</table>
     <p style="margin:24px 0 0;font-size:12px;color:#63615f">

@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import { Auricular, Bodega, Escudo, Flecha, Globo, GloboFino } from "./Icons";
 
 const confianza = [
-  { Icono: Globo, texto: "Cobertura global" },
+  { Icono: Globo, texto: "Puerta a puerta" },
   { Icono: Escudo, texto: "Carga asegurada" },
   { Icono: Bodega, texto: "Bodegaje incluido" },
-  { Icono: Auricular, texto: "Atención personalizada" },
+  { Icono: Auricular, texto: "Un solo interlocutor" },
 ];
 
 export default function Hero() {

@@ -85,19 +85,19 @@ export const PERFILES = [
   {
     valor: "ya-importo",
     titulo: "Ya importo y quiero delegarlo",
-    detalle: "Busco un operador que se haga cargo de la cadena completa.",
+    detalle: "Busco un operador que se haga cargo de la cadena completa",
     icono: "tendencia",
   },
   {
     valor: "compro-en-chile",
     titulo: "Compro en Chile y quiero traerlo directo",
-    detalle: "Quiero bajar el costo de mis insumos comprando en origen.",
+    detalle: "Quiero bajar el costo de mis insumos comprando en origen",
     icono: "etiqueta",
   },
   {
     valor: "sin-experiencia",
     titulo: "Nunca he importado",
-    detalle: "Necesito que me asesoren de principio a fin.",
+    detalle: "Necesito que me asesoren de principio a fin",
     icono: "brujula",
   },
 ] as const satisfies readonly Opcion[];
@@ -106,7 +106,7 @@ export const PERFILES = [
    Cantidad y peso se preguntan en más de una rama: se definen una sola vez
    para que dos perfiles distintos no terminen con escalas distintas y las
    respuestas se puedan comparar entre leads. Los cortes son los habituales
-   en importación desde Asia al sur de Chile. */
+   en importación al sur de Chile. */
 const OPCIONES_CANTIDAD = [
   {
     valor: "menos-contenedor",
@@ -114,7 +114,7 @@ const OPCIONES_CANTIDAD = [
     detalle: "Carga suelta o consolidada",
     icono: "cajas",
   },
-  { valor: "un-contenedor", titulo: "1 contenedor", detalle: "20' o 40' completo", icono: "contenedor" },
+  { valor: "un-contenedor", titulo: "1 contenedor", detalle: "20 o 40 pies, completo", icono: "contenedor" },
   { valor: "2-5-contenedores", titulo: "Entre 2 y 5 contenedores", icono: "barco" },
   {
     valor: "mas-5-contenedores",
@@ -128,7 +128,7 @@ const OPCIONES_CANTIDAD = [
 const OTRO_CANTIDAD = {
   valor: "otro",
   etiqueta: "¿Qué cantidad, aproximadamente?",
-  marcador: "Ej: 300 cajas, 12 pallets…",
+  marcador: "Ej.: 300 cajas, 12 pallets…",
 } as const;
 
 const OPCIONES_PESO = [
@@ -161,14 +161,14 @@ const OPCIONES_FRECUENCIA = [
 const OTRO_PESO = {
   valor: "otro",
   etiqueta: "¿Cuánto pesa o cuánto mide?",
-  marcador: "Ej: 2,5 toneladas · 3×1,8×2 m",
+  marcador: "Ej.: 2,5 toneladas · 3×1,8×2 m",
 } as const;
 
 export const PASOS: readonly Paso[] = [
   {
     id: "perfil",
-    titulo: "¿Cuál de estas se parece más a tu caso?",
-    bajada: "Con esto ajustamos las preguntas a lo que realmente necesitas.",
+    titulo: "¿Cuál de estas situaciones se parece más a tu caso?",
+    bajada: "Son tres o cuatro preguntas y cambian según lo que elijas.",
     campos: [
       { tipo: "opcion", id: "perfil", etiqueta: "Tu situación", requerido: true, opciones: PERFILES },
     ],
@@ -191,7 +191,7 @@ export const PASOS: readonly Paso[] = [
       {
         tipo: "opcion",
         id: "costoActual",
-        etiqueta: "¿Cuánto te cuesta hoy puesto en bodega?",
+        etiqueta: "¿Cuánto te cuesta hoy cada embarque, puesto en tu bodega?",
         ayuda: "Un aproximado por embarque basta: es la cifra contra la que comparamos.",
         requerido: true,
         opciones: [
@@ -200,12 +200,12 @@ export const PASOS: readonly Paso[] = [
           { valor: "8000-20000", titulo: "Entre USD 8.000 y USD 20.000", icono: "barco" },
           { valor: "mas-20000", titulo: "Más de USD 20.000", icono: "tendencia" },
           { valor: "prefiero-no-decir", titulo: "Prefiero no decirlo", icono: "interrogacion" },
-          { valor: "otro", titulo: "Otro", detalle: "Lo indico yo", icono: "etiqueta" },
+          { valor: "otro", titulo: "Otro", detalle: "Lo describo yo", icono: "etiqueta" },
         ],
         otro: {
           valor: "otro",
           etiqueta: "¿Cuánto, aproximadamente?",
-          marcador: "Ej: USD 12.500 por embarque",
+          marcador: "Ej.: USD 12.500 por embarque",
         },
       },
       {
@@ -219,7 +219,7 @@ export const PASOS: readonly Paso[] = [
       {
         tipo: "opcion",
         id: "peso",
-        etiqueta: "¿Cuánto peso, aproximadamente?",
+        etiqueta: "¿Cuánto pesa la carga, aproximadamente?",
         opciones: OPCIONES_PESO,
         otro: OTRO_PESO,
       },
@@ -243,7 +243,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "texto",
         id: "producto",
         etiqueta: "¿Qué insumo o producto compras?",
-        marcador: "Descríbelo lo más concreto que puedas",
+        marcador: "Tornillos, sacos de cemento, envases…",
         requerido: true,
       },
       {
@@ -251,21 +251,21 @@ export const PASOS: readonly Paso[] = [
         // por embarque como en la rama de quien ya importa.
         tipo: "opcion",
         id: "gastoLocal",
-        etiqueta: "¿Cuánto gastas hoy en ese insumo?",
-        ayuda: "Un aproximado mensual basta. Es la cifra contra la que comparamos.",
+        etiqueta: "¿Cuánto gastas al mes en ese insumo?",
+        ayuda: "Un aproximado basta: es la cifra contra la que comparamos.",
         requerido: true,
         opciones: [
-          { valor: "menos-2m", titulo: "Menos de $2 millones", detalle: "Al mes", icono: "cajas" },
+          { valor: "menos-2m", titulo: "Menos de $2 millones (CLP)", icono: "cajas" },
           { valor: "2-10m", titulo: "Entre $2 y $10 millones", icono: "contenedor" },
           { valor: "10-30m", titulo: "Entre $10 y $30 millones", icono: "barco" },
           { valor: "mas-30m", titulo: "Más de $30 millones", icono: "tendencia" },
           { valor: "prefiero-no-decir", titulo: "Prefiero no decirlo", icono: "interrogacion" },
-          { valor: "otro", titulo: "Otro", detalle: "Lo indico yo", icono: "etiqueta" },
+          { valor: "otro", titulo: "Otro", detalle: "Lo describo yo", icono: "etiqueta" },
         ],
         otro: {
           valor: "otro",
           etiqueta: "¿Cuánto, aproximadamente?",
-          marcador: "Ej: $6 millones al mes",
+          marcador: "Ej.: $6 millones al mes",
         },
       },
       {
@@ -278,9 +278,9 @@ export const PASOS: readonly Paso[] = [
       {
         tipo: "texto",
         id: "proveedor",
-        etiqueta: "¿Sabes de dónde podría venir?",
+        etiqueta: "¿Sabes de qué país o proveedor podría venir?",
         marcador: "País, proveedor o enlace, si lo tienes",
-        ayuda: "Si no lo tienes, lo buscamos y lo verificamos nosotros.",
+        ayuda: "Si no lo sabes, buscamos y verificamos al proveedor nosotros.",
       },
     ],
   },
@@ -303,9 +303,9 @@ export const PASOS: readonly Paso[] = [
         etiqueta: "¿En qué etapa estás?",
         requerido: true,
         opciones: [
-          { valor: "explorando", titulo: "Explorando", detalle: "Quiero entender costos y plazos.", icono: "brujula" },
-          { valor: "decidido", titulo: "Decidido", detalle: "Quiero importar este año.", icono: "check" },
-          { valor: "urgente", titulo: "Con urgencia", detalle: "Lo necesito lo antes posible.", icono: "rayo" },
+          { valor: "explorando", titulo: "Explorando", detalle: "Quiero entender costos y plazos", icono: "brujula" },
+          { valor: "decidido", titulo: "Decidido", detalle: "Quiero importar este año", icono: "check" },
+          { valor: "urgente", titulo: "Con urgencia", detalle: "Lo necesito lo antes posible", icono: "rayo" },
         ],
       },
     ],
@@ -315,7 +315,7 @@ export const PASOS: readonly Paso[] = [
   {
     id: "logistica",
     titulo: "Origen y tipo de carga",
-    bajada: "Si no lo tienes claro, elige «Todavía no lo sé» y lo vemos juntos.",
+    bajada: "Si no lo tienes claro, elige la última opción de cada pregunta.",
     campos: [
       {
         tipo: "opcion",
@@ -325,24 +325,24 @@ export const PASOS: readonly Paso[] = [
         // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
         // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
         opciones: [
-          { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Shanghái…", icono: "barco" },
+          { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Qingdao…", icono: "barco" },
           { valor: "asia", titulo: "Otro país de Asia", detalle: "Corea, Vietnam, India…", icono: "contenedor" },
-          { valor: "medio-oriente", titulo: "Medio Oriente", detalle: "Emiratos Árabes, Jebel Ali…", icono: "pin" },
-          { valor: "america", titulo: "Estados Unidos o México", detalle: "Los Ángeles, Houston, Manzanillo", icono: "avion" },
-          { valor: "europa", titulo: "Europa", detalle: "Rotterdam y otros puertos", icono: "globo" },
-          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos.", icono: "interrogacion" },
+          { valor: "medio-oriente", titulo: "Medio Oriente", detalle: "Jebel Ali, Abu Dabi…", icono: "pin" },
+          { valor: "america", titulo: "Estados Unidos o México", detalle: "Los Ángeles, Houston…", icono: "avion" },
+          { valor: "europa", titulo: "Europa", detalle: "Rotterdam, Amberes…", icono: "globo" },
+          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos", icono: "interrogacion" },
         ],
       },
       {
         tipo: "opcion",
         id: "carga",
-        etiqueta: "¿Cómo debería viajar?",
+        etiqueta: "¿Cómo debería viajar la carga?",
         requerido: true,
         opciones: [
-          { valor: "fcl", titulo: "Contenedor completo", detalle: "FCL", icono: "contenedor" },
-          { valor: "lcl", titulo: "Carga consolidada", detalle: "LCL, comparto contenedor", icono: "cajas" },
+          { valor: "fcl", titulo: "Contenedor completo", detalle: "FCL, sólo tu carga", icono: "contenedor" },
+          { valor: "lcl", titulo: "Carga consolidada", detalle: "LCL, compartes contenedor", icono: "cajas" },
           { valor: "aereo", titulo: "Aéreo", detalle: "Urgente o de bajo volumen", icono: "avion" },
-          { valor: "no-se", titulo: "No estoy seguro", detalle: "Recomiéndenme ustedes", icono: "interrogacion" },
+          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Prefiero que me recomienden", icono: "interrogacion" },
         ],
       },
     ],
@@ -353,14 +353,14 @@ export const PASOS: readonly Paso[] = [
     bajada: "Te contactamos con la cotización dentro de un día hábil.",
     campos: [
       { tipo: "texto", id: "nombre", etiqueta: "Nombre", marcador: "Tu nombre", requerido: true, max: 120 },
-      { tipo: "texto", id: "empresa", etiqueta: "Empresa", marcador: "Opcional", max: 160 },
+      { tipo: "texto", id: "empresa", etiqueta: "Empresa", marcador: "Nombre de tu empresa", max: 160 },
       { tipo: "email", id: "email", etiqueta: "Correo", marcador: "tu@empresa.cl", requerido: true, max: 160 },
-      { tipo: "tel", id: "telefono", etiqueta: "Teléfono o WhatsApp", marcador: "+56 9 ...", max: 40 },
+      { tipo: "tel", id: "telefono", etiqueta: "Teléfono o WhatsApp", marcador: "+56 9 1234 5678", max: 40 },
       {
         tipo: "parrafo",
         id: "mensaje",
         etiqueta: "¿Algo más que debamos saber?",
-        marcador: "Opcional",
+        marcador: "Plazos, permisos, algo particular de tu carga…",
         max: 2000,
       },
     ],
@@ -407,7 +407,7 @@ export function validarPaso(paso: Paso, r: Respuestas): Record<string, string> {
       errores[idOtro(campo.id)] = "Elegiste «Otro»: escríbelo para poder seguir.";
     }
     if (campo.tipo === "email" && !EMAIL.test(valor)) {
-      errores[campo.id] = "Revisa el correo: falta el @ o el dominio.";
+      errores[campo.id] = "Revisa el correo: debe verse como nombre@empresa.cl.";
     }
   }
 

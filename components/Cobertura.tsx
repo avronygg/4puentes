@@ -26,9 +26,9 @@ export default function Cobertura() {
             <em className="not-italic text-terra-300">Nosotros cruzamos océanos.</em>
           </p>
           <p data-revelar className="lede">
-            Somos de acá. Hablas con alguien que conoce tu ciudad, tu puerto de
-            entrada y los tiempos reales de llegada a tu bodega, con la red y los
-            costos de un operador internacional.
+            Somos de acá: hablas con alguien que conoce tu ciudad, tu puerto de
+            entrada y los plazos reales de llegada. Con la red y los costos de un
+            operador internacional.
           </p>
         </div>
 

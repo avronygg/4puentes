@@ -180,8 +180,8 @@ export default function Cotizar() {
         <div className="section-head">
           <h2>Cuéntanos qué necesitas traer</h2>
           <p className="lede">
-            Son unas pocas preguntas y cambian según tu caso. Al final te
-            entregamos un costo total puesto en tu bodega.
+            Son unas pocas preguntas y cambian según tu caso. Con eso preparamos un
+            costo total puesto en tu bodega.
           </p>
         </div>
 

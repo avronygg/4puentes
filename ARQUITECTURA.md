@@ -36,12 +36,18 @@ hero y las tarjetas.
 - **El vidrio del nav es ese mismo rojo al 85%** (`--nav-glass`). Sobre una
   sección clara el texto blanco queda en **3,58:1**. Subir la opacidad no lo
   arregla —a 100% son los 3,95:1 del rojo puro—: lo que hay que cambiar es el
-  tono, no la transparencia. Sobre el vidrio el CTA se invierte a blanco con
-  texto rojo, que es lo único que ahí sí cumple.
+  tono, no la transparencia. Invertir tampoco: sobre el vidrio el CTA pasa a
+  fondo blanco con texto rojo, y el contraste es el mismo 3,95:1, porque la
+  razón entre dos luminancias no depende de cuál va encima.
 - **Dos bloques oscuros y el pie en toda la página**: "Cómo funciona"
-  (`--color-terra-900` sólido) y Cobertura (foto de mar con velo). Están
-  alternados a propósito —blanco, oscuro, blanco, blanco, oscuro, blanco, pie—
-  y agregar un tercero rompe ese ritmo.
+  (`--color-terra-900` sólido) y Cobertura (`.section--sea`, foto de mar).
+  Están alternados a propósito —blanco, oscuro, blanco, blanco, oscuro, blanco,
+  pie— y agregar un tercero rompe ese ritmo.
+- **Cobertura es un bloque de foto para cortar la seguidilla de secciones
+  blancas** que quedaba entre el mapa de rutas y el formulario. El velo de `.sea-bg`
+  es fuerte y va más cargado abajo: la textura del agua es clara y muy movida, y
+  con menos velo el texto blanco se pierde en las crestas. Si se reemplaza la
+  foto, lo primero a revisar es el velo, no el texto.
 
 ## El hero: tres capas
 
@@ -278,10 +284,11 @@ Los ratios que están fijados en el CSS y valen para cualquier pantalla:
 | Elemento | Contraste | Mínimo AA | Estado |
 |---|---|---|---|
 | Texto blanco sobre el rojo de marca `#FD190F` (botones, CTA, cotizador) | 3,95 | 4,5 | No cumple |
+| Rojo de marca sobre blanco (CTA invertido del nav al bajar) | 3,95 | 4,5 | No cumple |
 | Texto blanco sobre el hover `#D5150D` | 5,38 | 4,5 | Cumple |
 | Texto blanco sobre el vidrio del nav, sobre sección clara | 3,58 | 4,5 | No cumple |
 
-Los dos "no cumple" son la deuda abierta que describe PENDIENTES.md.
+Los "no cumple" son la deuda abierta que describe PENDIENTES.md.
 
 **Lo que se apoya en la foto del cielo no está medido con el diseño actual.** La
 tabla anterior de este archivo venía de mediciones sobre capturas del sitio

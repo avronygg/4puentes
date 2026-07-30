@@ -23,7 +23,7 @@ export const servicios = [
     titulo: "Operador logístico integral",
     texto:
       "Ya traes carga y no quieres seguir coordinando proveedores, navieras y " +
-      "aduana. Tomamos la cadena completa y respondemos por ella de punta a punta.",
+      "aduana. Tomamos la cadena completa y respondemos por ella.",
     items: [
       "Un solo interlocutor por embarque",
       "Comparamos contra tu costo actual",
@@ -36,12 +36,12 @@ export const servicios = [
     etiqueta: "Compras en Chile",
     titulo: "Compra directa en origen",
     texto:
-      "Hoy le compras a un intermediario local. Buscamos y verificamos el " +
+      "Hoy le compras a un intermediario local. Buscamos y verificamos al " +
       "proveedor en origen para que traigas el mismo insumo sin ese margen " +
       "encima.",
     items: [
-      "Búsqueda y verificación de proveedor",
-      "Costo puesto en bodega, comparable",
+      "Buscamos y verificamos al proveedor",
+      "Costo puesto en bodega, comparable con el tuyo",
       "Bodega en Valdivia y seguro incluidos",
     ],
   },
@@ -52,10 +52,11 @@ export const servicios = [
     titulo: "Importación asesorada",
     texto:
       "Nunca has importado y no sabes por dónde partir. Te acompañamos desde " +
-      "la idea: qué conviene traer, cuánto cuesta de verdad y qué se necesita.",
+      "la idea: qué conviene traer, cuánto cuesta de verdad y qué papeles se " +
+      "necesitan.",
     items: [
-      "Asesoría desde la primera pregunta",
-      "Sin departamento de comercio exterior",
+      "Te explicamos cada paso antes de darlo",
+      "No necesitas equipo propio",
       "Bodega en Valdivia y seguro incluidos",
     ],
   },
@@ -68,13 +69,13 @@ export const pasos = [
     texto:
       "Nos cuentas qué necesitas importar. Te entregamos un costo total puesto " +
       "en tu bodega: producto, flete, derechos e IVA, seguro y transporte " +
-      "interno. Sin sorpresas al final.",
+      "interno. Ningún costo aparece después.",
   },
   {
     n: "02",
     titulo: "Compra y verificación en origen",
     texto:
-      "Contactamos y validamos al proveedor en el país de origen, negociamos " +
+      "Contactamos y verificamos al proveedor en el país de origen, negociamos " +
       "condiciones y coordinamos la compra y la inspección antes de embarcar.",
   },
   {
@@ -82,14 +83,15 @@ export const pasos = [
     titulo: "Flete internacional",
     texto:
       "Consolidamos y embarcamos por vía marítima o aérea según urgencia y " +
-      "volumen, con seguimiento del contenedor en cada tramo de la ruta.",
+      "volumen, con seguimiento de la carga en cada tramo de la ruta.",
   },
   {
     n: "04",
-    titulo: "Aduana y desconsolidación",
+    titulo: "Aduana y liberación",
     texto:
       "Agenciamiento aduanero, pago de derechos e IVA y liberación de la carga " +
-      "en puerto. Toda la documentación la preparamos nosotros.",
+      "en puerto, y traslado hasta nuestra bodega de Valdivia. Toda la " +
+      "documentación la preparamos nosotros.",
   },
   {
     n: "05",
