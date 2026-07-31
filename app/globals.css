@@ -1570,6 +1570,239 @@ h3 {
   }
 }
 
+/* ── QUIÉN TE ASESORA ────────────────────────────────────────────────── */
+.fundador {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--spacing-s9);
+}
+@media (max-width: 900px) {
+  .fundador {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s6);
+  }
+}
+.fundador__retrato {
+  position: sticky;
+  top: 108px;
+  overflow: hidden;
+  border-radius: 20px;
+  aspect-ratio: 4 / 5;
+  background: var(--accent-wash);
+  border: 1px solid var(--line);
+}
+@media (max-width: 900px) {
+  .fundador__retrato {
+    position: static;
+    aspect-ratio: 3 / 2;
+  }
+}
+.fundador__retrato img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fundador__marcador {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--spacing-s4);
+  height: 100%;
+  background: radial-gradient(
+    120% 90% at 50% 30%,
+    color-mix(in srgb, var(--color-terra-400) 14%, transparent),
+    transparent 70%
+  );
+}
+.fundador__marcador img {
+  width: 96px;
+  height: auto;
+  opacity: 0.32;
+  /* El logo es blanco: sobre el lavado claro hay que oscurecerlo para verlo. */
+  filter: brightness(0) saturate(100%) invert(18%) sepia(72%) saturate(3500%) hue-rotate(354deg);
+}
+.fundador__marcador span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-terra-600);
+  opacity: 0.75;
+}
+
+.fundador__etiqueta {
+  margin: 0 0 var(--spacing-s4);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-terra-600);
+}
+/* La frase que abre va en voz del fundador: más grande que el cuerpo pero sin
+   competir con el titular. */
+.fundador__entrada {
+  margin: var(--spacing-s5) 0 0;
+  font-size: clamp(1.12rem, 1rem + 0.6vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--fg);
+  text-wrap: balance;
+}
+.fundador__parrafo {
+  margin: var(--spacing-s5) 0 0;
+  max-width: 58ch;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--fg-muted);
+}
+.fundador__firma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-s3);
+  margin: var(--spacing-s6) 0 0;
+  padding-top: var(--spacing-s5);
+  border-top: 1px solid var(--line);
+}
+.fundador__firma > :first-child {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.fundador__firma > :last-child {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.fundador__credenciales {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-s4);
+  margin: var(--spacing-s6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.fundador__credenciales li {
+  padding: var(--spacing-s5);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.fundador__dato {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-terra-600);
+}
+.fundador__unidad {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--fg-muted);
+}
+.fundador__detalle {
+  display: block;
+  margin-top: var(--spacing-s2);
+  font-size: 0.87rem;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+
+/* ── CASOS ───────────────────────────────────────────────────────────── */
+.casos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: var(--spacing-s5);
+}
+.caso {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-s6);
+  border: 1px solid color-mix(in srgb, var(--color-terra-300) 22%, transparent);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.caso:hover {
+  border-color: color-mix(in srgb, var(--color-terra-300) 45%, transparent);
+  background: rgba(255, 255, 255, 0.075);
+}
+.caso__rubro {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-terra-300);
+}
+/* La cifra es el argumento: va al tamaño de un titular. */
+.caso__cifra {
+  margin: var(--spacing-s4) 0 0;
+  font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #fff;
+}
+.caso__logro {
+  display: block;
+  margin-top: var(--spacing-s3);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--color-terra-300);
+}
+.caso__texto {
+  margin: var(--spacing-s5) 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #d9a9a4;
+}
+.caso__extras {
+  margin: var(--spacing-s5) 0 0;
+  padding: var(--spacing-s5) 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 18%, transparent);
+  list-style: none;
+  display: grid;
+  gap: var(--spacing-s3);
+}
+.caso__extras li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-s3);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #d9a9a4;
+}
+.caso__extras svg {
+  color: var(--color-terra-300);
+}
+/* Declarar el vínculo es la única forma de que el caso siga siendo creíble. */
+.caso__aviso {
+  margin: var(--spacing-s5) 0 0;
+  padding-top: var(--spacing-s4);
+  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 18%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, #fff 55%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .caso {
+    transition: none;
+  }
+}
+
 /* ── MODALIDADES: marítimo y aéreo ───────────────────────────────────── */
 .modalidad {
   display: flex;

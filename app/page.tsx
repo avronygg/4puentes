@@ -1,6 +1,8 @@
+import Casos from "@/components/Casos";
 import Cobertura from "@/components/Cobertura";
 import Cotizar from "@/components/Cotizar";
 import Footer from "@/components/Footer";
+import Fundador from "@/components/Fundador";
 import Hero from "@/components/Hero";
 import Modalidades from "@/components/Modalidades";
 import Nav from "@/components/Nav";
@@ -23,10 +25,12 @@ export default function Home() {
       <main id="contenido">
         <Hero />
         <Servicios />
+        <Fundador />
         <Proceso />
         <Productos />
         <Modalidades />
         <Rutas />
+        <Casos />
         <Cobertura />
         <Cotizar />
       </main>
