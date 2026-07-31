@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   PERFILES,
+  camposVisibles,
   idOtro,
   mensajeWhatsApp,
   pasosVisibles,
@@ -118,7 +119,7 @@ export default function Cotizar() {
         setEstado("editando");
         // El servidor puede rechazar un dato de un paso anterior: hay que volver.
         const fallo = pasos.findIndex((p) =>
-          p.campos.some((c) => e[c.id] || e[idOtro(c.id)]),
+          camposVisibles(p, r).some((c) => e[c.id] || e[idOtro(c.id)]),
         );
         if (fallo >= 0) irA(fallo);
         return;
@@ -171,7 +172,7 @@ export default function Cotizar() {
   }
 
   const yaRespondido = resumen(r).filter(
-    (f) => !paso.campos.some((c) => c.etiqueta === f.etiqueta),
+    (f) => !camposVisibles(paso, r).some((c) => c.etiqueta === f.etiqueta),
   );
 
   return (
@@ -229,7 +230,7 @@ export default function Cotizar() {
               {paso.bajada && <p className="cotizador__bajada">{paso.bajada}</p>}
 
               <div className="mt-s6 grid gap-s6">
-                {paso.campos.map((campo) => (
+                {camposVisibles(paso, r).map((campo) => (
                   <CampoFormulario
                     key={campo.id}
                     campo={campo}

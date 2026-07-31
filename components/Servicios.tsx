@@ -14,9 +14,9 @@ export default function Servicios() {
             <em className="destacado">con nosotros</em>
           </h2>
           <p className="lede" data-revelar>
-            No necesitas un departamento de comercio exterior ni entender de
-            incoterms. Elige el caso que más se parece al tuyo y te entregamos{" "}
-            <strong>un costo total puesto en tu bodega</strong>, con todo incluido.
+            No necesitas saber nada de importaciones ni tener gente dedicada a
+            esto. Elige el caso que más se parece al tuyo y te entregamos{" "}
+            <strong>un precio final, con todo incluido</strong>, puesto en tu bodega.
           </p>
         </Revelar>
 

@@ -46,9 +46,10 @@ export default function Rutas() {
               <em className="destacado">en tu bodega</em>
             </h2>
             <p className="lede">
-              Consolidamos en origen y traemos la carga hasta el sur de Chile,
-              salga del puerto que salga. <strong>Tú no coordinas con nadie más</strong>:
-              nosotros hablamos con el proveedor, la naviera y la aduana.
+              Juntamos tu carga en el país de origen y la traemos hasta el sur de
+              Chile, salga del puerto que salga. <strong>Tú no hablas con nadie
+              más</strong>: del proveedor, del barco y de la aduana nos encargamos
+              nosotros.
             </p>
           </div>
 

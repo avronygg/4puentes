@@ -15,6 +15,13 @@ type Base = {
   etiqueta: string;
   ayuda?: string;
   requerido?: boolean;
+  /**
+   * Igual que el `cuando` del paso, pero por campo. Hace falta porque hay
+   * preguntas compartidas que no aplican a todas las ramas: el origen y el tipo
+   * de carga viven en el mismo paso, y quien recién evalúa comprar afuera no
+   * tiene por qué saber todavía cómo debería viajar.
+   */
+  cuando?: (r: Respuestas) => boolean;
 };
 
 /**
@@ -107,48 +114,23 @@ export const PERFILES = [
    para que dos perfiles distintos no terminen con escalas distintas y las
    respuestas se puedan comparar entre leads. Los cortes son los habituales
    en importación al sur de Chile. */
+/* En volúmenes chicos nadie razona en contenedores sino en metros cúbicos, y
+   recién al llegar al contenedor completo cambia la unidad. La escala sigue esa
+   forma de pensar y no la del operador logístico. */
 const OPCIONES_CANTIDAD = [
-  {
-    valor: "menos-contenedor",
-    titulo: "Menos de un contenedor",
-    detalle: "Carga suelta o consolidada",
-    icono: "cajas",
-  },
-  { valor: "un-contenedor", titulo: "1 contenedor", detalle: "20 o 40 pies, completo", icono: "contenedor" },
-  { valor: "2-5-contenedores", titulo: "Entre 2 y 5 contenedores", icono: "barco" },
-  {
-    valor: "mas-5-contenedores",
-    titulo: "Más de 5 contenedores",
-    detalle: "Volumen recurrente",
-    icono: "tendencia",
-  },
+  { valor: "1-5-m3", titulo: "Entre 1 y 5 m³", detalle: "Unos pocos pallets", icono: "cajas" },
+  { valor: "6-10-m3", titulo: "Entre 6 y 10 m³", icono: "cajas" },
+  { valor: "11-18-m3", titulo: "Entre 11 y 18 m³", detalle: "Casi un contenedor", icono: "contenedor" },
+  { valor: "un-contenedor", titulo: "1 contenedor completo", icono: "contenedor" },
+  { valor: "mas-contenedor", titulo: "Más de 1 contenedor", detalle: "Volumen recurrente", icono: "barco" },
   { valor: "otro", titulo: "Otro", detalle: "Lo describo yo", icono: "etiqueta" },
 ] as const satisfies readonly Opcion[];
 
 const OTRO_CANTIDAD = {
   valor: "otro",
   etiqueta: "¿Qué cantidad, aproximadamente?",
-  marcador: "Ej.: 300 cajas, 12 pallets…",
+  marcador: "Ej.: 300 cajas, 12 pallets, 25 m³…",
 } as const;
-
-const OPCIONES_PESO = [
-  { valor: "menos-1t", titulo: "Menos de 1 tonelada", icono: "cajas" },
-  { valor: "1-5t", titulo: "Entre 1 y 5 toneladas", icono: "contenedor" },
-  { valor: "5-20t", titulo: "Entre 5 y 20 toneladas", detalle: "Un contenedor bien cargado", icono: "barco" },
-  {
-    valor: "mas-20t",
-    titulo: "Más de 20 toneladas",
-    detalle: "Puede necesitar carga especial",
-    icono: "engranaje",
-  },
-  {
-    valor: "no-se",
-    titulo: "No lo sé",
-    detalle: "Lo estimamos con los datos del proveedor",
-    icono: "interrogacion",
-  },
-  { valor: "otro", titulo: "Otro", detalle: "Lo describo yo", icono: "etiqueta" },
-] as const satisfies readonly Opcion[];
 
 /** La frecuencia se pregunta en dos ramas: misma escala para poder comparar. */
 const OPCIONES_FRECUENCIA = [
@@ -158,11 +140,10 @@ const OPCIONES_FRECUENCIA = [
   { valor: "puntual", titulo: "Es puntual, sin periodicidad", icono: "cajas" },
 ] as const satisfies readonly Opcion[];
 
-const OTRO_PESO = {
-  valor: "otro",
-  etiqueta: "¿Cuánto pesa o cuánto mide?",
-  marcador: "Ej.: 2,5 toneladas · 3×1,8×2 m",
-} as const;
+/* Acá vivían las opciones de peso. El cliente las sacó del primer contacto:
+   si alguien ya importa, su producto es importable, y el peso se conversa en la
+   reunión siguiente según el producto. Preguntarlo de entrada sólo alargaba el
+   formulario. */
 
 export const PASOS: readonly Paso[] = [
   {
@@ -215,13 +196,6 @@ export const PASOS: readonly Paso[] = [
         requerido: true,
         opciones: OPCIONES_CANTIDAD,
         otro: OTRO_CANTIDAD,
-      },
-      {
-        tipo: "opcion",
-        id: "peso",
-        etiqueta: "¿Cuánto pesa la carga, aproximadamente?",
-        opciones: OPCIONES_PESO,
-        otro: OTRO_PESO,
       },
       {
         tipo: "opcion",
@@ -278,9 +252,9 @@ export const PASOS: readonly Paso[] = [
       {
         tipo: "texto",
         id: "proveedor",
-        etiqueta: "¿Sabes de qué país o proveedor podría venir?",
-        marcador: "País, proveedor o enlace, si lo tienes",
-        ayuda: "Si no lo sabes, buscamos y verificamos al proveedor nosotros.",
+        etiqueta: "¿Ya tienes un proveedor en mente?",
+        marcador: "Nombre o enlace, si lo tienes",
+        ayuda: "Si no lo tienes, buscamos y verificamos al proveedor nosotros. El país lo preguntamos en el paso siguiente.",
       },
     ],
   },
@@ -315,7 +289,7 @@ export const PASOS: readonly Paso[] = [
   {
     id: "logistica",
     titulo: "Origen y tipo de carga",
-    bajada: "Si no lo tienes claro, elige la última opción de cada pregunta.",
+    bajada: "Si no lo tienes claro, elige la última opción: lo resolvemos nosotros.",
     campos: [
       {
         tipo: "opcion",
@@ -338,10 +312,11 @@ export const PASOS: readonly Paso[] = [
         id: "carga",
         etiqueta: "¿Cómo debería viajar la carga?",
         requerido: true,
+        cuando: (r) => r.perfil !== "compro-en-chile",
         opciones: [
-          { valor: "fcl", titulo: "Contenedor completo", detalle: "FCL, sólo tu carga", icono: "contenedor" },
-          { valor: "lcl", titulo: "Carga consolidada", detalle: "LCL, compartes contenedor", icono: "cajas" },
-          { valor: "aereo", titulo: "Aéreo", detalle: "Urgente o de bajo volumen", icono: "avion" },
+          { valor: "fcl", titulo: "Contenedor completo", detalle: "Sólo tu carga", icono: "contenedor" },
+          { valor: "lcl", titulo: "Carga suelta", detalle: "Compartes contenedor con otros", icono: "cajas" },
+          { valor: "aereo", titulo: "Por avión", detalle: "Urgente o de poco volumen", icono: "avion" },
           { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Prefiero que me recomienden", icono: "interrogacion" },
         ],
       },
@@ -372,6 +347,11 @@ export function pasosVisibles(r: Respuestas): Paso[] {
   return PASOS.filter((p) => !p.cuando || p.cuando(r));
 }
 
+/** Campos de un paso que aplican a estas respuestas. */
+export function camposVisibles(paso: Paso, r: Respuestas): Campo[] {
+  return paso.campos.filter((c) => !c.cuando || c.cuando(r));
+}
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /** Clave donde vive el texto libre de la opción «Otro» de un campo. */
@@ -390,7 +370,7 @@ function recortar(v: unknown, max = 200): string {
 export function validarPaso(paso: Paso, r: Respuestas): Record<string, string> {
   const errores: Record<string, string> = {};
 
-  for (const campo of paso.campos) {
+  for (const campo of camposVisibles(paso, r)) {
     const valor = (r[campo.id] ?? "").trim();
 
     if (campo.requerido && !valor) {
@@ -455,7 +435,7 @@ export function etiquetaDe(campoId: string, valor: string): string {
 export function resumen(r: Respuestas): { etiqueta: string; valor: string }[] {
   const filas: { etiqueta: string; valor: string }[] = [];
   for (const paso of pasosVisibles(r)) {
-    for (const campo of paso.campos) {
+    for (const campo of camposVisibles(paso, r)) {
       const v = r[campo.id];
       if (!v) continue;
       // Al comercial le sirve lo que escribió la persona, no la palabra «Otro».

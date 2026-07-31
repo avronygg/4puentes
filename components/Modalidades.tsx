@@ -15,9 +15,9 @@ const modalidades = [
     Icono: Barco,
     titulo: "Vía marítima",
     texto:
-      "Contenedor completo o carga consolidada. Es la opción de mejor costo por " +
-      "kilo y la que usamos para el grueso de las importaciones.",
-    puntos: ["FCL y LCL", "Seguimiento por tramo", "Consolidado en origen"],
+      "Un contenedor entero para ti, o compartido con otros si tu carga es " +
+      "chica. Es la forma más barata y la que usamos casi siempre.",
+    puntos: ["Contenedor entero o compartido", "Te avisamos dónde va", "Lo más económico"],
   },
   {
     src: "/modalidad-aerea.webp",
@@ -25,9 +25,9 @@ const modalidades = [
     Icono: AvionCarga,
     titulo: "Vía aérea",
     texto:
-      "Para carga urgente, muestras o volúmenes bajos de alto valor. Semanas " +
-      "menos de tránsito cuando el tiempo manda sobre el costo.",
-    puntos: ["Carga urgente", "Muestras y repuestos", "Alto valor por kilo"],
+      "Para lo urgente, las muestras y lo que es poco pero caro. Llega semanas " +
+      "antes, cuando el tiempo importa más que el precio.",
+    puntos: ["Lo urgente", "Muestras y repuestos", "Poco volumen, alto valor"],
   },
 ];
 
@@ -41,9 +41,9 @@ export default function Modalidades() {
             <em className="destacado">lo que necesites</em>
           </h2>
           <p className="lede" data-revelar>
-            No tienes que decidirlo tú. <strong>Te decimos cuál conviene</strong> y
-            por qué: casi siempre manda el costo por kilo, pero cuando el plazo
-            aprieta la respuesta cambia.
+            No tienes que decidirlo tú. <strong>Te decimos cuál te conviene</strong> y
+            por qué: casi siempre gana el barco por precio, pero si tienes prisa la
+            respuesta cambia.
           </p>
         </Revelar>
 

@@ -20,28 +20,28 @@ export const servicios = [
     icono: "tendencia",
     perfil: "ya-importo",
     etiqueta: "Ya importas",
-    titulo: "Operador logístico integral",
+    titulo: "Nos hacemos cargo de todo",
     texto:
-      "Ya traes carga y no quieres seguir coordinando proveedores, navieras y " +
-      "aduana. Tomamos la cadena completa y respondemos por ella.",
+      "Ya traes carga y no quieres seguir persiguiendo al proveedor, a la naviera " +
+      "y a la aduana. Lo tomamos nosotros de principio a fin y respondemos por ello.",
     items: [
-      "Un solo interlocutor por embarque",
+      "Una sola persona a quien preguntarle",
       "Comparamos contra tu costo actual",
-      "Bodega en Valdivia y seguro incluidos",
+      "Bodega en Valdivia y seguro, incluidos",
     ],
   },
   {
     icono: "etiqueta",
     perfil: "compro-en-chile",
     etiqueta: "Compras en Chile",
-    titulo: "Compra directa en origen",
+    titulo: "Compra directo en el país de origen",
     texto:
-      "Hoy le compras a un intermediario local. Buscamos y verificamos al " +
-      "proveedor en origen para que traigas el mismo insumo sin ese margen " +
-      "encima.",
+      "Hoy le compras a alguien que ya lo importó y le sumó su ganancia. " +
+      "Buscamos y revisamos al fabricante afuera para que traigas lo mismo sin " +
+      "ese sobreprecio.",
     items: [
-      "Buscamos y verificamos al proveedor",
-      "Costo puesto en bodega, comparable con el tuyo",
+      "Buscamos y revisamos al proveedor por ti",
+      "Un precio final que puedes comparar con el que pagas hoy",
       "Bodega en Valdivia y seguro incluidos",
     ],
   },
@@ -49,11 +49,11 @@ export const servicios = [
     icono: "brujula",
     perfil: "sin-experiencia",
     etiqueta: "Primera importación",
-    titulo: "Importación asesorada",
+    titulo: "Tu primera importación",
     texto:
       "Nunca has importado y no sabes por dónde partir. Te acompañamos desde " +
-      "la idea: qué conviene traer, cuánto cuesta de verdad y qué papeles se " +
-      "necesitan.",
+      "la idea: qué conviene traer, cuánto cuesta de verdad y qué papeles hacen " +
+      "falta. Sin que tengas que aprenderte nada.",
     items: [
       "Te explicamos cada paso antes de darlo",
       "No necesitas equipo propio",
@@ -143,7 +143,7 @@ export const fundador = {
     "No empecé importando para vender el servicio. Empecé importando para mi " +
     "propio negocio.",
   parrafos: [
-    "Hace más de diez años necesitaba traer insumos y no encontré a nadie que " +
+    "Hace unos cinco años necesitaba traer insumos y no encontré a nadie que " +
       "me explicara el proceso completo sin dar vueltas. Aprendí haciéndolo: " +
       "los trámites de aduana, los costos que nadie menciona hasta el final y " +
       "dónde se puede negociar de verdad.",
@@ -155,7 +155,7 @@ export const fundador = {
       "bajar, y cuando te digo un plazo es el plazo real.",
   ],
   credenciales: [
-    { dato: "+10", unidad: "años", detalle: "Importando, primero para mi propia empresa" },
+    { dato: "+5", unidad: "años", detalle: "Importando, primero para mi propia empresa" },
     { dato: "China", unidad: "y más", detalle: "Visitas a fábricas y proveedores en origen" },
     { dato: "Red", unidad: "propia", detalle: "Proveedores verificados en terreno" },
   ],
@@ -255,39 +255,38 @@ export const pasos = [
     n: "01",
     titulo: "Cotización",
     texto:
-      "Nos cuentas qué necesitas importar. Te entregamos un costo total puesto " +
-      "en tu bodega: producto, flete, derechos e IVA, seguro y transporte " +
-      "interno. Ningún costo aparece después.",
+      "Nos cuentas qué necesitas traer. Te entregamos un precio final: el " +
+      "producto, el viaje, los impuestos, el seguro y el traslado hasta tu " +
+      "bodega. Ningún costo aparece después.",
   },
   {
     n: "02",
-    titulo: "Compra y verificación en origen",
+    titulo: "Compra y revisión en el país de origen",
     texto:
-      "Contactamos y verificamos al proveedor en el país de origen, negociamos " +
-      "condiciones y coordinamos la compra y la inspección antes de embarcar.",
+      "Contactamos al proveedor, comprobamos que sea serio, negociamos el precio " +
+      "y revisamos la mercadería antes de que suba al barco.",
   },
   {
     n: "03",
-    titulo: "Flete internacional",
+    titulo: "El viaje",
     texto:
-      "Consolidamos y embarcamos por vía marítima o aérea según urgencia y " +
-      "volumen, con seguimiento de la carga en cada tramo de la ruta.",
+      "Tu carga viaja por barco o por avión, según lo que te convenga. Te vamos " +
+      "contando dónde va en cada tramo.",
   },
   {
     n: "04",
-    titulo: "Aduana y liberación",
+    titulo: "Aduana",
     texto:
-      "Agenciamiento aduanero, pago de derechos e IVA y liberación de la carga " +
-      "en puerto, y traslado hasta nuestra bodega de Valdivia. Toda la " +
-      "documentación la preparamos nosotros.",
+      "Hacemos los trámites, pagamos los impuestos y sacamos la carga del puerto " +
+      "rumbo a nuestra bodega en Valdivia. Todos los papeles los preparamos " +
+      "nosotros.",
   },
   {
     n: "05",
-    titulo: "Bodegaje y entrega",
+    titulo: "Bodega y entrega",
     texto:
-      "Almacenamos en nuestra bodega de Valdivia y despachamos a tu bodega: en " +
-      "una sola entrega o en despachos parciales, según cómo necesites la " +
-      "mercadería.",
+      "Guardamos tu mercadería en nuestra bodega de Valdivia y te la mandamos " +
+      "cuando la necesites: todo de una vez o por partes.",
   },
 ] as const;
 

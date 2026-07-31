@@ -121,15 +121,15 @@ export default function Hero() {
       </div>
 
       {/* franja de confianza */}
-      <div className="absolute inset-x-0 bottom-0 z-3 border-t border-white/20 max-[900px]:hidden">
+      <div className="absolute inset-x-0 bottom-0 z-3 border-t border-white/25 bg-[rgba(4,26,52,.22)] backdrop-blur-[2px] max-[900px]:hidden">
         <div className="wrap">
-          <ul className="flex list-none justify-between gap-s5 p-0 py-s5">
+          <ul className="flex list-none justify-between gap-s6 p-0 py-s6">
             {confianza.map(({ Icono, texto }) => (
               <li
                 key={texto}
-                className="flex items-center gap-s3 text-[0.87rem] font-medium text-white"
+                className="flex items-center gap-s4 text-[1.02rem] font-semibold text-white"
               >
-                <Icono className="shrink-0 opacity-90" />
+                <Icono size={24} className="shrink-0 opacity-95" />
                 {texto}
               </li>
             ))}
