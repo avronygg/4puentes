@@ -115,7 +115,7 @@ export default function Rutas() {
         <CtaSeccion
           texto="¿Tu proveedor está en otro puerto? Igual llegamos."
           boton="Cotizar desde mi origen"
-          mensaje="Hola 4 Puentes, quiero cotizar una importación desde un origen específico."
+          mensaje="Hola, mi proveedor está en un origen puntual y quiero saber si llegan hasta allá."
         />
       </div>
     </section>

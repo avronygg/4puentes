@@ -58,7 +58,7 @@ export default function Proceso() {
         <CtaSeccion
           texto="Ese es todo el proceso. Tú solo apruebas y recibes."
           boton="Empezar mi cotización"
-          mensaje="Hola 4 Puentes, vi el proceso en la web y quiero cotizar una importación."
+          mensaje="Hola, ya vi cómo funciona el proceso y quiero empezar una cotización."
         />
       </div>
     </section>

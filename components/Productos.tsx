@@ -73,7 +73,7 @@ export default function Productos() {
         <CtaSeccion
           texto="¿No ves lo tuyo? Cuéntanos qué necesitas y te decimos si se puede traer."
           boton="Cotizar mi producto"
-          mensaje="Hola 4 Puentes, quiero saber si pueden traer un producto en particular."
+          mensaje="Hola, quiero saber si pueden traer un producto específico. Les cuento cuál."
         />
       </div>
     </section>

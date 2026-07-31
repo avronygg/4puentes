@@ -1486,10 +1486,6 @@ h3 {
 .vitrina__fila--inversa {
   animation-direction: reverse;
 }
-/* Al pasar el puntero se detiene: si algo llama la atención, se puede leer. */
-.vitrina:hover .vitrina__fila {
-  animation-play-state: paused;
-}
 @keyframes desfile {
   to {
     transform: translateX(-50%);
@@ -1716,37 +1712,55 @@ h3 {
   color: var(--fg-muted);
 }
 
-/* ── CASOS ───────────────────────────────────────────────────────────── */
+/* ── TESTIMONIOS ─────────────────────────────────────────────────────── */
+/* Rejilla de tres columnas. Los cinco testimonios más la tarjeta de marca dan
+   seis: la cuadrícula cierra 3x2 sin huecos. Si se suma o quita un caso, hay
+   que volver a cuadrar el número o la última fila queda coja. */
 .casos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--spacing-s5);
 }
+@media (max-width: 1000px) {
+  .casos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 680px) {
+  .casos {
+    grid-template-columns: 1fr;
+  }
+}
+
 .caso {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: var(--spacing-s6);
   border: 1px solid color-mix(in srgb, var(--color-terra-300) 22%, transparent);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.045);
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
 }
 .caso:hover {
   border-color: color-mix(in srgb, var(--color-terra-300) 45%, transparent);
   background: rgba(255, 255, 255, 0.075);
+  transform: translateY(-3px);
 }
-.caso__rubro {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+/* Las comillas viven detrás del contenido, como marca de agua. */
+.caso__comillas {
+  position: absolute;
+  top: var(--spacing-s5);
+  right: var(--spacing-s5);
   color: var(--color-terra-300);
+  opacity: 0.16;
+  pointer-events: none;
 }
-/* La cifra es el argumento: va al tamaño de un titular. */
+
+/* La cifra es lo que separa esto de una reseña genérica: va primero y grande. */
 .caso__cifra {
-  margin: var(--spacing-s4) 0 0;
-  font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.4rem);
+  margin: 0;
+  font-size: clamp(2rem, 1.4rem + 1.8vw, 2.7rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
@@ -1755,51 +1769,149 @@ h3 {
 .caso__logro {
   display: block;
   margin-top: var(--spacing-s3);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 500;
   letter-spacing: 0;
   line-height: 1.4;
   color: var(--color-terra-300);
 }
-.caso__texto {
-  margin: var(--spacing-s5) 0 0;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: #d9a9a4;
-}
-.caso__extras {
+
+.caso__cita {
+  flex: 1;
   margin: var(--spacing-s5) 0 0;
   padding: var(--spacing-s5) 0 0;
-  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 18%, transparent);
-  list-style: none;
-  display: grid;
-  gap: var(--spacing-s3);
+  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 16%, transparent);
 }
-.caso__extras li {
+.caso__cita p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.68;
+  color: #f0dcd9;
+}
+
+.caso__pie {
   display: flex;
-  align-items: baseline;
-  gap: var(--spacing-s3);
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: #d9a9a4;
+  align-items: center;
+  gap: var(--spacing-s4);
+  margin-top: var(--spacing-s6);
 }
-.caso__extras svg {
+.caso__avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-terra-400) 82%, black);
+  border: 1px solid color-mix(in srgb, var(--color-terra-300) 40%, transparent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+.caso__autor {
+  display: block;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: #fff;
+}
+.caso__cargo {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.79rem;
+  line-height: 1.35;
+  color: #c99a95;
+}
+
+.caso__rubro {
+  margin: var(--spacing-s5) 0 0;
+  padding-top: var(--spacing-s4);
+  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 16%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--color-terra-300);
 }
 /* Declarar el vínculo es la única forma de que el caso siga siendo creíble. */
 .caso__aviso {
-  margin: var(--spacing-s5) 0 0;
-  padding-top: var(--spacing-s4);
-  border-top: 1px solid color-mix(in srgb, var(--color-terra-300) 18%, transparent);
+  margin: var(--spacing-s3) 0 0;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: color-mix(in srgb, #fff 55%, transparent);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Sexta tarjeta: cierra la rejilla y convierte el hueco en la salida. */
+.caso--marca {
+  justify-content: center;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--color-terra-400) 24%, transparent),
+    rgba(255, 255, 255, 0.04)
+  );
+  border-color: color-mix(in srgb, var(--color-terra-300) 38%, transparent);
+}
+.caso__marca-titulo {
+  margin: 0;
+  font-size: clamp(1.3rem, 1rem + 1vw, 1.62rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+  color: #fff;
+  text-wrap: balance;
+}
+.caso__marca-texto {
+  margin: var(--spacing-s4) 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e7c8c4;
+}
+.caso__marca-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s6);
+}
+.caso__marca-btn,
+.caso__marca-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.caso__marca-btn {
+  background: #fff;
+  color: var(--color-terra-700);
+}
+.caso__marca-btn:hover {
+  transform: translateY(-2px);
+}
+.caso__marca-wa {
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  color: #fff;
+}
+.caso__marca-wa:hover {
+  border-color: #25d366;
+  transform: translateY(-2px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .caso {
+  .caso,
+  .caso__marca-btn,
+  .caso__marca-wa {
     transition: none;
+  }
+  .caso:hover,
+  .caso__marca-btn:hover,
+  .caso__marca-wa:hover {
+    transform: none;
   }
 }
 

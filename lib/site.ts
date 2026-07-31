@@ -14,14 +14,18 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://4puentes.cl",
 } as const;
 
-/** PENDIENTE: datos reales del cliente. */
+/**
+ * Teléfono y WhatsApp ya son los reales. Siguen pendientes el correo y la
+ * dirección exacta, y por eso `porConfirmar` no se apaga todavía: es la bandera
+ * que mantiene el sitio cerrado a buscadores desde app/robots.ts.
+ */
 export const contacto = {
-  telefono: "+56 9 XXXX XXXX",
-  telefonoHref: "tel:+56900000000",
+  telefono: "+56 9 9835 9091",
+  telefonoHref: "tel:+56998359091",
   email: "contacto@4puentes.cl",
   direccion: "Valdivia, Región de Los Ríos",
-  /** Solo dígitos, formato wa.me. PENDIENTE: número real. */
-  whatsapp: "56900000000",
+  /** Solo dígitos, formato wa.me. */
+  whatsapp: "56998359091",
   porConfirmar: true,
 } as const;
 

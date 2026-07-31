@@ -33,7 +33,7 @@ export default function Footer() {
               <Flecha />
             </a>
             <a
-              href={whatsappUrl("Hola 4 Puentes, quiero cotizar una importación.")}
+              href={whatsappUrl("Hola, quiero cotizar una importación puerta a puerta. ¿Me ayudan a ver si me conviene?")}
               target="_blank"
               rel="noopener noreferrer"
               className="pie__whatsapp"
@@ -91,8 +91,7 @@ export default function Footer() {
               <li>
                 <a
                   href={contacto.telefonoHref}
-                  className="tbd pie__enlace pie__enlace--icono"
-                  title="Por confirmar"
+                  className="pie__enlace pie__enlace--icono"
                 >
                   <Telefono size={16} className="shrink-0 text-terra-400" />
                   {contacto.telefono}

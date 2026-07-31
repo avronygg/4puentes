@@ -68,7 +68,7 @@ export default function Fundador() {
         <CtaSeccion
           texto="Cuéntame qué necesitas traer y te digo con franqueza si conviene."
           boton="Hablar de mi caso"
-          mensaje="Hola, quiero conversar sobre una importación para mi negocio."
+          mensaje="Hola, quiero conversar sobre una importación para mi negocio y que me digan con franqueza si me conviene."
         />
       </div>
     </section>

@@ -162,69 +162,91 @@ export const fundador = {
 } as const;
 
 /**
- * Casos. Los porcentajes son el argumento de venta más fuerte del sitio y a la
- * vez el más delicado: cada uno tiene que poder respaldarse.
+ * Testimonios. Los hechos y las cifras son reales, los vino a dar el cliente.
+ * Lo que está simulado es la voz: la cita, el nombre, el cargo y la empresa.
  *
- * PENDIENTE: el cliente debe (a) confirmar cada cifra, (b) conseguir permiso
- * de cada empresa para nombrarla, y (c) resolver el caso `propio: true`, que
- * es una empresa del propio fundador y no puede presentarse como cliente sin
- * decirlo. Ver PENDIENTES.md.
+ * Por eso van con `pendiente: true`, que los pinta con el subrayado punteado
+ * del resto de los datos por confirmar. Publicar una reseña firmada por alguien
+ * que no la dijo es una reseña falsa, y acá quedaría además con un porcentaje
+ * al lado. El marcado hace que no se pueda publicar por descuido.
+ *
+ * Para dejarlos reales: pedir la cita textual a cada empresa, su autorización
+ * para nombrarla, y poner `pendiente: false`.
  */
 export const casos = [
   {
     rubro: "Alimentación",
     cifra: "-10%",
     logro: "en el costo de su materia prima",
-    texto:
-      "Compraba su materia prima a un proveedor chileno. Se buscó el origen " +
-      "directo y bajó el costo de adquisición.",
-    extras: [
-      "Después importamos un insumo que no se consigue en Chile",
-      "Y una máquina para un proceso especial de su planta",
-    ],
+    cita:
+      "Llevábamos años comprándole al mismo proveedor acá sin cuestionarlo. Nos " +
+      "mostraron cuánto costaba puesto en nuestra bodega trayéndolo directo y la " +
+      "diferencia era evidente. Después trajimos un insumo que en Chile no existe " +
+      "y una máquina para la planta.",
+    autor: "Nombre Apellido",
+    cargo: "Gerente de operaciones",
+    empresa: "Empresa de alimentos",
+    iniciales: "NA",
     propio: false,
+    pendiente: true,
   },
   {
     rubro: "Bebestibles",
     cifra: "-25%",
     logro: "por botella",
-    texto:
-      "Compraba sus botellas en el mercado chileno. Al traerlas directo desde " +
-      "origen, el costo por unidad cayó un cuarto.",
-    extras: [],
+    cita:
+      "La botella es el segundo costo de nuestro producto. Bajarlo un cuarto no " +
+      "es un ahorro puntual: cambió el margen de toda la línea.",
+    autor: "Nombre Apellido",
+    cargo: "Socio fundador",
+    empresa: "Productora de bebestibles",
+    iniciales: "NA",
     propio: false,
+    pendiente: true,
   },
   {
     rubro: "Construcción de caminos",
     cifra: "-20%",
     logro: "en cable galvanizado",
-    texto:
-      "Usaba cable galvanizado comprado en el mercado local. Se gestionó la " +
-      "importación directa del mismo insumo.",
-    extras: [],
+    cita:
+      "Comprábamos el cable en el mercado local y lo dábamos por hecho. Se " +
+      "hicieron cargo de la importación completa y no tuvimos que aprender nada " +
+      "del proceso.",
+    autor: "Nombre Apellido",
+    cargo: "Jefe de abastecimiento",
+    empresa: "Constructora",
+    iniciales: "NA",
     propio: false,
+    pendiente: true,
   },
   {
     rubro: "Equipos acuáticos",
-    cifra: "0",
-    logro: "experiencia previa importando",
-    texto:
-      "Quería abrir un marketplace y partía desde cero. Se buscaron y " +
-      "validaron proveedores, se gestionó la importación y hoy usa nuestro " +
-      "bodegaje.",
-    extras: [],
+    cifra: "Desde cero",
+    logro: "sin experiencia previa",
+    cita:
+      "Partimos sin saber nada de importar. Buscaron los proveedores, los " +
+      "validaron uno por uno y hoy además nos guardan el stock en su bodega.",
+    autor: "Nombre Apellido",
+    cargo: "Socio",
+    empresa: "Marketplace de equipos acuáticos",
+    iniciales: "NA",
     // Empresa del propio fundador: si se publica, tiene que decirlo.
     propio: true,
+    pendiente: true,
   },
   {
     rubro: "Salud y nutrición",
-    cifra: "1",
-    logro: "máquina, puerta a puerta",
-    texto:
-      "Una nutricionista necesitaba un equipo especializado que no se vendía " +
-      "en Chile. Se gestionó todo, desde la fábrica en China hasta su oficina.",
-    extras: [],
+    cifra: "Puerta a puerta",
+    logro: "desde China a su consulta",
+    cita:
+      "Necesitaba un equipo que no se vende en Chile y no tenía idea por dónde " +
+      "partir. Me lo dejaron en la consulta sin que yo hiciera un solo trámite.",
+    autor: "Nombre Apellido",
+    cargo: "Nutricionista",
+    empresa: "Consulta particular",
+    iniciales: "NA",
     propio: false,
+    pendiente: true,
   },
 ] as const;
 

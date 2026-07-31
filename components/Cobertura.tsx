@@ -59,7 +59,7 @@ export default function Cobertura() {
         <CtaSeccion
           texto="Hablas con alguien que conoce tu ciudad y tu puerto de entrada."
           boton="Cotizar mi importación"
-          mensaje="Hola 4 Puentes, quiero cotizar una importación al sur de Chile."
+          mensaje="Hola, necesito traer carga al sur de Chile y quiero cotizar."
         />
       </Revelar>
     </section>

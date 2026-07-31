@@ -23,7 +23,7 @@ export default function WhatsAppFab() {
 
   return (
     <a
-      href={whatsappUrl("Hola 4 Puentes, quiero cotizar una importación.")}
+      href={whatsappUrl("Hola, vengo de la web de Cuatro Puentes. Quiero cotizar una importación y saber cuánto me costaría puesta en mi bodega.")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
