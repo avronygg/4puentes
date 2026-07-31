@@ -69,7 +69,7 @@ async function enviarCorreo(datos: Respuestas): Promise<{ enviado: boolean; moti
         to: para.split(",").map((d) => d.trim()),
         // Responder desde el correo va directo al interesado.
         reply_to: datos.email,
-        subject: `Cotización — ${datos.nombre}${datos.empresa ? ` (${datos.empresa})` : ""}`,
+        subject: `Cotización — ${datos.nombre}${datos.producto ? ` · ${datos.producto}` : ""}`,
         html: cuerpoHtml(datos),
         text: texto,
       }),

@@ -400,9 +400,7 @@ function CampoFormulario({
         ? "email"
         : campo.id === "telefono"
           ? "tel"
-          : campo.id === "empresa"
-            ? "organization"
-            : "off";
+          : "off";
 
   return (
     <div>

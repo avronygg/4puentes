@@ -312,7 +312,7 @@ export const PASOS: readonly Paso[] = [
         id: "carga",
         etiqueta: "¿Cómo debería viajar la carga?",
         requerido: true,
-        cuando: (r) => r.perfil !== "compro-en-chile",
+        cuando: (r) => r.perfil === "ya-importo",
         opciones: [
           { valor: "fcl", titulo: "Contenedor completo", detalle: "Sólo tu carga", icono: "contenedor" },
           { valor: "lcl", titulo: "Carga suelta", detalle: "Compartes contenedor con otros", icono: "cajas" },
@@ -325,10 +325,9 @@ export const PASOS: readonly Paso[] = [
   {
     id: "contacto",
     titulo: "¿A quién le respondemos?",
-    bajada: "Te contactamos con la cotización dentro de un día hábil.",
+    bajada: "Tres datos y listo. Te contactamos dentro de un día hábil.",
     campos: [
       { tipo: "texto", id: "nombre", etiqueta: "Nombre", marcador: "Tu nombre", requerido: true, max: 120 },
-      { tipo: "texto", id: "empresa", etiqueta: "Empresa", marcador: "Nombre de tu empresa", max: 160 },
       { tipo: "email", id: "email", etiqueta: "Correo", marcador: "tu@empresa.cl", requerido: true, max: 160 },
       { tipo: "tel", id: "telefono", etiqueta: "Teléfono o WhatsApp", marcador: "+56 9 1234 5678", max: 40 },
       {
