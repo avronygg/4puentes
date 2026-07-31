@@ -136,7 +136,7 @@ export const fundador = {
   nombre: "Gianpiero Traverso",
   rol: "Fundador de Cuatro Puentes",
   /** Si se pone en null, el componente vuelve a mostrar el marcador. */
-  foto: "/fundador.webp" as string | null,
+  foto: "/gianpiero-retrato.webp" as string | null,
   entrada:
     "No empecé importando para vender el servicio. Empecé importando para mi " +
     "propio negocio.",

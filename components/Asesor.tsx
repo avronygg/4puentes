@@ -104,7 +104,7 @@ export default function Asesor() {
         >
           <div className="asesor__cabecera">
             <span className="asesor__retrato">
-              <Image src="/fundador-avatar.webp" alt="" width={240} height={240} />
+              <Image src="/gianpiero-avatar.webp" alt="" width={240} height={240} />
             </span>
             <span className="min-w-0">
               <span className="asesor__nombre">{fundador.nombre}</span>
@@ -164,7 +164,7 @@ export default function Asesor() {
         ) : (
           <>
             <span className="asesor__cara">
-              <Image src="/fundador-avatar.webp" alt="" width={240} height={240} />
+              <Image src="/gianpiero-avatar.webp" alt="" width={240} height={240} />
             </span>
             <span className="asesor__punto" aria-hidden />
           </>
