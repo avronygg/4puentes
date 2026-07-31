@@ -65,6 +65,7 @@ export default function Rutas() {
                 d={puntos}
                 stroke="var(--color-line)"
                 strokeWidth={4.2}
+                className="mapa__mundo"
                 strokeLinecap="round"
                 fill="none"
               />

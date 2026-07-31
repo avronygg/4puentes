@@ -1609,10 +1609,15 @@ h3 {
 }
 @media (max-width: 900px) {
   .fundador__retrato {
-    position: static;
-    /* Un retrato vertical dentro de un marco apaisado quedaba recortado a la
-       altura de la cara: se mantiene el 4:5 y se acota el ancho. */
-    max-width: 340px;
+    /* `relative` y no `static`: con static las piezas flotantes pierden su
+       ancla y se van a buscar el ancestro posicionado más cercano. Lo único
+       que hay que desactivar acá es el pegado. */
+    position: relative;
+    top: auto;
+    /* Un retrato vertical en un marco apaisado quedaba recortado a la altura de
+       la cara: se mantiene el 4:5, se acota el ancho y se centra. */
+    max-width: 320px;
+    margin-inline: auto;
   }
 }
 
@@ -1725,8 +1730,8 @@ h3 {
     width: 36px;
   }
   .fundador__ficha {
-    left: -8px;
-    bottom: 20px;
+    left: -14px;
+    bottom: 18px;
     padding: 11px 15px;
   }
 }
@@ -2404,6 +2409,34 @@ h3 {
   }
   .mapa__pulso {
     opacity: 0.18;
+  }
+}
+
+/* El SVG mide 1600 unidades de ancho. En un teléfono eso se comprime a ~354px,
+   así que un trazo de 1.1 unidades queda en 0,24px y los puntos de radio 6 en
+   1,3px: el mapa se volvía una mancha gris. Acá se engordan trazos y radios
+   para que a esa escala se sigan leyendo. Es puramente óptico, la geometría no
+   cambia. */
+@media (max-width: 900px) {
+  .mapa__mundo {
+    stroke-width: 7;
+  }
+  .mapa__ruta {
+    stroke-width: 2.6;
+    opacity: 0.2;
+  }
+  .mapa__flujo {
+    stroke-width: 5.5;
+    stroke-dasharray: 40 1590;
+  }
+  .mapa__origen {
+    r: 13;
+  }
+  .mapa__destino {
+    r: 20;
+  }
+  .mapa__pulso {
+    r: 46;
   }
 }
 
