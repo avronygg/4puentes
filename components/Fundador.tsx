@@ -14,7 +14,7 @@ export default function Fundador() {
               {fundador.foto ? (
                 <Image
                   src={fundador.foto}
-                  alt={`${fundador.nombre}, ${fundador.rol}`}
+                  alt={`${fundador.nombre}, ${fundador.rol}, revisando documentos junto a un contenedor en el puerto`}
                   width={800}
                   height={1000}
                   sizes="(max-width: 900px) 340px, 380px"
