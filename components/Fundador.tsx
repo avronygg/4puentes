@@ -64,9 +64,7 @@ export default function Fundador() {
             ))}
 
             <p className="fundador__firma" data-revelar>
-              <span className="tbd" title="Por confirmar">
-                {fundador.nombre}
-              </span>
+              <span>{fundador.nombre}</span>
               <span>{fundador.rol}</span>
             </p>
 

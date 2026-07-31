@@ -131,11 +131,9 @@ export const productos = [
  * dinero y mercadería a un desconocido, y el dato que la sostiene es que
  * empezó importando para su propio negocio: conoce el problema desde el lado
  * del cliente, no desde el del proveedor de servicios.
- *
- * PENDIENTE: nombre real, años exactos y foto. Ver PENDIENTES.md.
  */
 export const fundador = {
-  nombre: "Nombre Apellido",
+  nombre: "Gianpiero Traverso",
   rol: "Fundador de Cuatro Puentes",
   /** Si se pone en null, el componente vuelve a mostrar el marcador. */
   foto: "/fundador.webp" as string | null,
