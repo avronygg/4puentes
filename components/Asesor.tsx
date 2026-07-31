@@ -90,6 +90,7 @@ export default function Asesor() {
           >
             <Cerrar size={13} />
           </button>
+          <span className="asesor__saludo-quien">{fundador.nombre.split(" ")[0]}</span>
           <p>{SALUDO}</p>
         </div>
       )}
@@ -103,9 +104,7 @@ export default function Asesor() {
         >
           <div className="asesor__cabecera">
             <span className="asesor__retrato">
-              {fundador.foto && (
-                <Image src={fundador.foto} alt="" width={96} height={96} />
-              )}
+              <Image src="/fundador-avatar.webp" alt="" width={240} height={240} />
             </span>
             <span className="min-w-0">
               <span className="asesor__nombre">{fundador.nombre}</span>
@@ -159,12 +158,14 @@ export default function Asesor() {
         tabIndex={visible ? 0 : -1}
       >
         {abierto ? (
-          <Cerrar size={22} />
+          <span className="asesor__cara asesor__cara--cerrar">
+            <Cerrar size={22} />
+          </span>
         ) : (
           <>
-            {fundador.foto && (
-              <Image src={fundador.foto} alt="" width={120} height={120} />
-            )}
+            <span className="asesor__cara">
+              <Image src="/fundador-avatar.webp" alt="" width={240} height={240} />
+            </span>
             <span className="asesor__punto" aria-hidden />
           </>
         )}
