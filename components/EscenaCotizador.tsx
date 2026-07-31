@@ -10,10 +10,9 @@
 type Marca = { id: string; titulo: string };
 
 /** Las cuatro ramas del medio comparten escena: todas preguntan por la carga. */
-function escenaDe(paso: string): "perfil" | "detalle" | "compra" | "logistica" | "contacto" {
+function escenaDe(paso: string): "perfil" | "detalle" | "compra" | "contacto" {
   if (paso === "perfil") return "perfil";
   if (paso === "compra-local") return "compra";
-  if (paso === "logistica") return "logistica";
   if (paso === "contacto") return "contacto";
   return "detalle";
 }
@@ -28,7 +27,6 @@ const ROTULOS: Record<string, string> = {
   actual: "Cómo importas",
   "compra-local": "Tu compra actual",
   interes: "Tu interés",
-  logistica: "Origen y carga",
   contacto: "Contacto",
 };
 
@@ -36,7 +34,6 @@ const TEXTOS = {
   perfil: { titulo: "Tu caso", apoyo: "Ajustamos las preguntas a tu situación." },
   detalle: { titulo: "La carga", apoyo: "Qué traes y en qué volumen." },
   compra: { titulo: "Tu compra", apoyo: "Qué compras hoy y cuánto gastas." },
-  logistica: { titulo: "La ruta", apoyo: "Desde dónde sale y cómo viaja." },
   contacto: { titulo: "El contacto", apoyo: "A quién le mandamos la cotización." },
 } as const;
 
@@ -102,22 +99,6 @@ export default function EscenaCotizador({
               <circle cx="78" cy="34" r="15" />
               <path d="M89 45l9 9" strokeWidth="2.4" />
               <path d="M72 34l4 4 8-8" strokeWidth="2" />
-            </g>
-          )}
-
-          {escena === "logistica" && (
-            <g stroke="currentColor" strokeLinecap="round">
-              <path id="ec-ruta" d="M16 66C34 20 86 20 104 62" strokeWidth="1.6" strokeDasharray="3 6" opacity=".45" />
-              <circle cx="16" cy="66" r="4.5" strokeWidth="1.8" fill="var(--color-surface)" />
-              <circle cx="104" cy="62" r="6" className="ec-late" strokeWidth="1.6" />
-              <circle cx="104" cy="62" r="3.4" fill="currentColor" stroke="none" />
-              <circle
-                r="3.2"
-                fill="currentColor"
-                stroke="none"
-                className="ec-viaja"
-                style={{ offsetPath: "path('M16 66C34 20 86 20 104 62')" }}
-              />
             </g>
           )}
 

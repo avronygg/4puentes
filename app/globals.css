@@ -2139,6 +2139,244 @@ h3 {
   }
 }
 
+/* ── ASESOR FLOTANTE ─────────────────────────────────────────────────── */
+/* Sustituye al botón suelto de WhatsApp: una cara ofreciendo ayuda convierte
+   más que un ícono verde, y desde acá salen las dos vías, hablar o cotizar. */
+.asesor {
+  position: fixed;
+  right: var(--spacing-s5);
+  bottom: var(--spacing-s5);
+  z-index: 95;
+  display: grid;
+  justify-items: end;
+  gap: var(--spacing-s3);
+  opacity: 0;
+  translate: 0 12px;
+  pointer-events: none;
+  transition: opacity 0.35s ease, translate 0.35s ease;
+}
+.asesor.esta-visible {
+  opacity: 1;
+  translate: none;
+  pointer-events: auto;
+}
+
+.asesor__boton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-accent-btn);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 14px 32px -12px rgba(26, 22, 21, 0.5);
+  transition: transform 0.25s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.asesor__boton:hover {
+  transform: scale(1.06);
+}
+.asesor__boton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Punto verde: el mismo código que usa cualquier chat para decir "hay alguien". */
+.asesor__punto {
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #25d366;
+  border: 2.5px solid var(--bg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .asesor__punto::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #25d366;
+    animation: asesor-latido 2.4s ease-out infinite;
+  }
+}
+@keyframes asesor-latido {
+  from {
+    opacity: 0.7;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* Globo de saludo: asoma una vez y se retira solo. */
+.asesor__saludo {
+  position: relative;
+  max-width: 232px;
+  padding: 13px 34px 13px 16px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 34px -18px rgba(26, 22, 21, 0.45);
+  animation: asesor-entra 0.4s cubic-bezier(0.22, 0.7, 0.3, 1) both;
+}
+.asesor__saludo p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--fg);
+}
+.asesor__saludo-cerrar {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+.asesor__saludo-cerrar:hover {
+  background: var(--line-soft);
+  color: var(--fg);
+}
+
+.asesor__panel {
+  width: min(310px, calc(100vw - 2 * var(--spacing-s5)));
+  padding: var(--spacing-s5);
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 26px 60px -24px rgba(26, 22, 21, 0.5);
+  animation: asesor-entra 0.32s cubic-bezier(0.22, 0.7, 0.3, 1) both;
+}
+@keyframes asesor-entra {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.asesor__cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  padding-bottom: var(--spacing-s4);
+  border-bottom: 1px solid var(--line-soft);
+}
+.asesor__retrato {
+  display: block;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--accent-wash);
+}
+.asesor__retrato img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.asesor__nombre {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.asesor__estado {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1px;
+  font-size: 0.76rem;
+  color: var(--fg-muted);
+}
+.asesor__estado i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #25d366;
+}
+.asesor__texto {
+  margin: var(--spacing-s4) 0 var(--spacing-s5);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+.asesor__wa,
+.asesor__cotizar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.asesor__wa small,
+.asesor__cotizar small {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.74rem;
+  font-weight: 400;
+  opacity: 0.82;
+}
+.asesor__wa {
+  background: #25d366;
+  color: #fff;
+}
+.asesor__cotizar {
+  justify-content: space-between;
+  margin-top: var(--spacing-s3);
+  background: var(--accent-wash);
+  color: var(--color-terra-700);
+}
+.asesor__wa:hover,
+.asesor__cotizar:hover {
+  transform: translateY(-2px);
+}
+.asesor__cotizar:hover {
+  background: var(--color-accent-btn);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asesor,
+  .asesor__boton,
+  .asesor__saludo,
+  .asesor__panel,
+  .asesor__wa,
+  .asesor__cotizar {
+    transition: none;
+    animation: none;
+  }
+  .asesor__boton:hover,
+  .asesor__wa:hover,
+  .asesor__cotizar:hover {
+    transform: none;
+  }
+}
+
 /* ── PIE ─────────────────────────────────────────────────────────────── */
 .pie {
   position: relative;

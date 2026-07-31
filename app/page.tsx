@@ -1,3 +1,4 @@
+import Asesor from "@/components/Asesor";
 import Casos from "@/components/Casos";
 import Cobertura from "@/components/Cobertura";
 import Cotizar from "@/components/Cotizar";
@@ -10,7 +11,6 @@ import Proceso from "@/components/Proceso";
 import Productos from "@/components/Productos";
 import Rutas from "@/components/Rutas";
 import Servicios from "@/components/Servicios";
-import WhatsAppFab from "@/components/WhatsAppFab";
 
 export default function Home() {
   return (
@@ -35,7 +35,7 @@ export default function Home() {
         <Cotizar />
       </main>
       <Footer />
-      <WhatsAppFab />
+      <Asesor />
     </>
   );
 }

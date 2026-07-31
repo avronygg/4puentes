@@ -204,6 +204,23 @@ export const PASOS: readonly Paso[] = [
         requerido: true,
         opciones: OPCIONES_FRECUENCIA,
       },
+      {
+        // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
+        // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
+        tipo: "opcion",
+        id: "origen",
+        etiqueta: "¿Desde dónde?",
+        ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
+        requerido: true,
+        opciones: [
+          { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Qingdao…", icono: "barco" },
+          { valor: "asia", titulo: "Otro país de Asia", detalle: "Corea, Vietnam, India…", icono: "contenedor" },
+          { valor: "medio-oriente", titulo: "Medio Oriente", detalle: "Jebel Ali, Abu Dabi…", icono: "pin" },
+          { valor: "america", titulo: "Estados Unidos o México", detalle: "Los Ángeles, Houston…", icono: "avion" },
+          { valor: "europa", titulo: "Europa", detalle: "Rotterdam, Amberes…", icono: "globo" },
+          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos", icono: "interrogacion" },
+        ],
+      },
     ],
   },
   {
@@ -243,18 +260,21 @@ export const PASOS: readonly Paso[] = [
         },
       },
       {
+        // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
+        // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
         tipo: "opcion",
-        id: "frecuencia",
-        etiqueta: "¿Cada cuánto lo compras?",
+        id: "origen",
+        etiqueta: "¿Desde dónde?",
+        ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
         requerido: true,
-        opciones: OPCIONES_FRECUENCIA,
-      },
-      {
-        tipo: "texto",
-        id: "proveedor",
-        etiqueta: "¿Ya tienes un proveedor en mente?",
-        marcador: "Nombre o enlace, si lo tienes",
-        ayuda: "Si no lo tienes, buscamos y verificamos al proveedor nosotros. El país lo preguntamos en el paso siguiente.",
+        opciones: [
+          { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Qingdao…", icono: "barco" },
+          { valor: "asia", titulo: "Otro país de Asia", detalle: "Corea, Vietnam, India…", icono: "contenedor" },
+          { valor: "medio-oriente", titulo: "Medio Oriente", detalle: "Jebel Ali, Abu Dabi…", icono: "pin" },
+          { valor: "america", titulo: "Estados Unidos o México", detalle: "Los Ángeles, Houston…", icono: "avion" },
+          { valor: "europa", titulo: "Europa", detalle: "Rotterdam, Amberes…", icono: "globo" },
+          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos", icono: "interrogacion" },
+        ],
       },
     ],
   },
@@ -282,22 +302,14 @@ export const PASOS: readonly Paso[] = [
           { valor: "urgente", titulo: "Con urgencia", detalle: "Lo necesito lo antes posible", icono: "rayo" },
         ],
       },
-    ],
-  },
-
-  // ── común ────────────────────────────────────────────────────────────
-  {
-    id: "logistica",
-    titulo: "Origen y tipo de carga",
-    bajada: "Si no lo tienes claro, elige la última opción: lo resolvemos nosotros.",
-    campos: [
       {
+        // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
+        // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
         tipo: "opcion",
         id: "origen",
         etiqueta: "¿Desde dónde?",
+        ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
         requerido: true,
-        // La lista sigue a los orígenes del mapa de rutas. Acotarla a Asia
-        // contradecía el resto del sitio, que ofrece cualquier parte del mundo.
         opciones: [
           { valor: "china", titulo: "China", detalle: "Shenzhen, Ningbo, Qingdao…", icono: "barco" },
           { valor: "asia", titulo: "Otro país de Asia", detalle: "Corea, Vietnam, India…", icono: "contenedor" },
@@ -307,21 +319,15 @@ export const PASOS: readonly Paso[] = [
           { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Nos cuentas y lo definimos juntos", icono: "interrogacion" },
         ],
       },
-      {
-        tipo: "opcion",
-        id: "carga",
-        etiqueta: "¿Cómo debería viajar la carga?",
-        requerido: true,
-        cuando: (r) => r.perfil === "ya-importo",
-        opciones: [
-          { valor: "fcl", titulo: "Contenedor completo", detalle: "Sólo tu carga", icono: "contenedor" },
-          { valor: "lcl", titulo: "Carga suelta", detalle: "Compartes contenedor con otros", icono: "cajas" },
-          { valor: "aereo", titulo: "Por avión", detalle: "Urgente o de poco volumen", icono: "avion" },
-          { valor: "no-se", titulo: "Todavía no lo sé", detalle: "Prefiero que me recomienden", icono: "interrogacion" },
-        ],
-      },
     ],
   },
+
+  // ── común ────────────────────────────────────────────────────────────
+  /* Acá vivía un paso sólo para el origen y el tipo de carga.
+     El origen se mudó al final de cada rama, y "cómo debería viajar la carga"
+     se eliminó: la sección de modalidades promete "no tienes que decidirlo tú"
+     y el formulario pedía justamente esa decisión. El dato se deduce del
+     volumen y de la urgencia, que sí se preguntan. */
   {
     id: "contacto",
     titulo: "¿A quién le respondemos?",
