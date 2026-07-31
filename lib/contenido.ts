@@ -137,8 +137,8 @@ export const productos = [
 export const fundador = {
   nombre: "Nombre Apellido",
   rol: "Fundador de Cuatro Puentes",
-  /** Cuando exista la foto, poner acá la ruta y se reemplaza el marcador. */
-  foto: null as string | null,
+  /** Si se pone en null, el componente vuelve a mostrar el marcador. */
+  foto: "/fundador.webp" as string | null,
   entrada:
     "No empecé importando para vender el servicio. Empecé importando para mi " +
     "propio negocio.",

@@ -1591,7 +1591,9 @@ h3 {
 @media (max-width: 900px) {
   .fundador__retrato {
     position: static;
-    aspect-ratio: 3 / 2;
+    /* Se mantiene el 4:5 y se acota el ancho: en apaisado un retrato vertical
+       queda recortado a la altura de la cara. */
+    max-width: 340px;
   }
 }
 .fundador__retrato img {
