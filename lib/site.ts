@@ -33,11 +33,16 @@ export function whatsappUrl(texto: string): string {
   return `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(texto)}`;
 }
 
+/**
+ * Sólo las cuatro que el visitante necesita para decidir, en el orden en que
+ * aparecen en la página. Rutas y Cobertura salieron del menú a propósito: son
+ * respaldo, no etapas de la decisión, y con siete enlaces la barra obligaba a
+ * leer en vez de reconocer. Las secciones siguen ahí y se llega scrolleando.
+ */
 export const navLinks = [
   { href: "#servicios", label: "Servicios" },
+  { href: "#quienes-somos", label: "Quiénes somos" },
   { href: "#proceso", label: "Cómo funciona" },
-  { href: "#rutas", label: "Rutas" },
-  { href: "#cobertura", label: "Cobertura" },
   { href: "#cotizar", label: "Cotizar" },
 ] as const;
 

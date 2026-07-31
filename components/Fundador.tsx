@@ -5,7 +5,7 @@ import Revelar from "./Revelar";
 
 export default function Fundador() {
   return (
-    <section className="section" id="quien-asesora">
+    <section className="section" id="quienes-somos">
       <div className="wrap">
         <Revelar className="fundador">
           <div className="fundador__retrato" data-revelar>
