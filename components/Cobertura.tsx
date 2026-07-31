@@ -1,5 +1,6 @@
 import { regiones } from "@/lib/contenido";
 import Revelar from "./Revelar";
+import CtaSeccion from "./CtaSeccion";
 import { Pin } from "./Icons";
 
 export default function Cobertura() {
@@ -17,7 +18,10 @@ export default function Cobertura() {
             <Pin size={15} className="shrink-0" />
             Valdivia · Región de Los Ríos
           </p>
-          <h2 data-revelar>Base en Valdivia. Operación en todo el sur.</h2>
+          <h2 data-revelar>
+            <span className="suave">Base en Valdivia.</span> Operación en{" "}
+            <em className="destacado">todo el sur</em>
+          </h2>
           <p
             data-revelar
             className="mt-s5 mb-0 text-[1.12rem] leading-[1.55] font-medium text-balance text-white"
@@ -51,6 +55,12 @@ export default function Cobertura() {
             </li>
           ))}
         </ul>
+
+        <CtaSeccion
+          texto="Hablas con alguien que conoce tu ciudad y tu puerto de entrada."
+          boton="Cotizar mi importación"
+          mensaje="Hola 4 Puentes, quiero cotizar una importación al sur de Chile."
+        />
       </Revelar>
     </section>
   );

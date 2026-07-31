@@ -1,4 +1,5 @@
 import { pasos } from "@/lib/contenido";
+import CtaSeccion from "./CtaSeccion";
 import Revelar from "./Revelar";
 import { Barco, Calculadora, Camion, Lupa, Sello } from "./Icons";
 
@@ -10,10 +11,14 @@ export default function Proceso() {
     <section className="section section--terra" id="proceso">
       <div className="wrap">
         <Revelar className="section-head">
-          <h2 data-revelar>Cinco pasos entre tu pedido y tu bodega</h2>
+          <h2 data-revelar>
+            <span className="suave">Cinco pasos entre tu pedido y</span>{" "}
+            <em className="destacado">tu bodega</em>
+          </h2>
           <p className="lede" data-revelar>
-            Un solo interlocutor en toda la cadena. Tú apruebas; nosotros
-            ejecutamos y te informamos en cada tramo.
+            <strong>Un solo interlocutor en toda la cadena.</strong> Tú apruebas;
+            nosotros ejecutamos y te informamos en cada tramo, sin que tengas que
+            perseguir a nadie.
           </p>
         </Revelar>
 
@@ -49,6 +54,12 @@ export default function Proceso() {
             })}
           </ol>
         </Revelar>
+
+        <CtaSeccion
+          texto="Ese es todo el proceso. Tú solo apruebas y recibes."
+          boton="Empezar mi cotización"
+          mensaje="Hola 4 Puentes, vi el proceso en la web y quiero cotizar una importación."
+        />
       </div>
     </section>
   );

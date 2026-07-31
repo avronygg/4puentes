@@ -178,10 +178,14 @@ export default function Cotizar() {
     <section className="section" id="cotizar">
       <div className="wrap">
         <div className="section-head">
-          <h2>Cuéntanos qué necesitas traer</h2>
+          <h2>
+            <span className="suave">Cuéntanos qué</span>{" "}
+            <em className="destacado">necesitas traer</em>
+          </h2>
           <p className="lede">
-            Son unas pocas preguntas y cambian según tu caso. Con eso preparamos un
-            costo total puesto en tu bodega.
+            Son unas pocas preguntas y cambian según tu caso. Con eso preparamos
+            un costo total puesto en tu bodega,{" "}
+            <strong>sin compromiso y sin costo</strong>.
           </p>
         </div>
 

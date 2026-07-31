@@ -36,10 +36,14 @@ export default function Modalidades() {
     <section className="section" id="modalidades">
       <div className="wrap">
         <Revelar className="section-head">
-          <h2 data-revelar>Marítimo o aéreo, según lo que necesites</h2>
+          <h2 data-revelar>
+            <span className="suave">Marítimo o aéreo,</span> según{" "}
+            <em className="destacado">lo que necesites</em>
+          </h2>
           <p className="lede" data-revelar>
-            Te decimos cuál conviene: casi siempre decide el costo por
-            kilo, pero cuando el plazo aprieta la respuesta cambia.
+            No tienes que decidirlo tú. <strong>Te decimos cuál conviene</strong> y
+            por qué: casi siempre manda el costo por kilo, pero cuando el plazo
+            aprieta la respuesta cambia.
           </p>
         </Revelar>
 

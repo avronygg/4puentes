@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { productos } from "@/lib/contenido";
 import Revelar from "./Revelar";
-import { Flecha } from "./Icons";
+import CtaSeccion from "./CtaSeccion";
 
 /** Rota la lista para que las dos filas no muestren lo mismo a la misma altura. */
 function rotar<T>(xs: readonly T[], n: number): T[] {
@@ -50,11 +50,14 @@ export default function Productos() {
     <section className="section" id="productos">
       <div className="wrap">
         <Revelar className="section-head">
-          <h2 data-revelar>¿Qué se puede traer? Casi cualquier cosa.</h2>
+          <h2 data-revelar>
+            <span className="suave">¿Qué se puede traer?</span>{" "}
+            <em className="destacado">Casi cualquier cosa</em>
+          </h2>
           <p className="lede" data-revelar>
-            Estos son productos reales que hemos importado. Van desde maquinaria
-            hasta alimentos, y la lista no es cerrada: si se puede embarcar, se
-            puede traer.
+            Maquinaria, alimentos, insumos industriales, artículos deportivos.
+            Cada rubro tiene sus propias reglas de aduana y su forma de embalar,
+            y <strong>ya pasamos por todas ellas</strong>.
           </p>
         </Revelar>
       </div>
@@ -67,13 +70,11 @@ export default function Productos() {
       </div>
 
       <div className="wrap">
-        <p className="vitrina__cierre">
-          ¿No ves lo tuyo?
-          <a href="#cotizar">
-            Cuéntanos qué necesitas
-            <Flecha size={15} />
-          </a>
-        </p>
+        <CtaSeccion
+          texto="¿No ves lo tuyo? Cuéntanos qué necesitas y te decimos si se puede traer."
+          boton="Cotizar mi producto"
+          mensaje="Hola 4 Puentes, quiero saber si pueden traer un producto en particular."
+        />
       </div>
     </section>
   );

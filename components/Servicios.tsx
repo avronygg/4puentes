@@ -9,10 +9,14 @@ export default function Servicios() {
     <section className="section" id="servicios">
       <div className="wrap">
         <Revelar className="section-head">
-          <h2 data-revelar>Tres formas de trabajar con nosotros</h2>
+          <h2 data-revelar>
+            <span className="suave">Tres formas de</span> trabajar{" "}
+            <em className="destacado">con nosotros</em>
+          </h2>
           <p className="lede" data-revelar>
-            No necesitas un departamento de comercio exterior. Elige el caso que
-            más se parece al tuyo y te entregamos un costo total puesto en tu bodega.
+            No necesitas un departamento de comercio exterior ni entender de
+            incoterms. Elige el caso que más se parece al tuyo y te entregamos{" "}
+            <strong>un costo total puesto en tu bodega</strong>, con todo incluido.
           </p>
         </Revelar>
 

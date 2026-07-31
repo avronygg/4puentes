@@ -1,5 +1,6 @@
 import { rutasExtra } from "@/lib/contenido";
 import { MAPA } from "@/lib/mapa-datos";
+import CtaSeccion from "./CtaSeccion";
 
 const ESTADO: Record<string, string> = {
   China: "En operación",
@@ -40,11 +41,14 @@ export default function Rutas() {
             compacta, para que la sección no crezca con la lista. */}
         <div className="grid grid-cols-[minmax(240px,320px)_1fr] items-center gap-s8 max-[1000px]:grid-cols-1 max-[1000px]:gap-s6">
           <div>
-            <h2>Todas las rutas terminan en tu bodega</h2>
+            <h2>
+              <span className="suave">Todas las rutas terminan</span>{" "}
+              <em className="destacado">en tu bodega</em>
+            </h2>
             <p className="lede">
-              Consolidamos en origen y traemos la carga hasta el sur de Chile.
-              Un solo interlocutor de punta a punta, sea cual sea el puerto de
-              salida.
+              Consolidamos en origen y traemos la carga hasta el sur de Chile,
+              salga del puerto que salga. <strong>Tú no coordinas con nadie más</strong>:
+              nosotros hablamos con el proveedor, la naviera y la aduana.
             </p>
           </div>
 
@@ -107,6 +111,12 @@ export default function Rutas() {
             </li>
           ))}
         </ul>
+
+        <CtaSeccion
+          texto="¿Tu proveedor está en otro puerto? Igual llegamos."
+          boton="Cotizar desde mi origen"
+          mensaje="Hola 4 Puentes, quiero cotizar una importación desde un origen específico."
+        />
       </div>
     </section>
   );
