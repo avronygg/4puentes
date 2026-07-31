@@ -51,13 +51,13 @@ export default function Productos() {
       <div className="wrap">
         <Revelar className="section-head">
           <h2 data-revelar>
-            <span className="suave">¿Qué se puede traer?</span>{" "}
-            <em className="destacado">Casi cualquier cosa</em>
+            <span className="suave">Podemos traer</span>{" "}
+            <em className="destacado">todo lo que imagines</em>
           </h2>
           <p className="lede" data-revelar>
-            Maquinaria, alimentos, insumos industriales, artículos deportivos.
-            Cada rubro tiene sus propias reglas de aduana y su forma de embalar,
-            y <strong>ya pasamos por todas ellas</strong>.
+            Maquinaria, alimentos, herramientas, artículos deportivos. Cada tipo
+            de producto tiene sus propias reglas para entrar al país y su forma
+            de embalar, y <strong>ya pasamos por todas</strong>.
           </p>
         </Revelar>
       </div>
