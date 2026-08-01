@@ -36,13 +36,14 @@ export default function Fundador() {
               <Image src="/logo.webp" alt="" width={80} height={78} />
             </span>
 
-            <p className="fundador__ficha">
-              <Pin size={17} className="shrink-0" />
-              <span>
-                <span className="fundador__ficha-titulo">Valdivia, Chile</span>
-                <span className="fundador__ficha-detalle">Base de operaciones</span>
-              </span>
-            </p>
+            <div className="fundador__ficha">
+              <p className="fundador__ficha-nombre">{fundador.nombre}</p>
+              <p className="fundador__ficha-rol">{fundador.rol}</p>
+              <p className="fundador__ficha-lugar">
+                <Pin size={15} className="shrink-0" />
+                Valdivia, Chile
+              </p>
+            </div>
           </div>
 
           <div className="min-w-0">
@@ -62,11 +63,6 @@ export default function Fundador() {
                 {t}
               </p>
             ))}
-
-            <p className="fundador__firma" data-revelar>
-              <span>{fundador.nombre}</span>
-              <span>{fundador.rol}</span>
-            </p>
 
             <ul className="fundador__credenciales" data-revelar>
               {fundador.credenciales.map((c) => (
