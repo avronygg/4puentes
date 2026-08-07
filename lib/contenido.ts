@@ -138,29 +138,28 @@ export const fundador = {
   rol: "Fundador de Cuatro Puentes",
   /**
    * Foto de la operación, no retrato: el cliente pidió que se viera el trabajo
-   * antes que la persona. Recorte de la sesión en el puerto.
-   * Si se pone en null, el componente vuelve a mostrar el marcador.
+   * antes que la persona. Si se pone en null, vuelve el marcador.
    *
-   * PENDIENTE: reemplazar por una foto propia en terreno (bodega de Valdivia,
-   * carga llegando, revisión de mercadería). Ver PENDIENTES.md.
+   * PENDIENTE: es una imagen generada, no una foto de su bodega. Reemplazar por
+   * una sesión propia en terreno cuando exista. Ver PENDIENTES.md.
    */
-  foto: "/trabajo-terreno.webp" as string | null,
+  foto: "/operacion-bodega.webp" as string | null,
   fotoAlt:
-    "Revisión de documentos de embarque junto a un camión con contenedor, en el puerto",
+    "Revisión de documentos de embarque en un patio de contenedores, junto al equipo de bodega",
   entrada:
     "No empecé importando para vender el servicio. Empecé importando para mi " +
     "propio negocio.",
+  /**
+   * Dos párrafos y cortos. Antes eran tres y largos: el cliente pidió que la
+   * sección se leyera como un resumen, no como una biografía.
+   */
   parrafos: [
-    "Hace unos cinco años necesitaba traer insumos y no encontré a nadie que " +
-      "me explicara el proceso completo sin dar vueltas. Aprendí haciéndolo: " +
-      "los trámites de aduana, los costos que nadie menciona hasta el final y " +
-      "dónde se puede negociar de verdad.",
-    "Con los años eso dejó de ser un problema propio y pasó a ser el oficio. " +
-      "He viajado a China y a otros orígenes a conocer fábricas, sentarme con " +
-      "proveedores y entender cómo se negocia allá, que no es como se negocia " +
-      "acá.",
-    "Por eso cuando te cotizo sé exactamente dónde está el margen que se puede " +
-      "bajar, y cuando te digo un plazo es el plazo real.",
+    "Hace cinco años necesitaba traer insumos y no encontré a nadie que me " +
+      "explicara el proceso completo. Lo aprendí haciéndolo: la aduana, los " +
+      "costos que aparecen al final, dónde se negocia de verdad.",
+    "Hoy viajo a China y a otros orígenes a conocer fábricas. Por eso cuando " +
+      "te cotizo sé dónde está el margen que se puede bajar, y el plazo que te " +
+      "doy es el real.",
   ],
   credenciales: [
     { dato: "+5", unidad: "años", detalle: "Importando, primero para mi propia empresa" },

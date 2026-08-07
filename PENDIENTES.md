@@ -215,15 +215,21 @@ volumen): no correspondía inventarlas.
   que cualquier enlace compartido en WhatsApp o LinkedIn sale sin miniatura.
   Se resuelve con un `app/opengraph-image.png` (1200×630).
 - **Favicon.** Resuelto: `app/icon.png` y `app/apple-icon.png`.
-- **Foto propia de la operación.** La sección "Quién te asesora" muestra hoy
-  `trabajo-terreno.webp`, que es un recorte de la sesión en el puerto: se
-  encuadró en la revisión de documentos porque el cliente pidió ver el trabajo
-  antes que a la persona. **Es un parche.** Lo que corresponde pedir es una
-  sesión propia: la bodega de Valdivia, carga llegando, revisión de mercadería.
-  El original completo sigue en `public/gianpiero-puerto.webp` por si se decide
-  volver al retrato.
-- **Sin usar en `public/`.** `gianpiero-puerto.webp` sólo se usa como fuente del
-  recorte de arriba; no lo referencia ningún componente.
+- **Foto propia de la operación (con dos reparos).** La sección "Quién te
+  asesora" muestra `operacion-bodega.webp`, que **es una imagen generada**, no
+  una foto de la bodega de 4 Puentes. Dos cosas que conviene tener presentes
+  antes de publicar:
+  1. **No es documental.** La escena, el equipo y el recinto no existen. Como
+     ilustración de ambiente pasa; presentada como "así trabajamos" no.
+  2. **Lleva un contenedor MAERSK y otro NYK con sus logos visibles.** Son
+     marcas de navieras reales. En una web comercial puede leerse como que hay
+     relación con ellas.
+
+  Reemplazar por una sesión propia en terreno: la bodega de Valdivia, carga
+  llegando, revisión de mercadería. El retrato real de Gianpiero sigue en
+  `public/gianpiero-puerto.webp` por si se decide volver a él.
+- **Sin usar en `public/`.** `gianpiero-puerto.webp` ya no lo referencia ningún
+  componente; se conserva a propósito por lo anterior.
 
   Nota para futuros assets con transparencia: una vez llegó un PNG con el damero
   de transparencia *pintado dentro de la imagen* — 0% de píxeles realmente
