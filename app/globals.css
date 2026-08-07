@@ -79,7 +79,9 @@
 
   --wrap: 1140px;
   /* -20% respecto del original clamp(80px, 9vw, 136px) */
-  --gap-section: clamp(64px, 7.2vw, 109px);
+  /* Se aplica arriba y abajo, así que entre dos secciones vale el doble: a
+     7,2vw daba 207px de blanco en un 1440 y el cliente lo vio excesivo. */
+  --gap-section: clamp(52px, 5vw, 80px);
   --gap-head: clamp(40px, 4.4vw, 64px);
 }
 
@@ -131,6 +133,14 @@ img {
 .section-head {
   max-width: 60ch;
   margin-bottom: var(--gap-head);
+}
+/* Para titulares que se leen mejor de corrido. El tope de 60ch se calcula con
+   el tamaño del cuerpo, no con el del h2, así que parte titulares que cabrían
+   enteros. La bajada conserva su propio ancho de lectura. */
+@media (min-width: 901px) {
+  .section-head--ancho {
+    max-width: none;
+  }
 }
 
 h1,
@@ -298,6 +308,11 @@ h3 {
   margin-top: var(--gap-head);
   padding-top: var(--spacing-s6);
   border-top: 1px solid var(--line);
+}
+/* Sin frase de acompañamiento los botones quedan solos: centrados, o se leen
+   como un par abandonado contra el margen izquierdo. */
+.cta-seccion--solo-botones {
+  justify-content: center;
 }
 .cta-seccion__texto {
   flex: 1 1 22ch;
@@ -889,19 +904,18 @@ h3 {
     padding: 7px;
     border-width: 2px;
   }
-  .sello__globo {
+  /* En este diámetro sólo caben dos líneas legibles. El globo y la firma se
+     van: a 7px no se leían, y la marca ya está en el menú y en el container. */
+  .sello__globo,
+  .sello__marca {
     display: none;
   }
   .sello__sobre {
-    font-size: 0.46rem;
-    letter-spacing: 0.1em;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
   }
   .sello__foco {
-    font-size: 0.84rem;
-  }
-  .sello__marca {
-    font-size: 0.42rem;
-    padding-top: 3px;
+    font-size: 1.02rem;
   }
 }
 
@@ -1925,43 +1939,42 @@ h3 {
   text-transform: uppercase;
   color: var(--color-terra-600);
 }
-/* Los cuatro tramos colgando de un tablero. El borde superior de la lista ES
-   el tablero: de ahí baja un pilar a cada tramo. */
+/* Un viaducto de cuatro arcos. El borde superior de la lista es el tablero y
+   de él cuelga un arco por tramo; el hueco entre columnas hace de pila. */
 .puente {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--spacing-s5);
+  gap: var(--spacing-s6);
   margin: var(--spacing-s8) 0 0;
   padding: 0;
   list-style: none;
-  border-top: 2px solid color-mix(in srgb, var(--color-terra-400) 42%, transparent);
+  border-top: 2px solid color-mix(in srgb, var(--color-terra-400) 48%, transparent);
 }
 .puente li {
   position: relative;
   display: grid;
   align-content: start;
+  justify-items: center;
   gap: var(--spacing-s2);
-  /* Deja el hueco por el que baja el pilar antes del primer texto. */
-  padding-top: 46px;
+  /* Deja libre el alto del arco antes del primer texto. */
+  padding-top: 88px;
+  text-align: center;
 }
-.puente__pilar {
-  position: absolute;
-  top: 0;
-  left: 15px;
-  width: 1px;
-  height: 30px;
-  background: color-mix(in srgb, var(--color-terra-400) 38%, transparent);
-}
-/* El punto donde el pilar toca el tablero. */
-.puente__pilar::before {
+/* El arco: bóveda rebajada y dos jambas rectas, como las del logotipo. La
+   máscara desvanece las jambas hacia abajo; cortadas en seco parecían un
+   dibujo a medio terminar. */
+.puente li::before {
   content: "";
   position: absolute;
-  top: -4px;
-  left: -3px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-terra-400);
+  /* Los 9px de arriba son la enjuta: sin ellos la clave del arco se pega al
+     tablero y las dos líneas se leen como una sola. */
+  inset: 9px 0 auto;
+  height: 74px;
+  border: 2px solid color-mix(in srgb, var(--color-terra-400) 44%, transparent);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 46% 46% 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent);
 }
 .puente__n {
   display: grid;
@@ -1988,8 +2001,8 @@ h3 {
   line-height: 1.5;
   color: var(--fg-muted);
 }
-/* En vertical el tablero no se puede cruzar de lado a lado: los tramos pasan a
-   dos columnas y cada uno se cuelga de su propio tramo de tablero. */
+/* En vertical no cabe un tablero de cuatro vanos: pasa a dos columnas y cada
+   fila lleva su propio tramo de tablero sobre sus dos arcos. */
 @media (max-width: 760px) {
   .puente {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1998,11 +2011,11 @@ h3 {
     border-top: 0;
   }
   .puente li {
-    padding-top: var(--spacing-s5);
-    border-top: 2px solid color-mix(in srgb, var(--color-terra-400) 42%, transparent);
+    padding-top: 54px;
+    border-top: 2px solid color-mix(in srgb, var(--color-terra-400) 48%, transparent);
   }
-  .puente__pilar {
-    display: none;
+  .puente li::before {
+    height: 46px;
   }
 }
 

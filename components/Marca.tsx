@@ -26,13 +26,14 @@ export default function Marca() {
           ))}
         </Revelar>
 
-        {/* El tablero es el borde superior de la lista; de él baja un pilar a
-            cada tramo. Dibujarlo así evita un SVG que habría que reescalar. */}
+        {/* Un viaducto: el tablero es el borde superior de la lista y de él
+            cuelga un arco por tramo, con el hueco entre columnas haciendo de
+            pila. Es la misma figura del logotipo. En CSS y no en SVG para que
+            los arcos se estiren con las columnas sin deformar el trazo. */}
         <Revelar paso={110}>
           <ol className="puente">
             {marca.tramos.map((t, i) => (
               <li key={t.nombre} data-revelar>
-                <span className="puente__pilar" aria-hidden />
                 <span className="puente__n" aria-hidden>
                   {i + 1}
                 </span>

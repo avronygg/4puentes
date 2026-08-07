@@ -12,15 +12,21 @@ export default function CtaSeccion({
   texto,
   boton = "Cotizar mi importación",
   mensaje,
+  className = "",
 }: {
-  texto: string;
+  /** Opcional: sin él quedan sólo los dos botones, centrados. */
+  texto?: string;
   boton?: string;
   /** Mensaje con el que se abre WhatsApp; cambia según lo que se acaba de leer. */
   mensaje: string;
+  /** Para colocarlo cuando el contenedor es una rejilla y no una columna. */
+  className?: string;
 }) {
   return (
-    <div className="cta-seccion">
-      <p className="cta-seccion__texto">{texto}</p>
+    <div
+      className={`cta-seccion ${texto ? "" : "cta-seccion--solo-botones"} ${className}`}
+    >
+      {texto && <p className="cta-seccion__texto">{texto}</p>}
       <a href="#cotizar" className="cta-seccion__btn">
         {boton}
         <Flecha size={15} />

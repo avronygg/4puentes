@@ -56,8 +56,11 @@ export default function Cobertura() {
           ))}
         </ul>
 
+        {/* Cruza las dos columnas: como hijo suelto de la rejilla caía en la
+            mitad izquierda y el botón de WhatsApp se bajaba solo a otra fila.
+            Sin texto: acá la sección ya lo dijo todo arriba. */}
         <CtaSeccion
-          texto="Hablas con alguien que conoce tu ciudad y tu puerto de entrada."
+          className="col-span-2 max-[900px]:col-span-1"
           boton="Cotizar mi importación"
           mensaje="Hola, necesito traer carga al sur de Chile y quiero cotizar."
         />

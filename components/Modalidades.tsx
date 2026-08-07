@@ -35,7 +35,9 @@ export default function Modalidades() {
   return (
     <section className="section" id="modalidades">
       <div className="wrap">
-        <Revelar className="section-head">
+        {/* --ancho suelta el tope de 60ch para que el titular entre en una sola
+            línea en escritorio. En vertical vuelve a partirse, que es lo suyo. */}
+        <Revelar className="section-head section-head--ancho">
           <h2 data-revelar>
             <span className="suave">Marítimo o aéreo,</span> según{" "}
             <em className="destacado">lo que necesites</em>
