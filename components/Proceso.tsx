@@ -12,12 +12,13 @@ export default function Proceso() {
       <div className="wrap">
         <Revelar className="section-head">
           <h2 data-revelar>
-            <span className="suave">Cinco pasos entre tu pedido y</span>{" "}
-            <em className="destacado">tu bodega</em>
+            <span className="suave">Así llega tu pedido, desde la fábrica</span>{" "}
+            <em className="destacado">hasta tu bodega</em>
           </h2>
           <p className="lede" data-revelar>
-            <strong>Un solo interlocutor en toda la cadena.</strong> Tú apruebas;
-            nosotros ejecutamos y te informamos en cada tramo, sin que tengas que
+            Este es el proceso completo, de principio a fin, sea lo que sea que
+            quieras traer. <strong>Lo hacemos nosotros: tú apruebas y recibes.</strong>{" "}
+            Te vamos contando dónde va tu carga en cada tramo, sin que tengas que
             perseguir a nadie.
           </p>
         </Revelar>
@@ -56,7 +57,7 @@ export default function Proceso() {
         </Revelar>
 
         <CtaSeccion
-          texto="Ese es todo el proceso. Tú solo apruebas y recibes."
+          texto="Ese es todo el proceso, y funciona igual para cualquier producto y cualquier origen."
           boton="Empezar mi cotización"
           mensaje="Hola, ya vi cómo funciona el proceso y quiero empezar una cotización."
         />

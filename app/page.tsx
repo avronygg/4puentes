@@ -1,10 +1,10 @@
 import Asesor from "@/components/Asesor";
-import Casos from "@/components/Casos";
 import Cobertura from "@/components/Cobertura";
 import Cotizar from "@/components/Cotizar";
 import Footer from "@/components/Footer";
 import Fundador from "@/components/Fundador";
 import Hero from "@/components/Hero";
+import Marca from "@/components/Marca";
 import Modalidades from "@/components/Modalidades";
 import Nav from "@/components/Nav";
 import Proceso from "@/components/Proceso";
@@ -27,10 +27,10 @@ export default function Home() {
         <Servicios />
         <Fundador />
         <Proceso />
+        <Marca />
         <Productos />
         <Modalidades />
         <Rutas />
-        <Casos />
         <Cobertura />
         <Cotizar />
       </main>

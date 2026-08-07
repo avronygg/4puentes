@@ -17,28 +17,6 @@ export const Globo = ({ size = 18, className }: P) => (
   </svg>
 );
 
-export const Escudo = ({ size = 18, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinejoin="round" className={className}>
-    <path d="M12 3l7.5 3v5.4c0 4.5-3.1 8.2-7.5 9.6-4.4-1.4-7.5-5.1-7.5-9.6V6z" />
-    <path d="M9 12l2.2 2.2L15.4 10" strokeLinecap="round" />
-  </svg>
-);
-
-export const Bodega = ({ size = 18, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinejoin="round" className={className}>
-    <path d="M3 10.2L12 4l9 6.2V20a1 1 0 01-1 1H4a1 1 0 01-1-1z" />
-    <path d="M8 21v-6h8v6" />
-  </svg>
-);
-
-export const Auricular = ({ size = 18, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 13v-1a8 8 0 0116 0v1" />
-    <path d="M4 13h2.4a1 1 0 011 1v3.4a1 1 0 01-1 1H5.4A1.4 1.4 0 014 17V13z" />
-    <path d="M20 13h-2.4a1 1 0 00-1 1v3.4a1 1 0 001 1h1a1.4 1.4 0 001.4-1.4z" />
-  </svg>
-);
-
 export const Check = ({ size = 14, className }: P) => (
   <svg {...base(size)} strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M4 12.5l5 5L20 6.5" />
@@ -80,14 +58,6 @@ export const Menu = ({ size = 26, className }: P) => (
 export const Cerrar = ({ size = 26, className }: P) => (
   <svg {...base(size)} strokeWidth={2} strokeLinecap="round" className={className}>
     <path d="M6 6l12 12M18 6L6 18" />
-  </svg>
-);
-
-export const GloboFino = ({ size = 28, className }: P) => (
-  <svg {...base(size)} strokeWidth={1.3} className={className}>
-    <circle cx="12" cy="12" r="9.2" />
-    <ellipse cx="12" cy="12" rx="4" ry="9.2" />
-    <path d="M3 12h18M4.6 7h14.8M4.6 17h14.8" />
   </svg>
 );
 

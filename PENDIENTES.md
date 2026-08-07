@@ -1,6 +1,6 @@
 # Pendientes — 4 Puentes Web
 
-Estado al 30-07-2026. Ordenado por lo que bloquea el lanzamiento.
+Estado al 07-08-2026. Ordenado por lo que bloquea el lanzamiento.
 
 ---
 
@@ -81,22 +81,26 @@ antes de publicar**: es lo único de la landing que hoy incumple una norma.
 Se quitó `.hero__scrim` y todas las sombras de texto del hero, y la segunda
 línea del titular pasó del cobrizo al rojo. Las mediciones que había en
 ARQUITECTURA.md eran de antes de esos dos cambios y ya no valen. **Hay que
-volver a medir sobre capturas del sitio desplegado** el titular, el párrafo del
-hero y la franja de confianza antes de afirmar que cumplen.
+volver a medir sobre capturas del sitio desplegado** el titular y el párrafo del
+hero antes de afirmar que cumplen. La franja de confianza que también estaba sin
+medir ya no existe: la pidió quitar el cliente el 07-08-2026.
+
+El `.sello` que la reemplazó **no hereda el problema**: su texto va en
+`terra-600` y `terra-700` sobre un disco blanco al 93%, no blanco sobre rojo.
 
 ---
 
 ## 3. Datos reales del cliente (BLOQUEANTE)
 
-Todo esto está como placeholder y se ve en la web con subrayado punteado. Vive en
+Lo que sigue como placeholder se ve en la web con subrayado punteado. Vive en
 `lib/site.ts`:
 
-- Teléfono / WhatsApp: hoy `+56 9 XXXX XXXX` y `wa.me/56900000000`.
-  **El número de WhatsApp es el que recibe todos los leads: sin él la landing no
-  capta nada.**
-- Email de contacto: hoy `contacto@4puentes.cl`.
-- Dirección: hoy "Valdivia, Región de Los Ríos".
+- Email de contacto: hoy `contacto@4puentes.cl`, **sin confirmar**.
+- Dirección: hoy "Valdivia, Región de Los Ríos", **sin la calle**.
 - Dominio definitivo, para `NEXT_PUBLIC_SITE_URL`.
+
+Ya resueltos: teléfono y WhatsApp (`+56 9 9835 9091`) y el nombre del fundador
+(Gianpiero Traverso).
 
 Mientras `contacto.porConfirmar` siga en `true`, `app/robots.ts` cierra el sitio
 a los buscadores. Cambiarlo a `false` **en el mismo cambio** en que entren los
@@ -211,10 +215,15 @@ volumen): no correspondía inventarlas.
   que cualquier enlace compartido en WhatsApp o LinkedIn sale sin miniatura.
   Se resuelve con un `app/opengraph-image.png` (1200×630).
 - **Favicon.** Resuelto: `app/icon.png` y `app/apple-icon.png`.
-- **Sin usar en `public/`.** `oceano.webp` es un mar generado por código que
-  quedó fuera de la página cuando Cobertura pasó a usar la foto real
-  (`mar-valdivia.webp`). Borrarlo o dejarlo anotado, pero no dejarlo suelto sin
-  explicación.
+- **Foto propia de la operación.** La sección "Quién te asesora" muestra hoy
+  `trabajo-terreno.webp`, que es un recorte de la sesión en el puerto: se
+  encuadró en la revisión de documentos porque el cliente pidió ver el trabajo
+  antes que a la persona. **Es un parche.** Lo que corresponde pedir es una
+  sesión propia: la bodega de Valdivia, carga llegando, revisión de mercadería.
+  El original completo sigue en `public/gianpiero-puerto.webp` por si se decide
+  volver al retrato.
+- **Sin usar en `public/`.** `gianpiero-puerto.webp` sólo se usa como fuente del
+  recorte de arriba; no lo referencia ningún componente.
 
   Nota para futuros assets con transparencia: una vez llegó un PNG con el damero
   de transparencia *pintado dentro de la imagen* — 0% de píxeles realmente
@@ -255,13 +264,8 @@ Nada de esto se ve en la web, pero desorienta a quien llegue después:
   existe, de iconos `"caja"`/`"galpon"`/`"escudo"` que ya no son los nombres
   válidos, de `lib/leads.ts` que fue eliminado, de una banda del avión y un
   `components/Avion.tsx` que ya no están, y manda a hacer `cd web`, que no es la
-  estructura del repositorio. Reescribirla contra el estado actual.
-- **CSS muerto en `app/globals.css`:** todo el bloque `.mercado*` (unas 60
-  líneas) quedó sin consumidor cuando se eliminó la sección Mercados.
-- **Exports sin uso:** `origenes` y `tiposCarga` en `lib/site.ts` son del
-  formulario viejo —el cotizador declara sus propias opciones—, y los iconos
-  `Caja`, `Galpon` y `EscudoCheck` en `components/Icons.tsx` ya no los importa
-  nadie.
+  estructura del repositorio. **Tampoco conoce `marca` ni los `tramos`, que son
+  de hoy.** Reescribirla contra el estado actual.
 - **El correo sigue en el color anterior.** La plantilla HTML de
   `app/api/v1/leads/route.ts` rotula "4 Puentes" en el cobrizo `#9c403b`, que ya
   no es color de marca. Cambiarlo cuando se decida el punto 2, para no tocarlo
@@ -269,6 +273,15 @@ Nada de esto se ve en la web, pero desorienta a quien llegue después:
 
 ## 9. Decisiones tomadas que conviene recordar
 
+- **La sección de testimonios se eliminó el 07-08-2026**, a pedido del cliente:
+  "no se entiende nada". Con ella se fue el riesgo que arrastraba desde que se
+  diseñó: las cinco citas, con sus nombres, cargos y empresas, estaban
+  inventadas y sólo los hechos y los porcentajes venían del cliente. Iban
+  marcadas con `pendiente: true` justamente para que no se publicaran así.
+  **Si alguna vez vuelve a montarse esa sección, hace falta la cita textual de
+  cada empresa, su autorización escrita para nombrarla y el respaldo de cada
+  porcentaje.** Publicar reseñas firmadas por quien no las dijo es publicidad
+  engañosa ante el SERNAC.
 - **El sitio está fijado en modo claro** (`color-scheme: light`). Se construyó
   sobre una foto de cielo brillante y toda la paleta de superficies asume
   blanco. Reactivar el modo oscuro implica rediseñar el hero y las tarjetas.

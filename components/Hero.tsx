@@ -2,14 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { Auricular, Bodega, Escudo, Flecha, Globo, GloboFino } from "./Icons";
-
-const confianza = [
-  { Icono: Globo, texto: "Puerta a puerta" },
-  { Icono: Escudo, texto: "Carga asegurada" },
-  { Icono: Bodega, texto: "Bodegaje incluido" },
-  { Icono: Auricular, texto: "Un solo interlocutor" },
-];
+import { Flecha, Globo } from "./Icons";
 
 export default function Hero() {
   const hero = useRef<HTMLElement>(null);
@@ -97,11 +90,15 @@ export default function Hero() {
           {/* Empuja el copy bajo el container en vertical. */}
           <div className="order-2 hidden max-[900px]:block max-[900px]:min-h-[min(40vh,340px)] max-[900px]:flex-auto" />
 
-          <p className="order-3 mt-s6 max-w-[33ch] text-[clamp(1rem,0.95rem+0.38vw,1.14rem)] leading-[1.58] text-[#edf5fc] max-[900px]:mt-0 max-[900px]:max-w-[38ch]">
-            Traemos tu carga desde cualquier parte del mundo hasta tu bodega.
+          <p className="order-3 mt-s6 max-w-[34ch] text-[clamp(1rem,0.95rem+0.38vw,1.14rem)] leading-[1.58] text-[#edf5fc] max-[900px]:mt-0 max-[900px]:max-w-[38ch]">
+            Te asesoramos y gestionamos tu importación desde cualquier parte del
+            mundo.
             {/* En vertical el copy se queda en dos líneas: la segunda frase sólo
                 aparece de tablet para arriba. */}
-            <span className="max-[900px]:hidden"> Nosotros hacemos todo el proceso.</span>
+            <span className="max-[900px]:hidden">
+              {" "}
+              Tú solo nos dices qué necesitas; nosotros te lo dejamos en tu bodega.
+            </span>
           </p>
 
           <div className="order-4 mt-s7 flex flex-wrap items-center gap-s5 gap-x-s6 max-[900px]:justify-center">
@@ -112,29 +109,21 @@ export default function Hero() {
               Cotizar mi importación
               <Flecha />
             </a>
-            <p className="m-0 flex items-center gap-s3 text-[0.87rem] leading-[1.35] font-medium text-white max-[900px]:hidden">
-              <GloboFino className="shrink-0 opacity-85" />
-              <span className="max-w-[22ch]">Importamos desde todo el mundo</span>
-            </p>
           </div>
         </div>
       </div>
 
-      {/* franja de confianza */}
-      <div className="absolute inset-x-0 bottom-0 z-3 border-t border-white/25 bg-[rgba(4,26,52,.22)] backdrop-blur-[2px] max-[900px]:hidden">
-        <div className="wrap">
-          <ul className="flex list-none justify-between gap-s6 p-0 py-s6">
-            {confianza.map(({ Icono, texto }) => (
-              <li
-                key={texto}
-                className="flex items-center gap-s4 text-[1.02rem] font-semibold text-white"
-              >
-                <Icono size={24} className="shrink-0 opacity-95" />
-                {texto}
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* Sello de alcance. Reemplaza a la línea suelta que iba junto al botón:
+          el dato es el que más pesa comercialmente y perdido al lado del CTA no
+          se leía. Va estampado sobre el cielo, como un timbre de aduana. */}
+      <div className="sello" aria-label="Importamos desde todo el mundo">
+        <Globo size={22} className="sello__globo" aria-hidden />
+        <span className="sello__sobre">Importamos desde</span>
+        <strong className="sello__foco">
+          Todo el<br />
+          mundo
+        </strong>
+        <span className="sello__marca">Cuatro Puentes</span>
       </div>
     </section>
   );

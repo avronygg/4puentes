@@ -14,8 +14,9 @@ export default function Servicios() {
             <em className="destacado">con nosotros</em>
           </h2>
           <p className="lede" data-revelar>
-            No necesitas saber nada de importaciones ni tener gente dedicada a
-            esto. Elige el caso que más se parece al tuyo y te entregamos{" "}
+            Llega gente en tres situaciones distintas y con las tres hacemos lo
+            mismo: te asesoramos, buscamos la mejor opción y traemos tu carga.
+            Elige la que se parece a la tuya y te entregamos{" "}
             <strong>un precio final, con todo incluido</strong>, puesto en tu bodega.
           </p>
         </Revelar>

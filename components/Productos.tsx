@@ -71,9 +71,9 @@ export default function Productos() {
 
       <div className="wrap">
         <CtaSeccion
-          texto="¿No ves lo tuyo? Cuéntanos qué necesitas y te decimos si se puede traer."
+          texto="¿No ves tu producto? Cuéntanos qué necesitas y te lo traemos."
           boton="Cotizar mi producto"
-          mensaje="Hola, quiero saber si pueden traer un producto específico. Les cuento cuál."
+          mensaje="Hola, quiero traer un producto específico. Les cuento cuál."
         />
       </div>
     </section>

@@ -9,41 +9,57 @@ export default function Fundador() {
     <section className="section" id="quienes-somos">
       <div className="wrap">
         <Revelar className="fundador">
-          <div className="fundador__retrato" data-revelar>
-            <div className="fundador__marco">
-              {fundador.foto ? (
-                <Image
-                  src={fundador.foto}
-                  alt={`${fundador.nombre}, ${fundador.rol}, revisando documentos junto a un contenedor en el puerto`}
-                  width={800}
-                  height={1000}
-                  sizes="(max-width: 900px) 340px, 380px"
-                />
-              ) : (
-                // Marcador mientras no haya foto. No es un hueco vacío: sostiene
-                // la composición y deja claro que falta un dato, no un bloque.
-                <div className="fundador__marcador" aria-hidden>
-                  <Image src="/logo.webp" alt="" width={120} height={117} />
-                  <span>Foto pendiente</span>
-                </div>
-              )}
+          {/* La foto y las credenciales viajan juntas: la imagen es apaisada y
+              sola dejaba media columna vacía frente a un texto largo. */}
+          <div className="fundador__columna">
+            <div className="fundador__retrato" data-revelar>
+              <div className="fundador__marco">
+                {fundador.foto ? (
+                  <Image
+                    src={fundador.foto}
+                    alt={fundador.fotoAlt}
+                    width={660}
+                    height={495}
+                    sizes="(max-width: 900px) 92vw, 450px"
+                  />
+                ) : (
+                  // Marcador mientras no haya foto. No es un hueco vacío: sostiene
+                  // la composición y deja claro que falta un dato, no un bloque.
+                  <div className="fundador__marcador" aria-hidden>
+                    <Image src="/logo.webp" alt="" width={120} height={117} />
+                    <span>Foto pendiente</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Dos piezas flotantes y nada más: rompen el rectángulo y dan
+                  profundidad. Cargan datos que no se repiten en el resto de la
+                  sección, si no serían decoración. */}
+              <span className="fundador__sello" aria-hidden>
+                <Image src="/logo.webp" alt="" width={80} height={78} />
+              </span>
+
+              <div className="fundador__ficha">
+                <p className="fundador__ficha-nombre">{fundador.nombre}</p>
+                <p className="fundador__ficha-rol">{fundador.rol}</p>
+                <p className="fundador__ficha-lugar">
+                  <Pin size={15} className="shrink-0" />
+                  Valdivia, Chile
+                </p>
+              </div>
             </div>
 
-            {/* Dos piezas flotantes y nada más: rompen el rectángulo y dan
-                profundidad. Cargan datos que no se repiten en el resto de la
-                sección, si no serían decoración. */}
-            <span className="fundador__sello" aria-hidden>
-              <Image src="/logo.webp" alt="" width={80} height={78} />
-            </span>
-
-            <div className="fundador__ficha">
-              <p className="fundador__ficha-nombre">{fundador.nombre}</p>
-              <p className="fundador__ficha-rol">{fundador.rol}</p>
-              <p className="fundador__ficha-lugar">
-                <Pin size={15} className="shrink-0" />
-                Valdivia, Chile
-              </p>
-            </div>
+            <ul className="fundador__credenciales" data-revelar>
+              {fundador.credenciales.map((c) => (
+                <li key={c.detalle}>
+                  <span className="fundador__dato">
+                    {c.dato}
+                    <span className="fundador__unidad">{c.unidad}</span>
+                  </span>
+                  <span className="fundador__detalle">{c.detalle}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="min-w-0">
@@ -63,25 +79,13 @@ export default function Fundador() {
                 {t}
               </p>
             ))}
-
-            <ul className="fundador__credenciales" data-revelar>
-              {fundador.credenciales.map((c) => (
-                <li key={c.detalle}>
-                  <span className="fundador__dato">
-                    {c.dato}
-                    <span className="fundador__unidad">{c.unidad}</span>
-                  </span>
-                  <span className="fundador__detalle">{c.detalle}</span>
-                </li>
-              ))}
-            </ul>
           </div>
         </Revelar>
 
         <CtaSeccion
-          texto="Cuéntame qué necesitas traer y te digo con franqueza si conviene."
-          boton="Hablar de mi caso"
-          mensaje="Hola, quiero conversar sobre una importación para mi negocio y que me digan con franqueza si me conviene."
+          texto="Dime qué quieres traer y nos encargamos: buscamos la mejor opción y hacemos todo el proceso hasta dejártelo en Chile."
+          boton="Contarle mi caso a Gianpiero"
+          mensaje="Hola Gianpiero, quiero contarte qué necesito traer y que me digas cómo lo hacemos."
         />
       </div>
     </section>
