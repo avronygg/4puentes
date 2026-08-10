@@ -190,7 +190,7 @@ export const marca = {
     { nombre: "El proveedor", detalle: "Lo buscamos y lo verificamos en origen" },
     { nombre: "El viaje", detalle: "Por barco o por avión, según te convenga" },
     { nombre: "La aduana", detalle: "Trámites, impuestos y salida del puerto" },
-    { nombre: "La bodega", detalle: "Guardamos y te lo entregamos en Valdivia" },
+    { nombre: "La bodega", detalle: "Bodegaje propio en Valdivia, y la entrega" },
   ],
 } as const;
 
@@ -205,10 +205,11 @@ export const pasos = [
   },
   {
     n: "02",
-    titulo: "Buscamos y compramos en origen",
+    titulo: "Buscamos y validamos el producto",
     texto:
-      "Contactamos al proveedor, comprobamos que sea serio, negociamos el precio " +
-      "y revisamos la mercadería antes de que suba al barco.",
+      "Contactamos al proveedor, comprobamos que sea serio y negociamos el " +
+      "precio. El producto se valida antes de comprar el pedido completo: si " +
+      "quieres verlo, te traemos una muestra por avión.",
   },
   {
     n: "03",
@@ -221,16 +222,15 @@ export const pasos = [
     n: "04",
     titulo: "Pasamos la aduana",
     texto:
-      "Hacemos los trámites, pagamos los impuestos y sacamos la carga del puerto " +
-      "rumbo a nuestra bodega en Valdivia. Todos los papeles los preparamos " +
-      "nosotros.",
+      "Hacemos los trámites, pagamos los impuestos y sacamos la carga del " +
+      "puerto rumbo al sur. Todos los papeles los preparamos nosotros.",
   },
   {
     n: "05",
     titulo: "Te lo entregamos",
     texto:
-      "Guardamos tu mercadería en nuestra bodega de Valdivia y te la mandamos " +
-      "cuando la necesites: todo de una vez o por partes.",
+      "Te dejamos la carga en tu bodega. Y si necesitas espacio, contamos con " +
+      "bodegaje propio en Valdivia para tener tu mercadería guardada.",
   },
 ] as const;
 
