@@ -47,7 +47,7 @@ export default function Footer() {
         <div className="pie__rejilla">
           <div>
             <Image
-              src="/logo.webp"
+              src="/logo-cuatro-puentes.webp"
               alt="Cuatro Puentes"
               width={88}
               height={86}

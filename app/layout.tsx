@@ -72,7 +72,7 @@ export default function RootLayout({
             hero todavía está bajando, así el primer cuadro ya tiene movimiento. */}
         <div className="cargador" aria-hidden>
           <span className="cargador__marca">
-            <Image src="/logo.webp" alt="" width={132} height={129} priority />
+            <Image src="/logo-cuatro-puentes.webp" alt="" width={132} height={129} priority />
           </span>
           <span className="cargador__linea" />
         </div>

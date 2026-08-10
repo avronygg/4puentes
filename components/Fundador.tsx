@@ -23,7 +23,7 @@ export default function Fundador() {
                 // Marcador mientras no haya foto. No es un hueco vacío: sostiene
                 // la composición y deja claro que falta un dato, no un bloque.
                 <div className="fundador__marcador" aria-hidden>
-                  <Image src="/logo.webp" alt="" width={120} height={117} />
+                  <Image src="/logo-cuatro-puentes.webp" alt="" width={120} height={118} />
                   <span>Foto pendiente</span>
                 </div>
               )}
@@ -33,7 +33,7 @@ export default function Fundador() {
                 profundidad. Cargan datos que no se repiten en el resto de la
                 sección, si no serían decoración. */}
             <span className="fundador__sello" aria-hidden>
-              <Image src="/logo.webp" alt="" width={80} height={78} />
+              <Image src="/logo-cuatro-puentes.webp" alt="" width={80} height={78} />
             </span>
 
             <div className="fundador__ficha">

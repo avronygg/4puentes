@@ -33,7 +33,7 @@ export default function Nav() {
       <header className={`nav ${stuck ? "is-stuck" : ""}`}>
         <div className="nav__in">
           <a href="#inicio" aria-label="4 Puentes — inicio" className="nav__logo">
-            <Image src="/logo.webp" alt="Cuatro Puentes" width={72} height={70} priority />
+            <Image src="/logo-cuatro-puentes.webp" alt="Cuatro Puentes" width={72} height={71} priority />
           </a>
 
           <ul className="nav__links">
