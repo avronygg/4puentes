@@ -683,7 +683,10 @@ h3 {
      tamaño de siempre. */
   width: min(44vw - 42px, 72svh);
   height: auto;
-  aspect-ratio: 766 / 907;
+  /* El render nuevo dibuja el container más de frente, así que la pieza es más
+     alta que la anterior a igual ancho. El recorte se hizo para que la caja y
+     el cable midan en pantalla lo mismo que antes; lo que crece es el alto. */
+  aspect-ratio: 1448 / 1987;
   will-change: transform, opacity;
 }
 .hero__hang,
@@ -813,9 +816,14 @@ h3 {
     margin-inline: auto;
     top: 0;
     bottom: auto;
-    aspect-ratio: 680 / 1390;
+    /* El render nuevo trae el gancho más arriba, justo a la altura de
+       "SIN LÍMITES", y sus franjas blancas cortaban las letras. El asset móvil
+       lleva cuerda añadida para bajarlo: por eso la proporción es más alta. */
+    aspect-ratio: 1420 / 3227;
     height: auto;
-    width: min(82vw, 36svh);
+    /* 34 y no 36: entre el gancho y el borde de abajo del container hay una
+       distancia fija, y a 36svh no cabía entre el titular y el párrafo. */
+    width: min(82vw, 34svh);
     translate: none;
   }
 }

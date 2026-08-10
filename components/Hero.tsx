@@ -58,12 +58,12 @@ export default function Hero() {
             {/* En vertical va otro render, con los cables largos: entran por el
                 borde de arriba en vez de aparecer cortados a media pantalla. */}
             <picture>
-              <source media="(max-width: 900px)" srcSet="/container-movil.webp" />
+              <source media="(max-width: 900px)" srcSet="/container-4p-movil.webp" />
               <Image
-                src="/container.webp"
+                src="/container-4p.webp"
                 alt=""
-                width={766}
-                height={907}
+                width={1200}
+                height={1647}
                 priority
                 quality={90}
                 sizes="45vw"
