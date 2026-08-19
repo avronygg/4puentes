@@ -100,8 +100,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`mailto:${contacto.email}`}
-                  className="tbd pie__enlace pie__enlace--icono"
-                  title="Por confirmar"
+                  className="pie__enlace pie__enlace--icono"
                 >
                   <Sobre size={16} className="shrink-0 text-terra-400" />
                   {contacto.email}

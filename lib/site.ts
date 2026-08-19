@@ -15,14 +15,15 @@ export const site = {
 } as const;
 
 /**
- * Teléfono y WhatsApp ya son los reales. Siguen pendientes el correo y la
- * dirección exacta, y por eso `porConfirmar` no se apaga todavía: es la bandera
- * que mantiene el sitio cerrado a buscadores desde app/robots.ts.
+ * Teléfono, WhatsApp y correo ya son los reales. Sigue pendiente la dirección
+ * exacta —hoy sólo dice la ciudad y la región—, y por eso `porConfirmar` no se
+ * apaga todavía: es la bandera que mantiene el sitio cerrado a buscadores desde
+ * app/robots.ts. Al completar la calle, poner `false` en el mismo cambio.
  */
 export const contacto = {
   telefono: "+56 9 9835 9091",
   telefonoHref: "tel:+56998359091",
-  email: "contacto@4puentes.cl",
+  email: "contacto@comex4puentes.cl",
   direccion: "Valdivia, Región de Los Ríos",
   /** Solo dígitos, formato wa.me. */
   whatsapp: "56998359091",

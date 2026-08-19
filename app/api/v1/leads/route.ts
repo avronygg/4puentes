@@ -76,7 +76,14 @@ async function enviarCorreo(datos: Respuestas): Promise<{ enviado: boolean; moti
     });
 
     if (!res.ok) {
-      return { enviado: false, motivo: `Resend respondió ${res.status}` };
+      // El motivo importa: los fallos típicos al conectar son 403 por dominio
+      // sin verificar y 422 por un remitente que no pertenece a ese dominio, y
+      // sólo el cuerpo de la respuesta lo distingue.
+      const detalle = await res.text().catch(() => "");
+      return {
+        enviado: false,
+        motivo: `Resend respondió ${res.status}${detalle ? `: ${detalle.slice(0, 300)}` : ""}`,
+      };
     }
     return { enviado: true };
   } catch (e) {
