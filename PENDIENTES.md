@@ -52,9 +52,18 @@ DKIM**. Sobrevive intacta mientras nada reescriba el mensaje —ni un antivirus
 que añada un pie, ni una regla que reetiquete el asunto—, y es la razón por la
 que el registro DKIM no se puede omitir.
 
-Conviene además configurar en Gmail "Enviar como" con
-`contacto@comex4puentes.cl`. Sin eso, quien cotizó recibe la respuesta desde una
-dirección `@gmail.com` que no reconoce.
+**Configurar "Enviar como" en el Gmail central.** Sin esto, quien cotizó recibe
+la respuesta desde una dirección `@gmail.com` que no reconoce. Gmail manda el
+correo por el SMTP de Rackspace, así que la respuesta sale autenticada por el
+SPF del raíz que ya existe (`include:emailsrvr.com`): no hace falta ningún
+registro DNS más.
+
+Ajustes → Cuentas e importación → "Enviar como" → Añadir otra dirección.
+Servidor `secure.emailsrvr.com`, puerto `465` con SSL, usuario y contraseña los
+del buzón. El código de verificación que pide Gmail llega al propio buzón, que
+reenvía al mismo Gmail. Después, activar "Responder desde la misma dirección a
+la que se envió el mensaje": las cotizaciones llegan dirigidas a `contacto@`,
+así que Gmail elige el remitente correcto solo.
 
 `LEADS_TO` acepta varios destinatarios separados por coma, por si en algún
 momento conviene sumar un segundo buzón. El asunto ya viene como
