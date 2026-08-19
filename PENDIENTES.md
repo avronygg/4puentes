@@ -15,9 +15,23 @@ WhatsApp igual, que es el canal real— pero el lead se pierde.
 
 ### Qué falta hacer
 
-**a) Crear la cuenta en Resend y verificar el dominio.** El remitente de
-`RESEND_FROM` tiene que estar en un dominio verificado o el envío falla. Va de
-la mano con el dominio definitivo (punto 4).
+**a) Verificar `comex4puentes.cl` en Resend.** El remitente de `RESEND_FROM`
+tiene que estar en un dominio verificado o el envío falla con 403. La cuenta ya
+existe y el dominio está dado de alta; faltan los registros DNS.
+
+El DNS del dominio está en **Route 53** (nameservers `awsdns`), no en el
+registrador ni en Rackspace. Los cinco registros de Resend **son puramente
+aditivos**: el MX y el SPF van en el subdominio `send.comex4puentes.cl`, así que
+no tocan el MX del raíz (`mx1/mx2.emailsrvr.com`, Rackspace Email) ni el SPF del
+raíz (`v=spf1 include:emailsrvr.com ~all`), que son los que hacen funcionar el
+correo de la empresa. **No fusionar el SPF de Resend con el del raíz:** son dos
+dominios distintos y el `include` de Resend no va en el raíz.
+
+**a bis) Mientras tanto se puede recibir igual.** Con
+`RESEND_FROM=onboarding@resend.dev` el envío funciona sin dominio verificado,
+con una limitación: Resend sólo entrega al correo del dueño de la cuenta, así
+que `LEADS_TO` tiene que ser ése. Sirve para probar la cadena completa y para no
+perder leads mientras el DNS propaga.
 
 **b) Cargar las tres variables en Vercel** (Production y Preview):
 
@@ -27,9 +41,16 @@ la mano con el dominio definitivo (punto 4).
 | `RESEND_FROM` | El buzón remitente | Formato `Nombre <buzon@dominio.cl>`. El dominio debe estar verificado. |
 | `LEADS_TO` | Destinatarios comerciales | Varios separados por coma. |
 
-**c) Decidir quién recibe.** Hoy no hay ningún destinatario acordado con el
-cliente. Si va a un buzón compartido, conviene además una regla de etiquetado:
-el asunto ya viene como `Cotización — Nombre (Empresa)`.
+**c) Crear el buzón `contacto@comex4puentes.cl`.** Es la dirección que muestra
+el pie del sitio, pero **todavía no existe**: quien le escriba hoy recibe un
+rebote. El plan del cliente es crearla y reenviar a un correo central de otra
+cuenta. Hasta entonces `LEADS_TO` apunta a una dirección que sí recibe, y eso se
+cambia en Vercel sin tocar el repositorio.
+
+`LEADS_TO` acepta varios destinatarios separados por coma, así que la dirección
+provisoria y la definitiva pueden convivir durante la transición. Si termina en
+un buzón compartido conviene una regla de etiquetado: el asunto ya viene como
+`Cotización — Nombre · Producto`.
 
 **d) Probar el envío de punta a punta** antes de publicar, incluyendo un caso de
 cada perfil: el cuerpo del correo se arma con `resumen()`, que sólo incluye los
@@ -95,12 +116,16 @@ El `.sello` que la reemplazó **no hereda el problema**: su texto va en
 Lo que sigue como placeholder se ve en la web con subrayado punteado. Vive en
 `lib/site.ts`:
 
-- Email de contacto: hoy `contacto@4puentes.cl`, **sin confirmar**.
-- Dirección: hoy "Valdivia, Región de Los Ríos", **sin la calle**.
-- Dominio definitivo, para `NEXT_PUBLIC_SITE_URL`.
+- Dirección: hoy "Valdivia, Región de Los Ríos", **sin la calle**. Es lo único
+  que queda para poder abrir el sitio a buscadores.
+- Dominio definitivo, para `NEXT_PUBLIC_SITE_URL`. Hoy el valor por defecto en
+  `lib/site.ts` es `4puentes.cl`, pero el correo de la empresa es
+  `@comex4puentes.cl`: **hay que confirmar cuál de los dos es el sitio.**
 
-Ya resueltos: teléfono y WhatsApp (`+56 9 9835 9091`) y el nombre del fundador
-(Gianpiero Traverso).
+Ya resueltos: teléfono y WhatsApp (`+56 9 9835 9091`), el nombre del fundador
+(Gianpiero Traverso) y el correo de contacto (`contacto@comex4puentes.cl`, que
+ya se muestra sin el subrayado de pendiente aunque el buzón esté por crear —
+ver el punto 1c).
 
 Mientras `contacto.porConfirmar` siga en `true`, `app/robots.ts` cierra el sitio
 a los buscadores. Cambiarlo a `false` **en el mismo cambio** en que entren los
