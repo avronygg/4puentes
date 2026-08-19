@@ -41,16 +41,24 @@ perder leads mientras el DNS propaga.
 | `RESEND_FROM` | El buzón remitente | Formato `Nombre <buzon@dominio.cl>`. El dominio debe estar verificado. |
 | `LEADS_TO` | Destinatarios comerciales | Varios separados por coma. |
 
-**c) Crear el buzón `contacto@comex4puentes.cl`.** Es la dirección que muestra
-el pie del sitio, pero **todavía no existe**: quien le escriba hoy recibe un
-rebote. El plan del cliente es crearla y reenviar a un correo central de otra
-cuenta. Hasta entonces `LEADS_TO` apunta a una dirección que sí recibe, y eso se
-cambia en Vercel sin tocar el repositorio.
+**c) Crear el buzón `contacto@comex4puentes.cl` en Rackspace** y reenviarlo al
+Gmail central del equipo. Es la dirección que muestra el pie del sitio y la que
+va en `LEADS_TO`; hasta que exista, quien le escriba recibe un rebote.
 
-`LEADS_TO` acepta varios destinatarios separados por coma, así que la dirección
-provisoria y la definitiva pueden convivir durante la transición. Si termina en
-un buzón compartido conviene una regla de etiquetado: el asunto ya viene como
-`Cotización — Nombre · Producto`.
+Ese reenvío tiene una consecuencia que conviene saber: para Gmail el mensaje
+llega desde un servidor de Rackspace y no de Resend, así que **la alineación de
+SPF se rompe en el segundo salto y lo único que sostiene DMARC es la firma
+DKIM**. Sobrevive intacta mientras nada reescriba el mensaje —ni un antivirus
+que añada un pie, ni una regla que reetiquete el asunto—, y es la razón por la
+que el registro DKIM no se puede omitir.
+
+Conviene además configurar en Gmail "Enviar como" con
+`contacto@comex4puentes.cl`. Sin eso, quien cotizó recibe la respuesta desde una
+dirección `@gmail.com` que no reconoce.
+
+`LEADS_TO` acepta varios destinatarios separados por coma, por si en algún
+momento conviene sumar un segundo buzón. El asunto ya viene como
+`Cotización — Nombre · Producto`, útil para filtrar o etiquetar.
 
 **d) Probar el envío de punta a punta** antes de publicar, incluyendo un caso de
 cada perfil: el cuerpo del correo se arma con `resumen()`, que sólo incluye los
