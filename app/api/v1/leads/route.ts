@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { resumen, validarCotizacion, type Respuestas } from "@/lib/cotizador";
+import { validarCotizacion, type Respuestas } from "@/lib/cotizador";
+import { cuerpoHtml, cuerpoTexto } from "@/lib/correo-lead";
 
 export const dynamic = "force-dynamic";
 
@@ -18,35 +19,6 @@ export const dynamic = "force-dynamic";
 
 const RESEND = "https://api.resend.com/emails";
 
-function escapar(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function cuerpoHtml(datos: Respuestas): string {
-  const filas = resumen(datos)
-    .map(
-      (f) =>
-        `<tr>
-           <td style="padding:8px 16px 8px 0;color:#63615f;font-size:13px;vertical-align:top;white-space:nowrap">${escapar(f.etiqueta)}</td>
-           <td style="padding:8px 0;color:#1a1a1b;font-size:14px;font-weight:500">${escapar(f.valor)}</td>
-         </tr>`,
-    )
-    .join("");
-
-  return `<div style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;max-width:560px">
-    <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d5150d">4 Puentes</p>
-    <h1 style="margin:0 0 20px;font-size:20px;color:#1a1a1b">Nueva solicitud de cotización</h1>
-    <table style="border-collapse:collapse;width:100%">${filas}</table>
-    <p style="margin:24px 0 0;font-size:12px;color:#63615f">
-      Recibido el ${new Date().toLocaleString("es-CL", { timeZone: "America/Santiago" })}.
-    </p>
-  </div>`;
-}
-
 async function enviarCorreo(datos: Respuestas): Promise<{ enviado: boolean; motivo?: string }> {
   const clave = process.env.RESEND_API_KEY;
   const desde = process.env.RESEND_FROM;
@@ -55,10 +27,6 @@ async function enviarCorreo(datos: Respuestas): Promise<{ enviado: boolean; moti
   if (!clave || !desde || !para) {
     return { enviado: false, motivo: "faltan RESEND_API_KEY, RESEND_FROM o LEADS_TO" };
   }
-
-  const texto = resumen(datos)
-    .map((f) => `${f.etiqueta}: ${f.valor}`)
-    .join("\n");
 
   try {
     const res = await fetch(RESEND, {
@@ -71,7 +39,7 @@ async function enviarCorreo(datos: Respuestas): Promise<{ enviado: boolean; moti
         reply_to: datos.email,
         subject: `Cotización — ${datos.nombre}${datos.producto ? ` · ${datos.producto}` : ""}`,
         html: cuerpoHtml(datos),
-        text: texto,
+        text: cuerpoTexto(datos),
       }),
     });
 

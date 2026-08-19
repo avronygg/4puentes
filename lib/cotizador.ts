@@ -22,6 +22,13 @@ type Base = {
    * tiene por qué saber todavía cómo debería viajar.
    */
   cuando?: (r: Respuestas) => boolean;
+  /**
+   * Rótulo corto para el correo que recibe el comercial. Las etiquetas del
+   * formulario están escritas en segunda persona —le hablan a quien cotiza— y
+   * en la bandeja se leen al revés: "¿Cuánto te cuesta hoy…?" no le pregunta
+   * nada a quien abre el correo. Si falta, se usa `etiqueta`.
+   */
+  etiquetaCorreo?: string;
 };
 
 /**
@@ -129,6 +136,7 @@ const OPCIONES_CANTIDAD = [
 const OTRO_CANTIDAD = {
   valor: "otro",
   etiqueta: "¿Qué cantidad, aproximadamente?",
+  etiquetaCorreo: "Volumen",
   marcador: "Ej.: 300 cajas, 12 pallets, 25 m³…",
 } as const;
 
@@ -151,7 +159,7 @@ export const PASOS: readonly Paso[] = [
     titulo: "¿Cuál de estas situaciones se parece más a tu caso?",
     bajada: "Son tres o cuatro preguntas y cambian según lo que elijas.",
     campos: [
-      { tipo: "opcion", id: "perfil", etiqueta: "Tu situación", requerido: true, opciones: PERFILES },
+      { tipo: "opcion", id: "perfil", etiqueta: "Tu situación", etiquetaCorreo: "Perfil", requerido: true, opciones: PERFILES },
     ],
   },
 
@@ -166,6 +174,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "texto",
         id: "producto",
         etiqueta: "¿Qué traes principalmente?",
+        etiquetaCorreo: "Producto",
         marcador: "Repuestos, textil, insumos…",
         requerido: true,
       },
@@ -173,6 +182,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "costoActual",
         etiqueta: "¿Cuánto te cuesta hoy cada embarque, puesto en tu bodega?",
+        etiquetaCorreo: "Costo actual por embarque",
         ayuda: "Un aproximado por embarque basta: es la cifra contra la que comparamos.",
         requerido: true,
         opciones: [
@@ -193,6 +203,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "cantidad",
         etiqueta: "¿Qué cantidad traes por embarque?",
+        etiquetaCorreo: "Volumen por embarque",
         requerido: true,
         opciones: OPCIONES_CANTIDAD,
         otro: OTRO_CANTIDAD,
@@ -201,6 +212,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "frecuencia",
         etiqueta: "¿Cada cuánto importas?",
+        etiquetaCorreo: "Frecuencia",
         requerido: true,
         opciones: OPCIONES_FRECUENCIA,
       },
@@ -210,6 +222,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "origen",
         etiqueta: "¿Desde dónde?",
+        etiquetaCorreo: "Origen",
         ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
         requerido: true,
         opciones: [
@@ -234,6 +247,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "texto",
         id: "producto",
         etiqueta: "¿Qué insumo o producto compras?",
+        etiquetaCorreo: "Producto",
         marcador: "Tornillos, sacos de cemento, envases…",
         requerido: true,
       },
@@ -243,6 +257,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "gastoLocal",
         etiqueta: "¿Cuánto gastas al mes en ese insumo?",
+        etiquetaCorreo: "Gasto mensual actual",
         ayuda: "Un aproximado basta: es la cifra contra la que comparamos.",
         requerido: true,
         opciones: [
@@ -265,6 +280,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "origen",
         etiqueta: "¿Desde dónde?",
+        etiquetaCorreo: "Origen",
         ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
         requerido: true,
         opciones: [
@@ -288,6 +304,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "texto",
         id: "producto",
         etiqueta: "¿Qué rubro o tipo de producto?",
+        etiquetaCorreo: "Rubro",
         marcador: "Ferretería, alimentos, tecnología…",
         requerido: true,
       },
@@ -295,6 +312,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "etapa",
         etiqueta: "¿En qué etapa estás?",
+        etiquetaCorreo: "Etapa",
         requerido: true,
         opciones: [
           { valor: "explorando", titulo: "Explorando", detalle: "Quiero entender costos y plazos", icono: "brujula" },
@@ -308,6 +326,7 @@ export const PASOS: readonly Paso[] = [
         tipo: "opcion",
         id: "origen",
         etiqueta: "¿Desde dónde?",
+        etiquetaCorreo: "Origen",
         ayuda: "Si no lo sabes, elige la última: lo resolvemos nosotros.",
         requerido: true,
         opciones: [
@@ -335,11 +354,12 @@ export const PASOS: readonly Paso[] = [
     campos: [
       { tipo: "texto", id: "nombre", etiqueta: "Nombre", marcador: "Tu nombre", requerido: true, max: 120 },
       { tipo: "email", id: "email", etiqueta: "Correo", marcador: "tu@empresa.cl", requerido: true, max: 160 },
-      { tipo: "tel", id: "telefono", etiqueta: "Teléfono o WhatsApp", marcador: "+56 9 1234 5678", max: 40 },
+      { tipo: "tel", id: "telefono", etiqueta: "Teléfono o WhatsApp", etiquetaCorreo: "Teléfono", marcador: "+56 9 1234 5678", max: 40 },
       {
         tipo: "parrafo",
         id: "mensaje",
         etiqueta: "¿Algo más que debamos saber?",
+        etiquetaCorreo: "Mensaje",
         marcador: "Plazos, permisos, algo particular de tu carga…",
         max: 2000,
       },
@@ -425,20 +445,29 @@ export function validarCotizacion(
 }
 
 /** Busca el texto legible de una opción para mostrarlo en el resumen y el correo. */
-export function etiquetaDe(campoId: string, valor: string): string {
+export function etiquetaDe(campoId: string, valor: string, conDetalle = true): string {
   for (const paso of PASOS) {
     for (const campo of paso.campos) {
       if (campo.id !== campoId || campo.tipo !== "opcion") continue;
       const o = campo.opciones.find((x) => x.valor === valor);
-      if (o) return o.detalle ? `${o.titulo} (${o.detalle})` : o.titulo;
+      if (o) return conDetalle && o.detalle ? `${o.titulo} (${o.detalle})` : o.titulo;
     }
   }
   return valor;
 }
 
-/** Resumen del lead en pares etiqueta/valor, en el orden de los pasos. */
-export function resumen(r: Respuestas): { etiqueta: string; valor: string }[] {
-  const filas: { etiqueta: string; valor: string }[] = [];
+export type FilaResumen = { id: string; etiqueta: string; valor: string };
+
+/**
+ * Resumen del lead en pares etiqueta/valor, en el orden de los pasos.
+ *
+ * `paraCorreo` cambia dos cosas para quien lo lee en su bandeja: usa el rótulo
+ * corto en vez de la pregunta del formulario, y deja fuera el detalle entre
+ * paréntesis de las opciones. Ese detalle existe para ayudar a elegir; una vez
+ * elegida la opción, en el correo sólo estorba.
+ */
+export function resumen(r: Respuestas, paraCorreo = false): FilaResumen[] {
+  const filas: FilaResumen[] = [];
   for (const paso of pasosVisibles(r)) {
     for (const campo of camposVisibles(paso, r)) {
       const v = r[campo.id];
@@ -447,8 +476,11 @@ export function resumen(r: Respuestas): { etiqueta: string; valor: string }[] {
       const escrito =
         campo.tipo === "opcion" && campo.otro?.valor === v ? recortar(r[idOtro(campo.id)]) : "";
       filas.push({
-        etiqueta: campo.etiqueta,
-        valor: escrito || (campo.tipo === "opcion" ? etiquetaDe(campo.id, v) : v),
+        id: campo.id,
+        etiqueta: (paraCorreo && campo.etiquetaCorreo) || campo.etiqueta,
+        valor:
+          escrito ||
+          (campo.tipo === "opcion" ? etiquetaDe(campo.id, v, !paraCorreo) : v),
       });
     }
   }
