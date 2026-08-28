@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import localFont from "next/font/local";
-import { contacto, site } from "@/lib/site";
+import Script from "next/script";
+import { contacto, google, site } from "@/lib/site";
 import "./globals.css";
 
 // Poppins vive en el repo (app/fonts) en vez de descargarse de Google en cada
@@ -44,7 +45,14 @@ export const metadata: Metadata = {
   robots: contacto.porConfirmar
     ? { index: false, follow: false, nocache: true }
     : { index: true, follow: true },
+  // Next la pinta como <meta name="google-site-verification">. Va por acá y no
+  // a mano en el <head> para que no se duplique si algún día se toca la
+  // metadata desde otro sitio.
+  verification: { google: google.verificacion },
 };
+
+/** Producción de verdad; en previsualización y en local no se mide. */
+const EN_PRODUCCION = process.env.VERCEL_ENV === "production";
 
 export const viewport: Viewport = {
   themeColor: "#3c93d8",
@@ -64,6 +72,22 @@ export default function RootLayout({
           <style>{`[data-revelar]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
+      {EN_PRODUCCION && (
+        <>
+          {/* GA4. `afterInteractive` lo deja fuera del camino crítico: el hero
+              y la cortina de entrada pintan antes de que Google cargue nada. */}
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${google.analytics}`}
+            strategy="afterInteractive"
+          />
+          <Script id="ga4" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${google.analytics}');`}
+          </Script>
+        </>
+      )}
       <body>
         {/* Cortina de entrada. Va en el HTML del servidor y se retira sola con
             una animación CSS: sin JavaScript de por medio no hay parpadeo entre

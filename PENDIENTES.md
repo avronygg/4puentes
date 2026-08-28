@@ -133,20 +133,32 @@ El `.sello` que la reemplazó **no hereda el problema**: su texto va en
 Lo que sigue como placeholder se ve en la web con subrayado punteado. Vive en
 `lib/site.ts`:
 
-- Dirección: hoy "Valdivia, Región de Los Ríos", **sin la calle**. Es lo único
-  que queda para poder abrir el sitio a buscadores.
-- Dominio definitivo, para `NEXT_PUBLIC_SITE_URL`. Hoy el valor por defecto en
-  `lib/site.ts` es `4puentes.cl`, pero el correo de la empresa es
-  `@comex4puentes.cl`: **hay que confirmar cuál de los dos es el sitio.**
+- Dirección: dice "Valdivia, Región de Los Ríos", **sin la calle**. Ya no
+  bloquea nada —es cierto, es donde está la bodega— pero si algún día hay una
+  oficina con dirección pública, completarla ayuda al posicionamiento local.
 
 Ya resueltos: teléfono y WhatsApp (`+56 9 9835 9091`), el nombre del fundador
-(Gianpiero Traverso) y el correo de contacto (`contacto@comex4puentes.cl`, que
-ya se muestra sin el subrayado de pendiente aunque el buzón esté por crear —
-ver el punto 1c).
+(Gianpiero Traverso), el correo de contacto (`contacto@comex4puentes.cl`) y el
+dominio (`comex4puentes.cl`; `4puentes.cl` ni siquiera resolvía, y el sitemap
+apuntaba ahí).
 
-Mientras `contacto.porConfirmar` siga en `true`, `app/robots.ts` cierra el sitio
-a los buscadores. Cambiarlo a `false` **en el mismo cambio** en que entren los
-datos reales, no antes.
+**`contacto.porConfirmar` pasó a `false`**: el sitio está abierto a buscadores.
+Ponerla en `true` vuelve a cerrarlo de una vez —robots.txt, la metadata y el
+anuncio del sitemap— si hiciera falta.
+
+## 3 bis. Medición y aviso de cookies
+
+Search Console y GA4 (`G-057Y9F32KH`) están puestos en `lib/site.ts` y se
+inyectan desde `app/layout.tsx`. GA4 sólo carga cuando `VERCEL_ENV` es
+`production`, para que las previsualizaciones no ensucien el informe.
+
+**PENDIENTE: GA4 deja cookies y el sitio no tiene aviso.** Con la Ley 21.719 en
+Chile, un sitio que mide visitantes debería informarlo y, según cómo se
+interprete, pedir consentimiento antes de cargar el script. Hoy no hay banner ni
+política de privacidad. Es lo mismo que ya estaba anotado para el formulario:
+conviene resolver las dos cosas juntas, con una página de privacidad y, si se
+opta por pedir consentimiento, moviendo la carga de GA4 detrás de esa
+aceptación.
 
 ## 4. Persistencia de los leads en Supabase
 

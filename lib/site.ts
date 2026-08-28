@@ -11,14 +11,40 @@ export const site = {
   descripcion:
     "Importación puerta a puerta desde cualquier parte del mundo, con bodegaje " +
     "en Valdivia y seguro de carga incluidos. Cobertura en todo el sur de Chile.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://4puentes.cl",
+  /**
+   * Dominio canónico. Manda `NEXT_PUBLIC_SITE_URL` si está; el valor por
+   * defecto es `comex4puentes.cl` porque es el dominio real de la empresa: es
+   * el del correo, su zona ya está en Route 53 y `www` tiene un CNAME al raíz
+   * esperando el sitio. `4puentes.cl`, que era el valor anterior, ni siquiera
+   * resuelve, así que el sitemap y las URL canónicas apuntaban a la nada.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://comex4puentes.cl",
 } as const;
 
 /**
- * Teléfono, WhatsApp y correo ya son los reales. Sigue pendiente la dirección
- * exacta —hoy sólo dice la ciudad y la región—, y por eso `porConfirmar` no se
- * apaga todavía: es la bandera que mantiene el sitio cerrado a buscadores desde
- * app/robots.ts. Al completar la calle, poner `false` en el mismo cambio.
+ * Códigos de Google. No son secretos —viajan en el HTML de todas formas—, así
+ * que viven acá y no en variables de entorno: quien los cambie los encuentra
+ * donde está el resto de la configuración del sitio.
+ */
+export const google = {
+  /** La etiqueta que Search Console busca para dar por verificado el dominio. */
+  verificacion: "eoLitotsXyLgBpv-Z75SWop0JX3X7dNohVkz0Se7oG8",
+  /** GA4. Se carga sólo en producción: los despliegues de previsualización
+   *  ensuciarían el informe con visitas que no son de nadie. */
+  analytics: "G-057Y9F32KH",
+} as const;
+
+/**
+ * `porConfirmar` es la bandera que cierra el sitio a los buscadores desde
+ * app/robots.ts y desde el `robots` de la metadata. Existía para que Google no
+ * llegara a guardar un "+56 9 XXXX XXXX" como el teléfono de la empresa.
+ *
+ * Ya no hay ningún dato inventado: teléfono, WhatsApp y correo son los reales,
+ * y "Valdivia, Región de Los Ríos" es cierto —es donde está la bodega—, sólo
+ * que sin calle. Por eso pasa a `false`.
+ *
+ * Para volver a cerrarlo basta con ponerla en `true`: se cierran de una vez el
+ * robots.txt, la metadata y el anuncio del sitemap.
  */
 export const contacto = {
   telefono: "+56 9 9835 9091",
@@ -27,7 +53,7 @@ export const contacto = {
   direccion: "Valdivia, Región de Los Ríos",
   /** Solo dígitos, formato wa.me. */
   whatsapp: "56998359091",
-  porConfirmar: true,
+  porConfirmar: false,
 } as const;
 
 export function whatsappUrl(texto: string): string {

@@ -108,9 +108,7 @@ export default function Footer() {
               </li>
               <li className="pie__enlace pie__enlace--icono pie__enlace--plano">
                 <Pin size={16} className="shrink-0 text-terra-400" />
-                <span className="tbd" title="Por confirmar">
-                  {contacto.direccion}
-                </span>
+                <span>{contacto.direccion}</span>
               </li>
             </ul>
           </div>
