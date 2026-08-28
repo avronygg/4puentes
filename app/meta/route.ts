@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import pkg from "@/package.json";
+import { contacto, site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,17 @@ export function GET() {
       persistencia: {
         supabase: Boolean(process.env.SUPABASE_URL),
         estado: process.env.SUPABASE_URL ? "conectado" : "pendiente",
+      },
+      /**
+       * Si el sitio se deja cerrado a los buscadores, no se nota: la web sigue
+       * viéndose igual y simplemente nunca aparece en Google. Publicarlo acá
+       * hace que ese estado se pueda mirar de un vistazo, sin leer robots.txt
+       * ni el HTML, y que una regresión salte a la vista.
+       */
+      indexable: {
+        estado: contacto.porConfirmar ? "CERRADO a buscadores" : "abierto",
+        robots: contacto.porConfirmar ? "Disallow: /" : "Allow: /",
+        sitemap: `${site.url}/sitemap.xml`,
       },
       correo: {
         clave: Boolean(process.env.RESEND_API_KEY),
