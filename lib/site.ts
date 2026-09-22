@@ -56,6 +56,26 @@ export const contacto = {
   porConfirmar: false,
 } as const;
 
+/**
+ * Redes sociales. El enlace de Facebook llegó como `web.facebook.com`, que es
+ * un host alternativo que Facebook mantiene por compatibilidad; se normaliza a
+ * `www` porque es el canónico y el que no rompe si algún día retiran el otro.
+ */
+export const redes = [
+  {
+    nombre: "Instagram",
+    usuario: "@comex4puentes",
+    href: "https://www.instagram.com/comex4puentes/",
+    icono: "instagram",
+  },
+  {
+    nombre: "Facebook",
+    usuario: "Comex 4 Puentes",
+    href: "https://www.facebook.com/profile.php?id=61594216910976",
+    icono: "facebook",
+  },
+] as const;
+
 export function whatsappUrl(texto: string): string {
   return `https://wa.me/${contacto.whatsapp}?text=${encodeURIComponent(texto)}`;
 }

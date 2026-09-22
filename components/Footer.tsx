@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { servicios as servicioCards } from "@/lib/contenido";
-import { contacto, navLinks, whatsappUrl } from "@/lib/site";
-import { Flecha, Pin, Sobre, Telefono, WhatsApp } from "./Icons";
+import { contacto, navLinks, redes, site, whatsappUrl } from "@/lib/site";
+import { Facebook, Flecha, Instagram, Pin, Sobre, Telefono, WhatsApp } from "./Icons";
+
+const iconosRed = { instagram: Instagram, facebook: Facebook } as const;
 
 // Los mismos tres servicios de la sección, no una lista de capacidades: antes
 // el pie ofrecía otros nombres y los tres apuntaban al mismo ancla. Enlazan al
@@ -57,6 +59,31 @@ export default function Footer() {
               Importación integral, bodegaje y seguros para empresas del sur de
               Chile. Del mundo a tu bodega.
             </p>
+
+            {/* Las marcas ajenas se reconocen por su color: en reposo van
+                neutras para no ensuciar la paleta del pie, y cada una toma el
+                suyo al pasar por encima. */}
+            <div className="pie__redes">
+              <h3 className="pie__titulo">Síguenos</h3>
+              <ul>
+                {redes.map((r) => {
+                  const Icono = iconosRed[r.icono];
+                  return (
+                    <li key={r.nombre}>
+                      <a
+                        href={r.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`pie__red pie__red--${r.icono}`}
+                        aria-label={`${site.nombre} en ${r.nombre} (${r.usuario})`}
+                      >
+                        <Icono size={21} />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
 
           <div>

@@ -2556,6 +2556,65 @@ h3 {
   transform: none;
 }
 
+/* Redes sociales. Van con su color de marca puesto, no sólo al pasar por
+   encima: sobre el granate del pie, dos discos neutros se perdían justo donde
+   se supone que tienen que llamar. 50px, bastante por encima de los 44 de
+   objetivo tocable. */
+.pie__redes {
+  margin-top: var(--spacing-s6);
+}
+.pie__redes ul {
+  display: flex;
+  gap: var(--spacing-s4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pie__red {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #fff;
+  /* El aro claro los despega del fondo sin encerrarlos en un borde duro. */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 10px 22px -12px rgba(0, 0, 0, 0.75);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+/* El degradado de Instagram nace fuera del disco, abajo a la izquierda, que es
+   de donde sale en su logotipo. */
+.pie__red--instagram {
+  background: radial-gradient(
+    circle at 28% 108%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 62%,
+    #285aeb 92%
+  );
+}
+.pie__red--facebook {
+  background: #1877f2;
+}
+.pie__red:hover,
+.pie__red:focus-visible {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.55),
+    0 16px 26px -12px rgba(0, 0, 0, 0.85);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pie__red:hover,
+  .pie__red:focus-visible {
+    transform: none;
+  }
+}
+
 .pie__legal {
   display: flex;
   flex-wrap: wrap;
