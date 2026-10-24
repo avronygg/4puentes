@@ -1,0 +1,597 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   /importa-sin-limites — landing de campaña
+   Usa los tokens del sistema de diseño (globals.css): espaciado s1…s10, rojo
+   terra, Poppins. Todo lo propio lleva el prefijo `.lp-` para no tocar nada
+   del resto del sitio.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Esta página es el destino de un anuncio: la cortina de entrada del layout
+   (1,45 s de logo sobre azul) sólo retrasa llegar al formulario. */
+body:has(.lp) .cargador {
+  display: none;
+}
+
+.lp {
+  /* Burdeos de la web principal (pie de página): #490704 → #3a100d. */
+  --lp-fondo: var(--color-terra-900);
+  --lp-fondo-2: #7f0d08;
+  --lp-oscuro: #2b0503;
+  --lp-crema: #fff4f3;
+  /* Botones con el rojo oscuro de la escala: con texto blanco da 5,38:1 y
+     cumple AA. El rojo de marca puro (#FD190F) queda en 3,95:1. */
+  --lp-btn: var(--color-terra-500);
+  --lp-btn-hover: var(--color-terra-600);
+  /* Sobre fondo burdeos el botón se invierte: crema con texto burdeos
+     (7f0d08 sobre fff4f3 ≈ 10:1). Sobre la tarjeta blanca del formulario
+     el botón sigue rojo. */
+  --lp-btn-inv: var(--lp-crema);
+  --lp-btn-inv-hover: #fff;
+  --lp-btn-inv-texto: var(--color-terra-700);
+}
+
+/* ── hero ────────────────────────────────────────────────────────────── */
+.lp-hero {
+  overflow: clip;
+  padding-bottom: var(--gap-section);
+  background: radial-gradient(120% 90% at 18% 0%, var(--lp-fondo-2) 0%, var(--lp-fondo) 64%);
+  color: #fff;
+}
+.lp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s4);
+  padding-block: var(--spacing-s4);
+}
+.lp-top__logo img {
+  width: 64px;
+  height: auto;
+}
+.lp-pill-wa {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--spacing-s2);
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.lp-pill-wa:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lp-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--spacing-s7);
+  align-items: start;
+  padding-top: var(--spacing-s6);
+}
+@media (max-width: 900px) {
+  .lp-hero__grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s6);
+    padding-top: var(--spacing-s3);
+  }
+}
+
+.lp-eyebrow {
+  margin: 0 0 var(--spacing-s4);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+.lp-h1 {
+  font-size: clamp(2.15rem, 1.3rem + 3.5vw, 3.7rem);
+  font-weight: 800;
+  letter-spacing: -0.032em;
+  line-height: 1.04;
+  color: #fff;
+}
+.lp-h1 em {
+  font-style: normal;
+  /* Sobre burdeos el rojo de marca no tiene contraste: se usa su tono claro. */
+  color: var(--color-terra-300);
+}
+
+/* Los tres dolores del video, tachados: se leen como lo que se deja atrás. */
+.lp-dolores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s2);
+  margin: var(--spacing-s5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lp-dolores li {
+  padding: 7px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #fff1ef;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-terra-300);
+  text-decoration-thickness: 2px;
+}
+.lp-lede {
+  max-width: 46ch;
+  margin: var(--spacing-s5) 0 0;
+  font-size: clamp(1.02rem, 0.96rem + 0.35vw, 1.18rem);
+  line-height: 1.6;
+  color: #fff1ef;
+}
+/* Sólo en celular y tablet vertical (la misma ruptura que apila el hero). */
+.lp-ir-form {
+  display: none;
+}
+@media (max-width: 900px) {
+  .lp-ir-form {
+    display: inline-flex;
+    width: 100%;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-s3);
+    margin-top: var(--spacing-s5);
+    border-radius: 10px;
+    background: var(--lp-btn-inv);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--lp-btn-inv-texto);
+    text-decoration: none;
+  }
+  .lp-ir-form:active {
+    background: var(--lp-btn-inv-hover);
+  }
+  .lp-ir-form__flecha {
+    transform: rotate(90deg);
+  }
+}
+.lp-lede--2 {
+  margin-top: var(--spacing-s3);
+}
+.lp-lede strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ── formulario ──────────────────────────────────────────────────────── */
+.lp-form {
+  position: relative;
+  scroll-margin-top: var(--spacing-s5);
+  padding: var(--spacing-s6);
+  border-radius: var(--radius-card);
+  background: #fff;
+  color: var(--fg);
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.55);
+}
+@media (max-width: 640px) {
+  .lp-form {
+    padding: var(--spacing-s5);
+  }
+}
+.lp-form h2 {
+  font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.7rem);
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+}
+.lp-form__sub {
+  margin: var(--spacing-s2) 0 var(--spacing-s5);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.lp-campos {
+  display: grid;
+  gap: var(--spacing-s4);
+}
+.lp-etiqueta {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.lp-opcional {
+  margin-left: var(--spacing-s2);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+/* 16px: por debajo, Safari en iPhone hace zoom al enfocar el campo. */
+.lp-campo {
+  width: 100%;
+  padding: 13px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--fg);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.lp-campo--area {
+  resize: vertical;
+  min-height: 76px;
+}
+.lp-campo::placeholder {
+  color: #8a8582;
+}
+.lp-campo:focus {
+  outline: none;
+  border-color: var(--color-terra-400);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--color-terra-400) 15%, transparent);
+}
+.lp-campo[aria-invalid="true"] {
+  border-color: var(--color-terra-600);
+}
+.lp-error {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--color-terra-600);
+}
+
+.lp-enviar {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s5);
+  padding: 16px 24px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--lp-btn);
+  font: inherit;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.lp-enviar:hover:not(:disabled) {
+  background: var(--lp-btn-hover);
+  transform: translateY(-1px);
+}
+.lp-enviar:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+.lp-nota {
+  margin: var(--spacing-s4) 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--fg-muted);
+}
+
+/* Trampa para bots. Fuera de pantalla y no `display:none`, que algunos bots
+   saltan. Un humano no la ve ni llega a ella con el teclado (tabindex -1). */
+.lp-trampa {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Pantalla de cierre del formulario */
+.lp-remate {
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-s3);
+  padding-block: var(--spacing-s4);
+  text-align: center;
+  outline: none;
+}
+.lp-remate p {
+  max-width: 38ch;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.lp-remate .lp-enviar {
+  margin-top: var(--spacing-s3);
+}
+.lp-remate__marca {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e7f6ec;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1c7a3d;
+}
+.lp-remate__marca--aviso {
+  background: var(--accent-wash);
+  color: var(--color-terra-600);
+}
+.lp-reintentar {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── franja de confianza ─────────────────────────────────────────────── */
+.lp-confianza {
+  padding: var(--spacing-s5) 0;
+  border-block: 1px solid var(--line-soft);
+  background: var(--accent-wash);
+}
+.lp-confianza ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-s5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 760px) {
+  .lp-confianza ul {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s3);
+  }
+}
+.lp-confianza li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s3);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.lp-confianza li svg {
+  flex: none;
+  color: var(--color-terra-600);
+}
+
+/* ── lo hacemos distinto ─────────────────────────────────────────────── */
+.lp-dif {
+  padding: var(--gap-section) 0;
+}
+.lp-dif__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--spacing-s8);
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .lp-dif__grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-s7);
+  }
+}
+.lp-pasos {
+  display: grid;
+  gap: var(--spacing-s6);
+  margin: var(--spacing-s6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lp-paso {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: var(--spacing-s4);
+}
+.lp-paso__n {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-terra-400) 25%, transparent);
+  border-radius: 50%;
+  background: var(--accent-wash);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-terra-600);
+}
+.lp-paso__antes {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-terra-400);
+}
+.lp-paso p {
+  margin: 6px 0 0;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+
+/* Marco del video: vertical, como se grabó. */
+.lp-video {
+  position: relative;
+  width: min(100%, 340px);
+  margin-inline: auto;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  border-radius: 28px;
+  background: var(--lp-oscuro);
+  box-shadow:
+    0 30px 60px -30px rgba(43, 5, 3, 0.6),
+    0 0 0 1px var(--line);
+}
+.lp-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.lp-video__sonido {
+  min-height: 44px;
+  position: absolute;
+  top: var(--spacing-s3);
+  right: var(--spacing-s3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(43, 5, 3, 0.78);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.lp-video__sonido:hover {
+  background: rgba(43, 5, 3, 0.92);
+}
+.lp-video__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(43, 5, 3, 0.78);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ── cierre ──────────────────────────────────────────────────────────── */
+.lp-cierre {
+  padding: var(--gap-section) 0;
+  background: radial-gradient(120% 90% at 50% 0%, var(--lp-fondo-2) 0%, var(--lp-fondo) 70%);
+  text-align: center;
+  color: #fff;
+}
+.lp-cierre h2 {
+  font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);
+  color: #fff;
+}
+.lp-cierre p {
+  max-width: 46ch;
+  margin: var(--spacing-s4) auto 0;
+  color: #fff1ef;
+}
+.lp-cierre__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-s3);
+  margin-top: var(--spacing-s6);
+}
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-s3);
+  padding: 15px 28px;
+  border: 1px solid var(--lp-btn-inv);
+  border-radius: 10px;
+  background: var(--lp-btn-inv);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--lp-btn-inv-texto);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.lp-btn:hover {
+  background: var(--lp-btn-inv-hover);
+  border-color: var(--lp-btn-inv-hover);
+  transform: translateY(-1px);
+}
+.lp-btn--claro {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #fff;
+}
+.lp-btn--claro:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── pie mínimo ──────────────────────────────────────────────────────── */
+.lp-pie {
+  padding: var(--spacing-s5) 0;
+  background: var(--lp-oscuro);
+  font-size: 0.85rem;
+  color: rgba(255, 244, 243, 0.72);
+}
+.lp-pie__in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-s3) var(--spacing-s5);
+}
+/* Los enlaces del pie se tocan con el dedo: 44px de alto como mínimo. */
+.lp-pie a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  color: #fff1ef;
+  text-decoration: none;
+}
+.lp-pie a:hover {
+  text-decoration: underline;
+}
+.lp-pie__datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s2) var(--spacing-s5);
+}
+.lp-pie__datos > * {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-enviar,
+  .lp-btn {
+    transition: none;
+  }
+  .lp-enviar:hover:not(:disabled),
+  .lp-btn:hover {
+    transform: none;
+  }
+}
+
+/* ---- Qué incluye (texto de apoyo para SEO) ---- */
+.lp-incluye { padding: var(--s8, 64px) 0; background: #fff; }
+.lp-incluye h2 { font-size: clamp(1.35rem, 1rem + 1.6vw, 2rem); line-height: 1.2; margin: 0 0 var(--s6, 32px); color: var(--color-terra-900, #490704); max-width: 28ch; }
+.lp-incluye__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.lp-incluye__lista li { border-top: 3px solid var(--color-terra-500, #d5150d); padding-top: 14px; }
+.lp-incluye__lista h3 { font-size: 1.05rem; margin: 0 0 6px; color: #1a1a1a; }
+.lp-incluye__lista p { margin: 0; color: #444; line-height: 1.55; }

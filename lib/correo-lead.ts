@@ -17,7 +17,7 @@ const CAMPOS_CONTACTO = new Set(["nombre", "email", "telefono", "empresa"]);
  */
 const SIN_RESPUESTA = new Set(["no-se", "prefiero-no-decir", "otro"]);
 
-function escapar(s: string): string {
+export function escapar(s: string): string {
   return s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -26,7 +26,7 @@ function escapar(s: string): string {
 }
 
 /** Deja el teléfono como lo quiere wa.me: sólo dígitos y con el 56 delante. */
-function telefonoWhatsApp(bruto: string | undefined): string | null {
+export function telefonoWhatsApp(bruto: string | undefined): string | null {
   if (!bruto) return null;
   let d = bruto.replace(/\D/g, "");
   if (d.startsWith("0")) d = d.slice(1);
@@ -40,16 +40,16 @@ function telefonoWhatsApp(bruto: string | undefined): string | null {
    único que Gmail y Outlook respetan igual. Nada de flex, nada de grid, nada
    de <style> en la cabecera, que Gmail descarta en varios contextos. */
 
-const TIPO =
+export const TIPO =
   "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
-const TINTA = "#1a1615";
-const TENUE = "#78716c";
-const LINEA = "#e7e5e4";
+export const TINTA = "#1a1615";
+export const TENUE = "#78716c";
+export const LINEA = "#e7e5e4";
 /* Rojo de marca oscurecido. Sobre blanco el #FD190F queda en 3,95:1 y acá hay
    texto normal encima; este llega a 6,1:1. */
-const ROJO = "#c4130b";
+export const ROJO = "#c4130b";
 
-function rotulo(texto: string): string {
+export function rotulo(texto: string): string {
   return `<p style="margin:0 0 14px;font-family:${TIPO};font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:${TENUE}">${escapar(texto)}</p>`;
 }
 
@@ -58,7 +58,7 @@ function rotulo(texto: string): string {
  * nowrap una pregunta larga empujaba el valor a una columna angosta y lo
  * partía en cuatro líneas, que es lo que se veía mal en Gmail.
  */
-function tabla(filas: FilaResumen[]): string {
+export function tabla(filas: FilaResumen[]): string {
   if (!filas.length) return "";
   const tr = filas
     .map(
@@ -72,7 +72,7 @@ function tabla(filas: FilaResumen[]): string {
 }
 
 /** Botón a prueba de clientes de correo: una tabla, no un enlace con padding. */
-function boton(
+export function boton(
   href: string,
   texto: string,
   relleno: string,
@@ -86,7 +86,7 @@ function boton(
   </table>`;
 }
 
-function seccion(contenido: string): string {
+export function seccion(contenido: string): string {
   return `<tr><td style="padding:26px 32px;border-top:1px solid ${LINEA}">${contenido}</td></tr>`;
 }
 
