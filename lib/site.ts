@@ -113,7 +113,7 @@ export const navLinks = [
  * los confirme (la ley pide identificar a quien responde por los datos).
  */
 export const legal: { razonSocial?: string; rut?: string; actualizado: string } = {
-  razonSocial: "Forestal y Comercial Ayse Ltda.",
+  razonSocial: "Forestal y Comercial Aysen Ltda.",
   rut: "76.091.440-1",
   actualizado: "26 de octubre de 2026",
 };
