@@ -17,6 +17,10 @@ import { Flecha, WhatsApp } from "@/components/Icons";
  * El visitante nunca debería quedarse sin camino: si el envío falla, la
  * pantalla de error le ofrece WhatsApp con el mensaje ya escrito, igual que la
  * de éxito. Lo único que se trata como error de validación es el 422.
+ *
+ * Un 202 con `enviado: false` también es un error: el correo no salió y el
+ * lead no quedó en ningún lado. Mostrar "¡Recibido!" ahí es perderlo en
+ * silencio; la pantalla de error lo rescata por WhatsApp.
  */
 
 type Estado = "editando" | "enviando" | "listo" | "error";
@@ -100,6 +104,11 @@ export default function FormularioContacto() {
       return;
     }
 
+    const fallar = () => {
+      setEstado("error");
+      requestAnimationFrame(() => remate.current?.focus());
+    };
+
     setEstado("enviando");
     try {
       const res = await fetch("/api/v1/leads/landing", {
@@ -120,15 +129,11 @@ export default function FormularioContacto() {
         setEstado("editando");
         return;
       }
-      if (!res.ok) {
-        setEstado("error");
-        requestAnimationFrame(() => remate.current?.focus());
-        return;
-      }
+      if (!res.ok) return fallar();
+      const cuerpo = await res.json().catch(() => ({}));
+      if (cuerpo?.enviado !== true) return fallar();
     } catch {
-      setEstado("error");
-      requestAnimationFrame(() => remate.current?.focus());
-      return;
+      return fallar();
     }
 
     registrarConversion();

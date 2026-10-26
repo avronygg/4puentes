@@ -15,12 +15,13 @@ export const dynamic = "force-dynamic";
  *     ESPERA_MINIMA_MS no lo escribió una persona.
  *  3. Límite por IP: unos pocos envíos por ventana.
  *
- * En los dos primeros casos se responde 202 igual que si todo hubiera salido
- * bien: un bot que ve un error reintenta con otra táctica, uno que ve éxito se
- * va. Nada se envía ni se guarda.
+ * En los dos primeros casos se responde exactamente lo mismo que un envío que
+ * salió bien (`enviado: true`): un bot que ve un error reintenta con otra
+ * táctica, uno que ve éxito se va. Nada se envía ni se guarda.
  *
- * Como el cotizador, nunca rompe el flujo de una persona real: valida, envía y
- * devuelve 202 aunque Resend falle (`enviado: false`).
+ * Si Resend falla se devuelve 202 con `enviado: false`. El formulario lo trata
+ * como error y ofrece WhatsApp: acá el formulario es el canal, y un "¡Recibido!"
+ * sin correo detrás sería un lead perdido.
  */
 
 const VENTANA_MS = 10 * 60 * 1000;
@@ -54,9 +55,12 @@ function excedeLimite(ip: string, ahora: number): boolean {
 
 const FINGIDO = () =>
   NextResponse.json(
-    { ok: true, enviado: false },
+    { ok: true, enviado: true },
     { status: 202, headers: { "Cache-Control": "no-store" } },
   );
+
+/** El producto viene de un textarea: un salto de línea no cabe en un asunto. */
+const enLinea = (s: string) => s.replace(/\s+/g, " ");
 
 export async function POST(req: Request) {
   let cuerpo: unknown;
@@ -102,7 +106,7 @@ export async function POST(req: Request) {
   }
 
   const correo = await enviarPorResend({
-    asunto: `Landing «Importa sin límites» — ${d.nombre} · ${d.producto.slice(0, 60)}`,
+    asunto: `Landing «Importa sin límites» — ${enLinea(d.nombre)} · ${enLinea(d.producto).slice(0, 60)}`,
     html: cuerpoLandingHtml(d),
     texto: cuerpoLandingTexto(d),
     responderA: d.email,

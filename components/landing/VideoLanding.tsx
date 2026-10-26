@@ -6,6 +6,10 @@ import { useEffect, useRef, useState } from "react";
  * El video de la campaña. Arranca solo y en silencio —los subtítulos van
  * quemados en el propio video, así que se entiende sin audio— y deja activar el
  * sonido con un toque. Con `prefers-reduced-motion` no arranca solo.
+ *
+ * No lleva `autoPlay`: con él el navegador baja los 3,4 MB apenas abre la
+ * página, aunque el video esté más abajo, y en datos móviles eso le quita
+ * ancho de banda al hero. Arranca recién cuando se acerca a la pantalla.
  */
 export default function VideoLanding() {
   const video = useRef<HTMLVideoElement>(null);
@@ -15,8 +19,27 @@ export default function VideoLanding() {
   useEffect(() => {
     const v = video.current;
     if (!v) return;
-    // El evento `pause` actualiza el estado: no hace falta tocarlo acá.
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) v.pause();
+
+    const arrancar = () => {
+      // Sin arranque automático queda el botón de reproducir a la vista.
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPausado(true);
+      else v.play().catch(() => setPausado(true));
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      arrancar();
+      return;
+    }
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        arrancar();
+      },
+      { rootMargin: "200px 0px" },
+    );
+    obs.observe(v);
+    return () => obs.disconnect();
   }, []);
 
   const alternarReproduccion = () => {
@@ -41,11 +64,10 @@ export default function VideoLanding() {
         ref={video}
         src="/importa-sin-limites.mp4"
         poster="/importa-sin-limites-poster.jpg"
-        autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label="Video: ¿Tu importación quedó atrapada en el puerto? Así traemos tu carga directamente a nuestras bodegas."
         onClick={alternarReproduccion}
         onPlay={() => setPausado(false)}
