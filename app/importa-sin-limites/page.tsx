@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import FormularioContacto from "@/components/landing/FormularioContacto";
+import BotonCookies from "@/components/BotonCookies";
 import MetaPixel from "@/components/landing/MetaPixel";
 import VideoLanding from "@/components/landing/VideoLanding";
 import { Check, Flecha, Pin, Sobre, Telefono, WhatsApp } from "@/components/Icons";
@@ -251,7 +252,11 @@ export default function ImportaSinLimites() {
               {contacto.direccion}
             </span>
           </span>
-          <Link href="/">Ver sitio completo</Link>
+          <span className="lp-pie__legales">
+            <Link href="/privacidad">Política de privacidad</Link>
+            <BotonCookies className="lp-pie__btn" />
+            <Link href="/">Ver sitio completo</Link>
+          </span>
         </div>
       </footer>
     </div>

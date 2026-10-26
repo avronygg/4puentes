@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import BotonCookies from "./BotonCookies";
 import { servicios as servicioCards } from "@/lib/contenido";
 import { contacto, navLinks, redes, site, whatsappUrl } from "@/lib/site";
 import { Facebook, Flecha, Instagram, Pin, Sobre, Telefono, WhatsApp } from "./Icons";
@@ -145,6 +147,10 @@ export default function Footer() {
           <span>
             © {new Date().getFullYear()} Cuatro Puentes · Todos los derechos
             reservados
+          </span>
+          <span className="pie__legales">
+            <Link href="/privacidad">Política de privacidad</Link>
+            <BotonCookies className="pie__legales-btn" />
           </span>
           <span className="pie__firma">Main Brain</span>
         </div>

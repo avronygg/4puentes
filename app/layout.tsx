@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import localFont from "next/font/local";
 import Script from "next/script";
+import AvisoCookies from "@/components/AvisoCookies";
+import ConConsentimiento from "@/components/ConConsentimiento";
 import { contacto, google, site } from "@/lib/site";
 import "./globals.css";
 
@@ -73,9 +75,10 @@ export default function RootLayout({
         </noscript>
       </head>
       {EN_PRODUCCION && (
-        <>
-          {/* GA4. `afterInteractive` lo deja fuera del camino crítico: el hero
-              y la cortina de entrada pintan antes de que Google cargue nada. */}
+        <ConConsentimiento>
+          {/* GA4: sólo si la persona aceptó las cookies (ver AvisoCookies).
+              `afterInteractive` lo deja fuera del camino crítico: el hero y la
+              cortina de entrada pintan antes de que Google cargue nada. */}
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${google.analytics}`}
             strategy="afterInteractive"
@@ -86,7 +89,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${google.analytics}');`}
           </Script>
-        </>
+        </ConConsentimiento>
       )}
       <body>
         {/* Cortina de entrada. Va en el HTML del servidor y se retira sola con
@@ -101,6 +104,7 @@ gtag('config', '${google.analytics}');`}
           <span className="cargador__linea" />
         </div>
         {children}
+        <AvisoCookies />
       </body>
     </html>
   );

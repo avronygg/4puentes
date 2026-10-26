@@ -106,3 +106,14 @@ export const navLinks = [
    Ya no los importa nadie: esas listas ahora son opciones dentro de
    lib/cotizador.ts. Se eliminaron porque seguían acotadas a Asia y quien las
    editara creyendo que cambiaba el formulario no habría visto ningún efecto. */
+
+/**
+ * Datos para la página de privacidad. Si `razonSocial` o `rut` quedan sin
+ * valor, la página simplemente no los muestra; completarlos cuando el cliente
+ * los confirme (la ley pide identificar a quien responde por los datos).
+ */
+export const legal: { razonSocial?: string; rut?: string; actualizado: string } = {
+  razonSocial: undefined,
+  rut: undefined,
+  actualizado: "26 de octubre de 2026",
+};

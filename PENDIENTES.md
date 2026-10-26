@@ -152,13 +152,17 @@ Search Console y GA4 (`G-057Y9F32KH`) están puestos en `lib/site.ts` y se
 inyectan desde `app/layout.tsx`. GA4 sólo carga cuando `VERCEL_ENV` es
 `production`, para que las previsualizaciones no ensucien el informe.
 
-**PENDIENTE: GA4 deja cookies y el sitio no tiene aviso.** Con la Ley 21.719 en
-Chile, un sitio que mide visitantes debería informarlo y, según cómo se
-interprete, pedir consentimiento antes de cargar el script. Hoy no hay banner ni
-política de privacidad. Es lo mismo que ya estaba anotado para el formulario:
-conviene resolver las dos cosas juntas, con una página de privacidad y, si se
-opta por pedir consentimiento, moviendo la carga de GA4 detrás de esa
-aceptación.
+**Resuelto en la rama `landing-importa-sin-limites`:** hay página `/privacidad`,
+aviso de cookies (`components/AvisoCookies.tsx`) y consentimiento previo: GA4 y el
+píxel de Meta sólo se cargan después de un "Aceptar"
+(`components/ConConsentimiento.tsx`, `lib/consentimiento.ts`). La decisión se
+guarda en localStorage (`cp-cookies`) y se cambia desde "Preferencias de
+cookies" en los pies. Consecuencia a tener presente: quien ignora o rechaza el
+aviso no se mide, ni en GA4 ni en Meta (el evento `Lead` tampoco llega).
+
+Pendiente de confirmar con el cliente: razón social y RUT (`legal` en
+`lib/site.ts`; si quedan vacíos la página no los muestra), plazo de
+conservación de los datos y revisión del texto por quien lo asesore.
 
 ## 4. Persistencia de los leads en Supabase
 

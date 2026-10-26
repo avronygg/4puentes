@@ -595,3 +595,30 @@ body:has(.lp) .cargador {
 .lp-incluye__lista li { border-top: 3px solid var(--color-terra-500, #d5150d); padding-top: 14px; }
 .lp-incluye__lista h3 { font-size: 1.05rem; margin: 0 0 6px; color: #1a1a1a; }
 .lp-incluye__lista p { margin: 0; color: #444; line-height: 1.55; }
+
+/* ── enlaces legales ──────────────────────────────────────────────────── */
+.lp-nota a {
+  color: var(--color-terra-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.lp-pie__legales {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-s1) var(--spacing-s5);
+}
+.lp-pie__btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: #fff1ef;
+  cursor: pointer;
+}
+.lp-pie__btn:hover {
+  text-decoration: underline;
+}

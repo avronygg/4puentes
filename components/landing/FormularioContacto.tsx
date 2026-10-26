@@ -271,7 +271,10 @@ export default function FormularioContacto() {
       </button>
 
       <p className="lp-nota">
-        Usamos tus datos sólo para responder esta cotización.
+        Usamos tus datos sólo para responder esta cotización.{" "}
+        <a href="/privacidad" target="_blank" rel="noopener noreferrer">
+          Política de privacidad
+        </a>
       </p>
     </form>
   );
