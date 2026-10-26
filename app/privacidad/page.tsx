@@ -69,11 +69,11 @@ export default function Privacidad() {
 
         <h2>1. Quién es responsable</h2>
         <p>
-          {legal.razonSocial ? `${legal.razonSocial}` : site.nombre}
-          {legal.rut ? `, RUT ${legal.rut}` : ""}, con domicilio en {contacto.direccion}. Puedes
-          escribirnos a{" "}
-          <a href={`mailto:${contacto.email}`}>{contacto.email}</a> por cualquier duda sobre tus
-          datos.
+          {legal.razonSocial ?? site.nombre}
+          {legal.rut ? `, RUT ${legal.rut}` : ""}, que opera como {site.nombre}, con domicilio en{" "}
+          {contacto.direccion}. Puedes escribirnos a{" "}
+          <a href={`mailto:${contacto.email}`}>{contacto.email}</a> o por WhatsApp y teléfono al{" "}
+          <a href={contacto.telefonoHref}>{contacto.telefono}</a> por cualquier duda sobre tus datos.
         </p>
 
         <h2>2. Qué datos recogemos</h2>
