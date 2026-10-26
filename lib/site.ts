@@ -35,6 +35,15 @@ export const google = {
 } as const;
 
 /**
+ * Meta. El ID del píxel es público (viaja en el HTML), por eso vive acá y no en
+ * una variable de entorno. Se carga sólo en la landing de campaña y sólo en
+ * producción, igual que GA4.
+ */
+export const meta = {
+  pixel: "1269056122072365",
+} as const;
+
+/**
  * `porConfirmar` es la bandera que cierra el sitio a los buscadores desde
  * app/robots.ts y desde el `robots` de la metadata. Existía para que Google no
  * llegara a guardar un "+56 9 XXXX XXXX" como el teléfono de la empresa.

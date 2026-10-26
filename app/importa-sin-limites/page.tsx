@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import FormularioContacto from "@/components/landing/FormularioContacto";
+import MetaPixel from "@/components/landing/MetaPixel";
 import VideoLanding from "@/components/landing/VideoLanding";
 import { Check, Flecha, Pin, Sobre, Telefono, WhatsApp } from "@/components/Icons";
 import { contacto, whatsappUrl } from "@/lib/site";
@@ -96,6 +97,7 @@ const incluye = [
 export default function ImportaSinLimites() {
   return (
     <div className="lp">
+      <MetaPixel />
       <main>
         <section className="lp-hero">
           <div className="wrap">
