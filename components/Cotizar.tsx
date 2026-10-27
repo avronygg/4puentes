@@ -280,6 +280,14 @@ export default function Cotizar() {
                 {estado !== "enviando" && <Flecha />}
               </button>
             </div>
+            {ultimo && (
+              <p className="cotizador__privacidad">
+                Usaremos tus datos solo para responder esta solicitud.{" "}
+                <a href="/privacidad" target="_blank" rel="noopener noreferrer">
+                  Política de privacidad
+                </a>
+              </p>
+            )}
           </div>
         </div>
       </div>

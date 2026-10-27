@@ -112,8 +112,17 @@ export const navLinks = [
  * valor, la página simplemente no los muestra; completarlos cuando el cliente
  * los confirme (la ley pide identificar a quien responde por los datos).
  */
-export const legal: { razonSocial?: string; rut?: string; actualizado: string } = {
+export const legal: {
+  razonSocial?: string;
+  rut?: string;
+  actualizado: string;
+  /** Mientras sea true, la página de privacidad resalta en amarillo los datos
+   *  que el cliente o su asesor aún deben confirmar. Poner en false (y revisar
+   *  esos textos) ANTES de publicar. */
+  porRevisar: boolean;
+} = {
   razonSocial: "Forestal y Comercial Aysen Ltda.",
   rut: "76.091.440-1",
-  actualizado: "26 de octubre de 2026",
+  actualizado: "27 de octubre de 2026",
+  porRevisar: true,
 };

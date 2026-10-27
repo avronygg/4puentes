@@ -2618,6 +2618,7 @@ h3 {
 .pie__legal {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: var(--spacing-s4);
   margin-top: var(--spacing-s8);
@@ -3072,4 +3073,25 @@ h3 {
 .legal__enlace-btn--claro {
   min-height: 44px;
   color: #fff1ef;
+}
+
+/* Texto pendiente de confirmar (ver `legal.porRevisar` en lib/site.ts). */
+.legal__revisar {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: #fff3a6;
+  color: inherit;
+}
+
+.cotizador__privacidad {
+  margin: var(--spacing-s4) 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-fg-muted);
+}
+.cotizador__privacidad a {
+  color: var(--color-terra-600);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

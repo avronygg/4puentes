@@ -42,6 +42,13 @@ const cookies = [
   },
 ] as const;
 
+/** Resalta un texto que el cliente o su asesor aún deben confirmar. Mientras
+ *  `legal.porRevisar` sea true se ve en amarillo; al ponerlo en false, sale
+ *  como texto normal. */
+function Revisar({ children }: { children: React.ReactNode }) {
+  return legal.porRevisar ? <mark className="legal__revisar">{children}</mark> : <>{children}</>;
+}
+
 export default function Privacidad() {
   return (
     <div className="legal">
@@ -79,14 +86,26 @@ export default function Privacidad() {
         <h2>2. Qué datos recogemos</h2>
         <ul>
           <li>
-            <strong>Los que nos das tú</strong> en el formulario de cotización: tu nombre, tu
-            WhatsApp o teléfono, tu correo (opcional) y lo que quieres importar. Si nos escribes por
-            WhatsApp, vemos tu número y lo que nos cuentes en el chat.
+            <strong>Los que nos das en un formulario de cotización.</strong> En la página de campaña:
+            tu nombre, tu WhatsApp o teléfono, tu correo (opcional) y qué quieres importar. En el
+            formulario de la página principal, además, respondes preguntas sobre tu caso: tu
+            situación (si ya importas, compras en Chile o estás partiendo), qué productos o insumos
+            traes, cantidades y gasto aproximado, cada cuánto importas, desde dónde y lo que quieras
+            agregar. Son datos de tu actividad comercial: responde solo lo que quieras compartir.
+          </li>
+          <li>
+            <strong>Si nos escribes o llamas.</strong> Por WhatsApp o teléfono vemos tu número y lo
+            que nos cuentes.
           </li>
           <li>
             <strong>De dónde llegaste</strong>, si venías de un anuncio: la campaña y el anuncio
             que te trajo (parámetros &quot;utm&quot;) y si el clic vino de Meta. Los usamos para saber
             qué publicidad funciona.
+          </li>
+          <li>
+            <strong>Datos técnicos.</strong> El servidor registra tu dirección IP y datos del
+            navegador para que el sitio funcione y para evitar el spam (por ejemplo, limitar envíos
+            repetidos del formulario).
           </li>
           <li>
             <strong>Datos de navegación</strong>, solo si aceptas las cookies: páginas visitadas,
@@ -102,8 +121,21 @@ export default function Privacidad() {
           <li>
             Medir y mejorar nuestra publicidad y nuestro sitio (solo con las cookies aceptadas).
           </li>
+          <li>Proteger el sitio del spam y de usos abusivos.</li>
         </ul>
-        <p>No vendemos tus datos ni los usamos para nada distinto de lo anterior.</p>
+        <p>
+          <Revisar>
+            No vendemos tus datos ni los usamos para nada distinto de lo anterior. No te enviaremos
+            publicidad ni boletines que no hayas pedido.
+          </Revisar>
+        </p>
+        <p>
+          <Revisar>
+            Podemos tratar tus datos porque tú nos los entregas para pedir una cotización (sin ellos
+            no podríamos responderte), porque nos das tu consentimiento (las cookies de medición y
+            publicidad) y porque tenemos un interés legítimo en proteger el sitio del spam.
+          </Revisar>
+        </p>
 
         <h2>4. Con quién los compartimos</h2>
         <p>Usamos servicios de terceros para operar el sitio. Cada uno recibe solo lo necesario:</p>
@@ -114,7 +146,11 @@ export default function Privacidad() {
           </li>
           <li>
             <strong>Vercel</strong>: aloja el sitio y registra datos técnicos del servidor (como la
-            dirección IP) para que funcione y para prevenir abusos.
+            dirección IP).
+          </li>
+          <li>
+            <strong>WhatsApp (Meta)</strong>: si nos escribes por ahí, tu conversación pasa por
+            WhatsApp, que tiene sus propias condiciones de privacidad.
           </li>
           <li>
             <strong>Google Analytics</strong> y <strong>Meta</strong> (Facebook e Instagram): solo
@@ -122,8 +158,9 @@ export default function Privacidad() {
           </li>
         </ul>
         <p>
-          Algunos de estos proveedores están fuera de Chile, por lo que tus datos pueden tratarse en
-          otros países.
+          Algunos de estos proveedores están fuera de Chile (por ejemplo, en Estados Unidos), por lo
+          que tus datos pueden tratarse en otros países. Cada proveedor aplica sus propias políticas
+          de protección de datos.
         </p>
 
         <h2 id="cookies">5. Cookies</h2>
@@ -150,17 +187,24 @@ export default function Privacidad() {
 
         <h2>6. Cuánto tiempo guardamos tus datos</h2>
         <p>
-          Guardamos los datos de tu cotización solo el tiempo necesario para atenderla y para la
-          relación comercial que pueda venir después. Cuando ya no los necesitemos, los eliminamos.
+          Guardamos los datos de tu cotización{" "}
+          <Revisar>hasta 24 meses desde tu último contacto con nosotros</Revisar>, salvo que
+          debamos conservarlos más tiempo por una obligación legal o por una importación en curso.
+          Después los eliminamos o los dejamos anónimos.
         </p>
 
         <h2>7. Tus derechos</h2>
         <p>
           Conforme a la ley chilena de protección de datos personales, puedes pedirnos acceder a tus
-          datos, corregirlos, eliminarlos, oponerte a su uso o pedir que dejemos de tratarlos.
+          datos, corregirlos, eliminarlos, oponerte a su uso, limitar su tratamiento, recibirlos en
+          un formato que puedas llevar a otro servicio (portabilidad) y no ser objeto de decisiones
+          basadas solo en tratamientos automatizados.
+        </p>
+        <p>
           Escríbenos a <a href={`mailto:${contacto.email}`}>{contacto.email}</a> indicando qué
-          necesitas y desde qué correo o teléfono nos contactaste, y te responderemos a la
-          brevedad.
+          necesitas y desde qué correo o teléfono nos contactaste. Te responderemos{" "}
+          <Revisar>dentro de 30 días corridos</Revisar>. Si no quedas conforme con nuestra
+          respuesta, puedes reclamar ante la Agencia de Protección de Datos Personales.
         </p>
 
         <h2>8. Cambios en esta política</h2>
