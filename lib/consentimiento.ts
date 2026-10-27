@@ -70,8 +70,13 @@ export function guardarConsentimiento(valor: "aceptadas" | "rechazadas") {
   if (valor === "rechazadas") borrarCookiesDeMedicion();
   window.dispatchEvent(new Event(EVENTO));
   // Los scripts ya cargados no se pueden "descargar": si alguien se arrepiente
-  // de haber aceptado, se recarga para que la página parta limpia.
-  if (valor === "rechazadas" && antes === "aceptadas") window.location.reload();
+  // de haber aceptado, se recarga para que la página parta limpia. No basta con
+  // mirar `antes`: "Preferencias de cookies" borra la decisión, así que quien
+  // aceptó y luego rechaza desde el pie llega acá como "sin-decidir" con GA4 y
+  // el píxel todavía corriendo (y un `Lead` posterior llegaría a Meta).
+  const w = window as unknown as { fbq?: unknown; gtag?: unknown };
+  const hayScripts = Boolean(w.fbq || w.gtag);
+  if (valor === "rechazadas" && (antes === "aceptadas" || hayScripts)) window.location.reload();
 }
 
 /** Vuelve a mostrar el aviso (enlace "Preferencias de cookies" de los pies). */

@@ -116,9 +116,9 @@ export const legal: {
   razonSocial?: string;
   rut?: string;
   actualizado: string;
-  /** Mientras sea true, la página de privacidad resalta en amarillo los datos
-   *  que el cliente o su asesor aún deben confirmar. Poner en false (y revisar
-   *  esos textos) ANTES de publicar. */
+  /** Mientras sea true, la página de privacidad resalta (en el tono suave de la marca) los datos
+   *  que el cliente o su asesor aún deben confirmar. Poner en false (y ajustar
+   *  esos textos) cuando el cliente los confirme. */
   porRevisar: boolean;
 } = {
   razonSocial: "Forestal y Comercial Aysen Ltda.",

@@ -3075,11 +3075,13 @@ h3 {
   color: #fff1ef;
 }
 
-/* Texto pendiente de confirmar (ver `legal.porRevisar` en lib/site.ts). */
+/* Texto pendiente de confirmar (ver `legal.porRevisar` en lib/site.ts). En el
+   tono suave de la marca y no en amarillo: sale así en producción mientras el
+   cliente confirma, y no debe leerse como un borrador. */
 .legal__revisar {
   padding: 1px 4px;
   border-radius: 4px;
-  background: #fff3a6;
+  background: var(--color-accent-wash);
   color: inherit;
 }
 

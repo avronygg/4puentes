@@ -43,7 +43,7 @@ const cookies = [
 ] as const;
 
 /** Resalta un texto que el cliente o su asesor aún deben confirmar. Mientras
- *  `legal.porRevisar` sea true se ve en amarillo; al ponerlo en false, sale
+ *  `legal.porRevisar` sea true se ve resaltado; al ponerlo en false, sale
  *  como texto normal. */
 function Revisar({ children }: { children: React.ReactNode }) {
   return legal.porRevisar ? <mark className="legal__revisar">{children}</mark> : <>{children}</>;
@@ -143,6 +143,10 @@ export default function Privacidad() {
           <li>
             <strong>Resend</strong>: envía a nuestro equipo el correo con los datos de tu
             cotización.
+          </li>
+          <li>
+            <strong>Rackspace</strong>: aloja nuestro correo electrónico, donde se reciben y
+            guardan esas solicitudes.
           </li>
           <li>
             <strong>Vercel</strong>: aloja el sitio y registra datos técnicos del servidor (como la
